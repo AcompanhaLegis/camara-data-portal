@@ -1,6 +1,11 @@
 <template>
   <a-card hoverable class="deputado-card" style="width: 280px;">
-    <img slot="cover" :alt="deputado.nome" :src="deputado.urlFoto" />
+    <img
+      v-if="!noImg"
+      slot="cover"
+      :alt="deputado.nome"
+      :src="deputado.urlFoto"
+    />
     <template slot="actions" class="ant-card-actions" v-if="deputado.email">
       <a-icon key="mail" type="mail" @click="sendMail" />
       <a-icon key="info" type="idcard" @click="sendMail" />
@@ -17,6 +22,11 @@ export default {
     deputado: {
       type: Object,
       required: true
+    },
+    noImg: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {

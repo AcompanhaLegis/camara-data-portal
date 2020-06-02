@@ -8,19 +8,19 @@
     </template>
     <template v-else>
       <div class="lista-proposicoes">
-        <ProposicoesCard v-for="p in proposicoes" :key="p.id" :proposicao="p" />
+        <proposicao-card v-for="p in proposicoes" :key="p.id" :proposicao="p" />
       </div>
     </template>
   </div>
 </template>
 
 <script>
-import ProposicoesCard from '~/components/app/proposicoes/ProposicoesCard';
+import ProposicaoCard from '~/components/app/proposicoes/ProposicaoCard';
 
 export default {
   layout: 'auth',
   components: {
-    ProposicoesCard
+    ProposicaoCard
   },
   data() {
     return {

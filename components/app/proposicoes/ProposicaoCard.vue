@@ -14,7 +14,7 @@
         </a-button>
       </a-descriptions-item>
       <a-descriptions-item label="Ementa" :span="3">
-        {{ proposicao.ementa.trim() }}
+        {{ proposicao.ementa }}
         <br />
       </a-descriptions-item>
       <a-descriptions-item label="Palavras-chave" :span="3">
@@ -23,9 +23,11 @@
         <br />
       </a-descriptions-item>
       <a-descriptions-item>
-        <a-button type="primary" class="detail-btn">
-          Visualizar proposiçāo na íntegra
-        </a-button>
+        <n-link :to="`/proposicoes/${proposicao.id}`">
+          <a-button type="primary" class="detail-btn">
+            Visualizar proposiçāo na íntegra
+          </a-button>
+        </n-link>
       </a-descriptions-item>
     </a-descriptions>
   </section>

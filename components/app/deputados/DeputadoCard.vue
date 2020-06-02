@@ -6,7 +6,7 @@
       :alt="deputado.nome"
       :src="deputado.urlFoto"
     />
-    <template slot="actions" class="ant-card-actions" v-if="deputado.email">
+    <template v-if="deputado.email" slot="actions" class="ant-card-actions">
       <a-icon key="mail" type="mail" @click="sendMail" />
       <a-icon key="info" type="idcard" @click="sendMail" />
     </template>
@@ -29,16 +29,16 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      partido: null
-    };
-  },
   async fetch() {
     if (this.deputado.uriPartido) {
       const { data } = await this.$axios.get(this.deputado.uriPartido);
       this.partido = data.dados;
     }
+  },
+  data() {
+    return {
+      partido: null
+    };
   },
   computed: {
     descriptionDeputado() {

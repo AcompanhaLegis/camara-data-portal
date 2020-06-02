@@ -22,17 +22,17 @@ export default {
   components: {
     ProposicaoCard
   },
-  data() {
-    return {
-      query: '',
-      proposicoes: []
-    };
-  },
   async fetch() {
     const { data } = await this.$axios.get(
       'https://dadosabertos.camara.leg.br/api/v2/proposicoes?ordem=DESC&ordenarPor=id'
     );
     this.proposicoes = data.dados;
+  },
+  data() {
+    return {
+      query: '',
+      proposicoes: []
+    };
   }
 };
 </script>

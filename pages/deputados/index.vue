@@ -39,18 +39,18 @@ export default {
   components: {
     DeputadoCard
   },
+  async fetch() {
+    const { data } = await this.$axios.get(
+      'https://dadosabertos.camara.leg.br/api/v2/deputados?ordem=ASC&ordenarPor=nome'
+    );
+    this.deputados = data.dados;
+  },
   data() {
     return {
       deputados: [],
       query: '',
       selectedDeputado: null
     };
-  },
-  async fetch() {
-    const { data } = await this.$axios.get(
-      'https://dadosabertos.camara.leg.br/api/v2/deputados?ordem=ASC&ordenarPor=nome'
-    );
-    this.deputados = data.dados;
   },
   computed: {
     filteredDeputados() {

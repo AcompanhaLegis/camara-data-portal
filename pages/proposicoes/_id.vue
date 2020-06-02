@@ -36,20 +36,20 @@
                 <br />
               </a-descriptions-item>
               <a-descriptions-item
+                v-if="proposicao.keywords && proposicao.keywords.length"
                 label="Palavras-chave"
                 :span="3"
-                v-if="proposicao.keywords && proposicao.keywords.length"
               >
                 <a-tag
-                  color="purple"
                   v-for="k in proposicao.keywords"
                   :key="k"
+                  color="purple"
                   >{{ k }}</a-tag
                 >
               </a-descriptions-item>
               <a-descriptions-item
-                label="Download teor"
                 v-if="proposicao.urlInteiroTeor"
+                label="Download teor"
               >
                 <a :href="proposicao.urlInteiroTeor">
                   <a-button icon="download"></a-button>
@@ -64,7 +64,7 @@
                 v-for="d in autores"
                 :key="d.id"
                 :deputado="d"
-                noImg
+                no-img
               />
             </section>
           </a-tab-pane>
@@ -99,13 +99,6 @@ export default {
   validate({ params }) {
     return /^\d+$/.test(params.id);
   },
-  data() {
-    return {
-      proposicao: null,
-      tramitacoes: null,
-      autores: []
-    };
-  },
   async fetch() {
     try {
       const baseURL = 'https://dadosabertos.camara.leg.br/api/v2/proposicoes';
@@ -123,6 +116,13 @@ export default {
       console.log(err.response);
       throw err;
     }
+  },
+  data() {
+    return {
+      proposicao: null,
+      tramitacoes: null,
+      autores: []
+    };
   }
 };
 </script>

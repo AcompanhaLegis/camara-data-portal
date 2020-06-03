@@ -29,12 +29,6 @@ export default {
       default: false
     }
   },
-  async fetch() {
-    if (this.deputado.uriPartido) {
-      const { data } = await this.$axios.get(this.deputado.uriPartido);
-      this.partido = data.dados;
-    }
-  },
   data() {
     return {
       partido: null
@@ -46,9 +40,24 @@ export default {
         'não informado'} é afilhado ao partido ${this.deputado.siglaPartido}.`;
     }
   },
+  watch: {
+    deputado: {
+      immediate: true,
+      handler() {
+        this.fetchPartido();
+      }
+    }
+  },
   methods: {
     sendMail() {
       window.location.href = `mailto:${this.deputado.email}`;
+    },
+    async fetchPartido() {
+      this.partido = null;
+      if (this.deputado.uriPartido) {
+        const { data } = await this.$axios.get(this.deputado.uriPartido);
+        this.partido = data.dados;
+      }
     }
   }
 };

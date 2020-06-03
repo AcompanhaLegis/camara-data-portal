@@ -1,7 +1,7 @@
 <template>
   <div id="left-menu">
     <a-menu
-      :default-selected-keys="['proposicoes']"
+      :default-selected-keys="[$nuxt.$route.name]"
       mode="inline"
       theme="dark"
       class="full-menu"

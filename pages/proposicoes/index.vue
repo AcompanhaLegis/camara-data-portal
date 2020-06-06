@@ -23,8 +23,8 @@ export default {
     ProposicaoCard
   },
   async fetch() {
-    const { data } = await this.$axios.get(
-      'https://dadosabertos.camara.leg.br/api/v2/proposicoes?ordem=DESC&ordenarPor=id'
+    const { data } = await this.$openData.get(
+      '/proposicoes?ordem=DESC&ordenarPor=id'
     );
     this.proposicoes = data.dados;
   },

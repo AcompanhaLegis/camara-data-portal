@@ -40,8 +40,8 @@ export default {
     DeputadoCard
   },
   async fetch() {
-    const { data } = await this.$axios.get(
-      'https://dadosabertos.camara.leg.br/api/v2/deputados?ordem=ASC&ordenarPor=nome'
+    const { data } = await this.$openData.get(
+      '/deputados?ordem=ASC&ordenarPor=nome'
     );
     this.deputados = data.dados;
   },

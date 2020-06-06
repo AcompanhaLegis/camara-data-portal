@@ -41,7 +41,7 @@
                 :span="3"
               >
                 <a-tag
-                  v-for="k in proposicao.keywords"
+                  v-for="k in proposicao.keywords.split(',')"
                   :key="k"
                   color="purple"
                   >{{ k }}</a-tag
@@ -101,11 +101,11 @@ export default {
   },
   async fetch() {
     try {
-      const baseURL = 'https://dadosabertos.camara.leg.br/api/v2/proposicoes';
-      const resProp = await this.$axios.get(
+      const baseURL = '/proposicoes';
+      const resProp = await this.$openData.get(
         `${baseURL}/${this.$route.params.id}`
       );
-      const resTra = await this.$axios.get(
+      const resTra = await this.$openData.get(
         `${baseURL}/${this.$route.params.id}/tramitacoes`
       );
       this.proposicao = resProp.data.dados;

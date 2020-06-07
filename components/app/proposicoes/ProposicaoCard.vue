@@ -7,19 +7,8 @@
       <a-descriptions-item label="Ano">
         {{ proposicao.ano || 'Ano desconhecido' }}
       </a-descriptions-item>
-      <a-descriptions-item label="Autor">
-        Aqui o Leandro entra com a idexacao legal
-        <a-button type="link" icon="idcard">
-          Consultar
-        </a-button>
-      </a-descriptions-item>
-      <a-descriptions-item label="Ementa" :span="3">
+      <a-descriptions-item v-if="proposicao.ementa" label="Ementa" :span="3">
         {{ proposicao.ementa }}
-        <br />
-      </a-descriptions-item>
-      <a-descriptions-item label="Palavras-chave" :span="3">
-        {{ proposicao.keywords }}
-        Aqui tbm vai ter ouuutros dados ne Leandro?
         <br />
       </a-descriptions-item>
       <a-descriptions-item>

@@ -55,7 +55,7 @@ export default {
     async fetchPartido() {
       this.partido = null;
       if (this.deputado.uriPartido) {
-        const { data } = await this.$axios.get(this.deputado.uriPartido);
+        const { data } = await this.$openData.get(this.deputado.uriPartido);
         this.partido = data.dados;
       }
     }

@@ -24,38 +24,16 @@
 
         <a-tabs default-active-key="1">
           <a-tab-pane key="1" tab="Informações gerais">
-            <a-descriptions bordered :column="{ xs: 2, sm: 2, md: 3 }">
-              <a-descriptions-item label="Numero">
-                {{ proposicao.siglaTipo }} - {{ proposicao.numero }}
-              </a-descriptions-item>
-              <a-descriptions-item label="Ano">
-                {{ proposicao.ano || 'Ano desconhecido' }}
-              </a-descriptions-item>
-              <a-descriptions-item label="Ementa" :span="3">
-                {{ proposicao.ementa }}
-                <br />
-              </a-descriptions-item>
-              <a-descriptions-item
-                v-if="proposicao.keywords && proposicao.keywords.length"
-                label="Palavras-chave"
-                :span="3"
-              >
-                <a-tag
-                  v-for="k in proposicao.keywords.split(',')"
-                  :key="k"
-                  color="purple"
-                  >{{ k }}</a-tag
-                >
-              </a-descriptions-item>
-              <a-descriptions-item
-                v-if="proposicao.urlInteiroTeor"
-                label="Download teor"
-              >
-                <a :href="proposicao.urlInteiroTeor">
-                  <a-button icon="download"></a-button>
-                </a>
-              </a-descriptions-item>
-            </a-descriptions>
+            {{ proposicao.siglaTipo }} - {{ proposicao.numero }}
+            {{ proposicao.ano || 'Ano desconhecido' }}
+            {{ proposicao.ementa }}
+            <a
+              :href="proposicao.urlInteiroTeor"
+              v-if="proposicao.urlInteiroTeor"
+              target="_blank"
+            >
+              <a-button icon="download"></a-button>
+            </a>
           </a-tab-pane>
 
           <a-tab-pane key="2" tab="Autores">
@@ -110,7 +88,7 @@ export default {
       );
       this.proposicao = resProp.data.dados;
       this.tramitacoes = resTra.data.dados;
-      const resAut = await this.$axios.get(this.proposicao.uriAutores);
+      const resAut = await this.$openData.get(this.proposicao.uriAutores);
       this.autores = resAut.data.dados;
     } catch (err) {
       console.log(err.response);

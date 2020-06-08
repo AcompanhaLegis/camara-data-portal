@@ -13,9 +13,13 @@
 
         <div class="lista-proposicoes">
           <a-spin size="large" v-if="loading" />
-          <p v-if="!loading && !proposicoes.length">
-            Nenhum resultado para pesquisa
-          </p>
+          <a-alert
+            v-if="!loading && !proposicoes.length"
+            message="Warning"
+            description="Nenhum resultado para pesquisa."
+            type="warning"
+            show-icon
+          />
           <proposicao-card
             v-for="p in proposicoes"
             :key="p.id"

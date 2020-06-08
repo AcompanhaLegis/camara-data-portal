@@ -92,6 +92,7 @@ export default {
         ano: '',
         dataApresentacaoInicio: null
       },
+      lastSearch: '',
       tipos: [],
       temas: []
     };
@@ -101,15 +102,18 @@ export default {
       return `${tipo.sigla} (${tipo.nome})`;
     },
     onSearch() {
-      this.$emit('search', {
-        ...this.search,
-        siglaTipo: this.search.siglaTipo ? [this.search.siglaTipo] : null,
-        dataApresentacaoInicio: this.search.dataApresentacaoInicio
-          ? this.$moment(this.search.dataApresentacaoInicio).format(
-              'YYYY-MM-DD'
-            )
-          : null
-      });
+      if (this.lastSearch !== JSON.stringify(this.search)) {
+        this.$emit('search', {
+          ...this.search,
+          siglaTipo: this.search.siglaTipo ? [this.search.siglaTipo] : null,
+          dataApresentacaoInicio: this.search.dataApresentacaoInicio
+            ? this.$moment(this.search.dataApresentacaoInicio).format(
+                'YYYY-MM-DD'
+              )
+            : null
+        });
+        this.lastSearch = JSON.stringify(this.search);
+      }
     }
   }
 };

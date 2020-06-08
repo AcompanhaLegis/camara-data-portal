@@ -7,32 +7,57 @@
       Error: {{ $fetchState.error }}
     </template>
     <template v-else>
-      <div class="lista-proposicoes">
-        <proposicao-card v-for="p in proposicoes" :key="p.id" :proposicao="p" />
-      </div>
+      <section>
+        <proposicao-search @search="fetchProposicoes" />
+        <a-divider />
+
+        <div class="lista-proposicoes">
+          <a-spin size="large" v-if="loading" />
+          <p v-if="!loading && !proposicoes.length">
+            Nenhum resultado para pesquisa
+          </p>
+          <proposicao-card
+            v-for="p in proposicoes"
+            :key="p.id"
+            :proposicao="p"
+          />
+        </div>
+      </section>
     </template>
   </div>
 </template>
 
 <script>
+import ProposicaoSearch from '~/components/app/proposicoes/ProposicaoSearch';
 import ProposicaoCard from '~/components/app/proposicoes/ProposicaoCard';
 
 export default {
   layout: 'auth',
   components: {
+    ProposicaoSearch,
     ProposicaoCard
   },
   async fetch() {
-    const { data } = await this.$openData.get(
-      '/proposicoes?ordem=DESC&ordenarPor=id'
-    );
-    this.proposicoes = data.dados;
+    await this.fetchProposicoes({ ordem: 'DESC', ordenarPor: 'id' });
   },
   data() {
     return {
       query: '',
-      proposicoes: []
+      proposicoes: [],
+      loading: false
     };
+  },
+  methods: {
+    async fetchProposicoes(queryObj) {
+      this.loading = true;
+      const query = Object.keys(queryObj)
+        .filter((key) => !!queryObj[key])
+        .map((key) => `${key}=${queryObj[key]}`)
+        .join('&');
+      const { dados } = await this.$openData.$get(`/proposicoes?${query}`);
+      this.proposicoes = dados;
+      this.loading = false;
+    }
   }
 };
 </script>

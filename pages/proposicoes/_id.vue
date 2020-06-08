@@ -24,16 +24,34 @@
 
         <a-tabs default-active-key="1">
           <a-tab-pane key="1" tab="Informações gerais">
-            {{ proposicao.siglaTipo }} - {{ proposicao.numero }}
-            {{ proposicao.ano || 'Ano desconhecido' }}
-            {{ proposicao.ementa }}
+            Ano: {{ proposicao.ano || 'Ano desconhecido' }}
+            <br />
+            Ementa: {{ proposicao.ementa }}
+            <br />
+            <br />
             <a
               :href="proposicao.urlInteiroTeor"
               v-if="proposicao.urlInteiroTeor"
               target="_blank"
             >
-              <a-button icon="download"></a-button>
+              <a-button icon="download" type="secondary">
+                Download - Inteiro teor
+              </a-button>
             </a>
+
+            <br />
+            <br />
+            <section v-if="temas && temas.length">
+              Temas:
+              <a-tag
+                v-for="tema in temas"
+                :key="tema.codTema"
+                color="blue"
+                class="clickable"
+              >
+                {{ tema.tema }}
+              </a-tag>
+            </section>
           </a-tab-pane>
 
           <a-tab-pane key="2" tab="Autores">
@@ -53,7 +71,7 @@
         <section class="tramitacoes">
           <h2>Tramitações</h2>
           <br />
-          <a-timeline mode="alternate">
+          <a-timeline mode="alternate" reverse>
             <a-timeline-item v-for="t in tramitacoes" :key="t.id">
               <tramitacao-card :tramitacao="t" />
             </a-timeline-item>
@@ -79,17 +97,20 @@ export default {
   },
   async fetch() {
     try {
-      const baseURL = '/proposicoes';
       const resProp = await this.$openData.get(
-        `${baseURL}/${this.$route.params.id}`
+        `/proposicoes/${this.$route.params.id}`
       );
       const resTra = await this.$openData.get(
-        `${baseURL}/${this.$route.params.id}/tramitacoes`
+        `/proposicoes/${this.$route.params.id}/tramitacoes`
       );
       this.proposicao = resProp.data.dados;
       this.tramitacoes = resTra.data.dados;
       const resAut = await this.$openData.get(this.proposicao.uriAutores);
       this.autores = resAut.data.dados;
+      const resTemas = await this.$openData.get(
+        `/proposicoes/${this.proposicao.id}/temas`
+      );
+      this.temas = resTemas.data.dados;
     } catch (err) {
       console.log(err.response);
       throw err;
@@ -99,7 +120,8 @@ export default {
     return {
       proposicao: null,
       tramitacoes: null,
-      autores: []
+      autores: [],
+      temas: []
     };
   }
 };
@@ -116,5 +138,9 @@ export default {
   > div {
     margin: 10px;
   }
+}
+
+.clickable {
+  cursor: pointer;
 }
 </style>

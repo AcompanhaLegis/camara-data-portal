@@ -8,7 +8,8 @@
       }}</a-tag>
       <a-icon v-else type="question" />
     </p>
-    <p>Orgāo: {{ tramitacao.siglaOrgao }}</p>
+    <p>Orgāo/Apreciaçāo: {{ tramitacao.siglaOrgao }}</p>
+    <p>Regime de Tramitaçāo: {{ tramitacao.regime || '-' }}</p>
     <p>Despacho: {{ tramitacao.despacho }}</p>
   </a-card>
 </template>
@@ -25,6 +26,7 @@ export default {
   },
   computed: {
     formattedDate() {
+      console.log(this.tramitacao);
       return dayjs(this.tramitacao.dataHora).format('DD/MM/YYYY HH:mm');
     }
   }

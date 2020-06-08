@@ -27,7 +27,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/antd-ui', '~/plugins/axios'],
+  plugins: ['@/plugins/antd-ui', '@/plugins/axios', '@/plugins/moment'],
   /*
    ** Nuxt.js dev-modules
    */

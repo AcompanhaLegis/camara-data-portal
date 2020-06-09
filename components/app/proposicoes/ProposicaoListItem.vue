@@ -18,7 +18,9 @@
       slot="actions"
       :to="`/proposicoes/${proposicao.id}`"
     >
-      Ver na íntegra
+      <a-button type="primary">
+        Ver na íntegra
+      </a-button>
     </router-link>
 
     <a-list-item-meta :description="proposicao.ementa">

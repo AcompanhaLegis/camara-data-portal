@@ -22,9 +22,31 @@
           <span>Deputados</span>
         </n-link>
       </a-menu-item>
+
+      <a-sub-menu key="favoritos">
+        <span slot="title"><a-icon type="heart" /><span>Favoritos</span></span>
+        <a-sub-menu key="favoriteProposicoes">
+          <span slot="title"><span>Proposições</span></span>
+          <a-menu-item v-for="p in favoriteProposicoes" :key="p.id">
+            <n-link :to="`/proposicoes/${p.proposicao_id}`">
+              <span>{{ p.name }}</span>
+            </n-link>
+          </a-menu-item>
+        </a-sub-menu>
+      </a-sub-menu>
     </a-menu>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    favoriteProposicoes() {
+      return this.$auth.user.favorite_proposicoes;
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 #left-menu {

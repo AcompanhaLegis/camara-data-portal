@@ -13,7 +13,11 @@
     >
       {{ !!favorite ? 'Favorito' : 'Favoritar' }}
     </a-button>
-    <router-link slot="actions" :to="`/proposicoes/${proposicao.id}`">
+    <router-link
+      v-if="!full"
+      slot="actions"
+      :to="`/proposicoes/${proposicao.id}`"
+    >
       Ver na íntegra
     </router-link>
 
@@ -32,6 +36,11 @@ export default {
     proposicao: {
       type: Object,
       required: true
+    },
+    full: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {

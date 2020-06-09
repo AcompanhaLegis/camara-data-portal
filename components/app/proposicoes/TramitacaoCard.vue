@@ -26,7 +26,6 @@ export default {
   },
   computed: {
     formattedDate() {
-      console.log(this.tramitacao);
       return dayjs(this.tramitacao.dataHora).format('DD/MM/YYYY HH:mm');
     }
   }

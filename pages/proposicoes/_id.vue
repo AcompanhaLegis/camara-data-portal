@@ -24,9 +24,19 @@
 
         <a-tabs default-active-key="1">
           <a-tab-pane key="1" tab="Informações gerais">
-            Ano: {{ proposicao.ano || 'Ano desconhecido' }}
-            <br />
-            Ementa: {{ proposicao.ementa }}
+            <proposicao-list-item :proposicao="proposicao" full />
+
+            <a-collapse accordion v-if="propPrincipal">
+              <a-collapse-panel
+                key="1"
+                :header="
+                  `Proposicao principal: ${propPrincipal.siglaTipo} - ${propPrincipal.numero} / ${propPrincipal.ano}`
+                "
+              >
+                <proposicao-list-item :proposicao="propPrincipal" />
+              </a-collapse-panel>
+            </a-collapse>
+
             <br />
             <br />
             <a
@@ -85,12 +95,14 @@
 <script>
 import TramitacaoCard from '~/components/app/proposicoes/TramitacaoCard';
 import DeputadoCard from '~/components/app/deputados/DeputadoCard';
+import ProposicaoListItem from '~/components/app/proposicoes/ProposicaoListItem';
 
 export default {
   layout: 'auth',
   components: {
     TramitacaoCard,
-    DeputadoCard
+    DeputadoCard,
+    ProposicaoListItem
   },
   validate({ params }) {
     return /^\d+$/.test(params.id);
@@ -105,12 +117,21 @@ export default {
       );
       this.proposicao = resProp.data.dados;
       this.tramitacoes = resTra.data.dados;
+
       const resAut = await this.$openData.get(this.proposicao.uriAutores);
       this.autores = resAut.data.dados;
+
       const resTemas = await this.$openData.get(
         `/proposicoes/${this.proposicao.id}/temas`
       );
       this.temas = resTemas.data.dados;
+
+      if (this.proposicao.uriPropPrincipal) {
+        const resPropPrincipal = await this.$openData.get(
+          this.proposicao.uriPropPrincipal
+        );
+        this.propPrincipal = resPropPrincipal.data.dados;
+      }
     } catch (err) {
       console.log(err.response);
       throw err;
@@ -121,7 +142,8 @@ export default {
       proposicao: null,
       tramitacoes: null,
       autores: [],
-      temas: []
+      temas: [],
+      propPrincipal: null
     };
   }
 };

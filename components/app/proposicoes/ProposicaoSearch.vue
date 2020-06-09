@@ -60,7 +60,7 @@
         </a-form-item>
 
         <a-row>
-          <a-button color="primary" icon="search" @click="onSearch"
+          <a-button type="primary" icon="search" @click="onSearch"
             >Procurar</a-button
           >
         </a-row>

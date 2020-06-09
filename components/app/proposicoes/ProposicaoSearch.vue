@@ -47,7 +47,6 @@
             mode="multiple"
             v-model="search.codTema"
             :filter-option="false"
-            :not-found-content="fetching ? undefined : null"
           >
             <a-select-option
               v-for="tema in temas"

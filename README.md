@@ -21,6 +21,12 @@ $ yarn generate
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
 
+## Using the API
+
+By default, during development, this project uses the api on `localhost:8000`, make sure it's running and that you have a valid user.
+
+For the `Dados abertos da camara` use `this.$openData` for request, for the "local" API use `this.$axios` as standard for the requests, they're already both configure to use the correspondent `baseURL`.
+
 ## Development guidelines
 
 ### Commit messsages

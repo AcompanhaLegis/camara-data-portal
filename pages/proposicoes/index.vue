@@ -27,6 +27,12 @@
               :proposicao="p"
             />
           </a-list>
+          <br />
+          <br />
+          <br />
+          <a-button v-if="nextPage" block type="primary" @click="loadMore"
+            >Carregar mais</a-button
+          >
         </div>
       </section>
     </template>
@@ -50,7 +56,8 @@ export default {
     return {
       query: '',
       proposicoes: [],
-      loading: false
+      loading: false,
+      nextPage: ''
     };
   },
   methods: {
@@ -60,9 +67,19 @@ export default {
         .filter((key) => !!queryObj[key])
         .map((key) => `${key}=${queryObj[key]}`)
         .join('&');
-      const { dados } = await this.$openData.$get(`/proposicoes?${query}`);
+      const { dados, links } = await this.$openData.$get(
+        `/proposicoes?${query}`
+      );
       this.proposicoes = dados;
+      this.nextPage = links.find((l) => l.rel === 'next')?.href;
       this.loading = false;
+    },
+    async loadMore() {
+      const { dados, links } = await this.$openData.$get(this.nextPage);
+
+      this.proposicoes.push(...dados);
+
+      this.nextPage = links.find((l) => l.rel === 'next')?.href;
     }
   }
 };

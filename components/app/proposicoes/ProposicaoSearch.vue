@@ -39,26 +39,25 @@
             format="DD/MM/YYYY"
           />
         </a-form-item>
+      </a-form>
 
-        <a-row>
-          <a-form-item label="Temas">
-            <a-select
-              mode="multiple"
-              v-model="search.codTema"
-              style="min-width: 600px;"
-              :filter-option="false"
-              :not-found-content="fetching ? undefined : null"
+      <a-form layout="vertical">
+        <a-form-item label="Temas:">
+          <a-select
+            mode="multiple"
+            v-model="search.codTema"
+            :filter-option="false"
+            :not-found-content="fetching ? undefined : null"
+          >
+            <a-select-option
+              v-for="tema in temas"
+              :key="tema.cod"
+              :value="tema.cod"
             >
-              <a-select-option
-                v-for="tema in temas"
-                :key="tema.cod"
-                :value="tema.cod"
-              >
-                {{ tema.nome }}
-              </a-select-option>
-            </a-select>
-          </a-form-item>
-        </a-row>
+              {{ tema.nome }}
+            </a-select-option>
+          </a-select>
+        </a-form-item>
 
         <a-row>
           <a-button color="primary" icon="search" @click="onSearch"

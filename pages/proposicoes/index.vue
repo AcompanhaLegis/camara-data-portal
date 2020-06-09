@@ -20,11 +20,13 @@
             type="warning"
             show-icon
           />
-          <proposicao-card
-            v-for="p in proposicoes"
-            :key="p.id"
-            :proposicao="p"
-          />
+          <a-list size="large">
+            <proposicao-list-item
+              v-for="p in proposicoes"
+              :key="p.id"
+              :proposicao="p"
+            />
+          </a-list>
         </div>
       </section>
     </template>
@@ -33,13 +35,13 @@
 
 <script>
 import ProposicaoSearch from '~/components/app/proposicoes/ProposicaoSearch';
-import ProposicaoCard from '~/components/app/proposicoes/ProposicaoCard';
+import ProposicaoListItem from '~/components/app/proposicoes/ProposicaoListItem';
 
 export default {
   layout: 'auth',
   components: {
     ProposicaoSearch,
-    ProposicaoCard
+    ProposicaoListItem
   },
   async fetch() {
     await this.fetchProposicoes({ ordem: 'DESC', ordenarPor: 'id' });

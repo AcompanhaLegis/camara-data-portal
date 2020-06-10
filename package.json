@@ -1,7 +1,7 @@
 {
   "name": "camara-data-portal",
   "version": "1.0.0",
-  "description": "",
+  "description": "Acompanhamento legislativo com dado da camara do deputado",
   "author": "Kimura",
   "private": true,
   "scripts": {

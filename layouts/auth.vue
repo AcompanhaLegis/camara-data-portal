@@ -2,16 +2,21 @@
   <div id="auth">
     <left-menu />
     <div id="auth-container">
-      <nuxt />
+      <top-menu />
+      <main id="content">
+        <nuxt />
+      </main>
     </div>
   </div>
 </template>
 
 <script>
 import LeftMenu from '~/components/app/LeftMenu.vue';
+import TopMenu from '~/components/app/TopMenu.vue';
 export default {
   components: {
-    LeftMenu
+    LeftMenu,
+    TopMenu
   }
 };
 </script>
@@ -25,9 +30,14 @@ export default {
 }
 
 #auth-container {
-  padding: 20px;
   height: 100vh;
   overflow-y: auto;
   width: calc(100vw - 260px);
+  display: flex;
+  flex-direction: column;
+}
+
+#content {
+  padding: 40px 20px;
 }
 </style>

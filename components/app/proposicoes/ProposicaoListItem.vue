@@ -1,14 +1,20 @@
 <template>
   <a-list-item>
-    <a-button icon="bell" slot="actions">
-      Adicionar à lista de notificações
+    <a-button
+      icon="bell"
+      slot="actions"
+      @click="subscriptionHandle"
+      shape="circle"
+      :type="!subscribed ? 'default' : 'primary'"
+      :disabled="loading"
+    >
     </a-button>
     <a-button
       icon="heart"
       slot="actions"
       :ghost="!favorite"
       type="danger"
-      :disable="loading"
+      :disabled="loading"
       @click="favoriteHandle"
     >
       {{ !!favorite ? 'Favorito' : 'Favoritar' }}
@@ -56,6 +62,11 @@ export default {
         (p) => p.proposicao_id === this.proposicao.id
       );
     },
+    subscribed() {
+      return this.$auth.user.subscriptions.find(
+        (s) => s.external_model === 'P' && s.external_id === this.proposicao.id
+      );
+    },
     proposicaoNome() {
       return `${this.proposicao.siglaTipo} - ${this.proposicao.numero}`;
     }
@@ -73,6 +84,20 @@ export default {
         });
       }
 
+      await this.$auth.fetchUser();
+      this.loading = false;
+    },
+    async subscriptionHandle() {
+      this.loading = true;
+      if (this.subscribed) {
+        await this.$axios.delete(`/updates/${this.subscribed.id}/`);
+      } else {
+        await this.$axios.post('/updates/', {
+          name: this.proposicaoNome,
+          external_id: this.proposicao.id,
+          external_model: 'P'
+        });
+      }
       await this.$auth.fetchUser();
       this.loading = false;
     }

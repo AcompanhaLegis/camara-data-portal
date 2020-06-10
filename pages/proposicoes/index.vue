@@ -15,7 +15,6 @@
           <a-spin size="large" v-if="loading" />
           <a-alert
             v-if="!loading && !proposicoes.length"
-            message="Warning"
             description="Nenhum resultado para pesquisa."
             type="warning"
             show-icon

@@ -19,15 +19,11 @@
     >
       {{ !!favorite ? 'Favorito' : 'Favoritar' }}
     </a-button>
-    <router-link
-      v-if="!full"
-      slot="actions"
-      :to="`/proposicoes/${proposicao.id}`"
-    >
+    <n-link v-if="!full" slot="actions" :to="`/proposicoes/${proposicao.id}`">
       <a-button type="primary">
         Ver na íntegra
       </a-button>
-    </router-link>
+    </n-link>
 
     <a-list-item-meta :description="proposicao.ementa">
       <h3 slot="title">

@@ -23,10 +23,22 @@
         </n-link>
       </a-menu-item>
 
+      <a-menu-item key="eventos">
+        <n-link to="/eventos">
+          <a-icon type="calendar" />
+          <span>Eventos</span>
+        </n-link>
+      </a-menu-item>
+
       <a-sub-menu key="favoritos">
-        <span slot="title"><a-icon type="heart" /><span>Favoritos</span></span>
+        <span slot="title">
+          <a-icon type="heart" />
+          <span>Favoritos</span>
+        </span>
         <a-sub-menu key="favoriteProposicoes">
-          <span slot="title"><span>Proposições</span></span>
+          <span slot="title">
+            <span>Proposições</span>
+          </span>
           <a-menu-item v-for="p in favoriteProposicoes" :key="p.id">
             <n-link :to="`/proposicoes/${p.proposicao_id}`">
               <span>{{ p.name }}</span>

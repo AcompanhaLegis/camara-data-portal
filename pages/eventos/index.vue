@@ -2,7 +2,9 @@
   <a-calendar @panelChange="changeMonth">
     <ul slot="dateCellRender" slot-scope="value" class="events">
       <li v-for="item in getListData(value)" :key="item.id">
-        <a-tag color="cyan">{{ item.descricaoTipo }}</a-tag>
+        <n-link :to="`/eventos/${item.id}`">
+          <a-tag class="clickable" color="cyan">{{ item.descricaoTipo }}</a-tag>
+        </n-link>
       </li>
     </ul>
     <template slot="monthCellRender" slot-scope="value">
@@ -85,5 +87,8 @@ export default {
 }
 .notes-month section {
   font-size: 28px;
+}
+.clickable {
+  cursor: pointer;
 }
 </style>

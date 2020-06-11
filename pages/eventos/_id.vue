@@ -25,8 +25,8 @@
         </h2>
         <br />
         <br />
-        <a-tabs>
-          <a-tab-pane default-active-key="1" tab="Detalhes">
+        <a-tabs default-active-key="1">
+          <a-tab-pane key="1" tab="Detalhes">
             <b>Local:</b> {{ event.localExterno || event.localCamara.nome }}
             <br />
             <br />
@@ -55,6 +55,17 @@
               />
             </section>
           </a-tab-pane>
+          <a-tab-pane key="3" tab="Pauta">
+            <section class="proposicoes">
+              <section v-for="item in pauta" :key="item.ordem">
+                <a-tag color="orange">
+                  {{ item.regime }} - Ordem {{ item.ordem }}</a-tag
+                >
+                <proposicao-list-item :proposicao="item.proposicao_" />
+                <a-divider />
+              </section>
+            </section>
+          </a-tab-pane>
         </a-tabs>
       </div>
     </template>
@@ -63,10 +74,12 @@
 
 <script>
 import DeputadoCard from '~/components/app/deputados/DeputadoCard';
+import ProposicaoListItem from '~/components/app/proposicoes/ProposicaoListItem';
 export default {
   layout: 'auth',
   components: {
-    DeputadoCard
+    DeputadoCard,
+    ProposicaoListItem
   },
   validate({ params }) {
     return /^\d+$/.test(params.id);
@@ -81,11 +94,17 @@ export default {
       `/eventos/${this.$route.params.id}/deputados`
     );
     this.deputados = resDep.data.dados;
+
+    const resPauta = await this.$openData.get(
+      `/eventos/${this.$route.params.id}/pauta`
+    );
+    this.pauta = resPauta.data.dados;
   },
   data() {
     return {
       event: null,
-      deputados: null
+      deputados: null,
+      pauta: null
     };
   },
   methods: {

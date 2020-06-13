@@ -47,7 +47,9 @@
 
           <a-tab-pane key="2" tab="Participantes">
             <section class="deputados">
+              <a-spin size="large" v-if="loadingDeputados" />
               <deputado-card
+                v-else
                 v-for="deputado in deputados"
                 :key="deputado.id"
                 :deputado="deputado"
@@ -57,7 +59,8 @@
           </a-tab-pane>
           <a-tab-pane key="3" tab="Pauta">
             <section class="proposicoes">
-              <section v-for="item in pauta" :key="item.ordem">
+              <a-spin size="large" v-if="loadingPauta" />
+              <section v-else v-for="item in pauta" :key="item.ordem">
                 <a-tag color="orange">
                   {{ item.regime }} - Ordem {{ item.ordem }}</a-tag
                 >
@@ -89,22 +92,35 @@ export default {
       `/eventos/${this.$route.params.id}`
     );
     this.event = response.data.dados;
+  },
+  mounted() {
+    this.loadingDeputados = true;
+    this.loadingPauta = true;
+    this.$openData
+      .get(`/eventos/${this.$route.params.id}/deputados`)
+      .then((resDep) => {
+        this.deputados = resDep.data.dados;
+      })
+      .finally(() => {
+        this.loadingDeputados = false;
+      });
 
-    const resDep = await this.$openData.get(
-      `/eventos/${this.$route.params.id}/deputados`
-    );
-    this.deputados = resDep.data.dados;
-
-    const resPauta = await this.$openData.get(
-      `/eventos/${this.$route.params.id}/pauta`
-    );
-    this.pauta = resPauta.data.dados;
+    this.$openData
+      .get(`/eventos/${this.$route.params.id}/pauta`)
+      .then((resPauta) => {
+        this.pauta = resPauta.data.dados;
+      })
+      .finally(() => {
+        this.loadingPauta = false;
+      });
   },
   data() {
     return {
       event: null,
       deputados: null,
-      pauta: null
+      pauta: null,
+      loadingDeputados: false,
+      loadingPauta: false
     };
   },
   methods: {

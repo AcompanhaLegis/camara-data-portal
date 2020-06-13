@@ -152,6 +152,13 @@ export default {
       return this.deputados.slice(0, 20);
     }
   },
+  mounted() {
+    this.$nextTick(() => {
+      if (this.$route.query.id && !this.selectedDeputado) {
+        this.setSelectedDeputado(this.$route.query.id);
+      }
+    });
+  },
   methods: {
     async subscribe() {
       this.subscriptionError = '';
@@ -175,9 +182,12 @@ export default {
     },
     setSelectedDeputado(deputadoId) {
       const d = this.deputados.find((d) => d.id === parseInt(deputadoId, 10));
+      if (d) {
+        this.$router.push({ query: { id: deputadoId } });
 
-      this.query = this.getLabel(d);
-      this.selectedDeputado = d;
+        this.query = this.getLabel(d);
+        this.selectedDeputado = d;
+      }
     },
     getLabel(d) {
       return `${d.nome} - ${d.siglaUf} (${d.siglaPartido})`;
@@ -209,6 +219,11 @@ export default {
   watch: {
     selectedDeputado() {
       this.getDeputadoDetails();
+    }
+  },
+  watchQuery(q, oldQ) {
+    if (parseInt(q.id, 10) !== this.selectedDeputado.id) {
+      this.setSelectedDeputado(q.id);
     }
   }
 };

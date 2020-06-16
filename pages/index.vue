@@ -1,25 +1,5 @@
 <template>
   <div id="home">
-    <a-menu mode="horizontal" theme="dark" class="menu">
-      <a-menu-item class="item-right">
-        <n-link to="/login">
-          Login
-        </n-link>
-      </a-menu-item>
-
-      <a-menu-item class="item-right">
-        <n-link to="/">
-          Planos
-        </n-link>
-      </a-menu-item>
-
-      <a-menu-item class="item-right">
-        <n-link to="/">
-          Home
-        </n-link>
-      </a-menu-item>
-    </a-menu>
-
     <main class="full-height-section">
       <section class="presentation">
         <img src="~/assets/home_laptop.png" class="home-laptop" />
@@ -38,15 +18,7 @@
 
 <script>
 export default {
-  auth: false,
-  computed: {
-    loginRoute() {
-      if (this.$auth.loggedIn) {
-        return '/proposicoes';
-      }
-      return '/login';
-    }
-  }
+  auth: false
 };
 </script>
 
@@ -55,9 +27,6 @@ export default {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  .menu {
-    width: 100vw;
-  }
   .full-height-section {
     min-height: calc(100vh - 46px);
   }

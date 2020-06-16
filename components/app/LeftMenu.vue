@@ -46,6 +46,11 @@
           </a-menu-item>
         </a-sub-menu>
       </a-sub-menu>
+
+      <a-menu-item class="last" @click="$auth.logout()">
+        <a-icon type="logout" />
+        <span>Logout</span>
+      </a-menu-item>
     </a-menu>
   </div>
 </template>
@@ -65,6 +70,7 @@ export default {
   width: 260px;
   height: 100vh;
   overflow: hidden;
+  position: relative;
   .logo {
     background-color: #001529;
     padding: 20px 0;
@@ -77,9 +83,10 @@ export default {
   .full-menu {
     width: 100%;
     height: 100%;
-    li:first-child {
-      margin-top: 0;
-    }
+  }
+  .last {
+    position: absolute;
+    bottom: 0;
   }
 }
 </style>

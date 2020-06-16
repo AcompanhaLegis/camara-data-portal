@@ -6,19 +6,19 @@
       class="menu"
       :default-selected-keys="[$nuxt.$route.name]"
     >
-      <a-menu-item class="item-right">
+      <a-menu-item class="item-right" key="login">
         <n-link :to="loginRoute">
           Login
         </n-link>
       </a-menu-item>
 
-      <a-menu-item class="item-right">
+      <a-menu-item class="item-right" key="plans">
         <n-link to="/">
           Planos
         </n-link>
       </a-menu-item>
 
-      <a-menu-item class="item-right">
+      <a-menu-item class="item-right" key="index">
         <n-link to="/">
           Home
         </n-link>
@@ -62,5 +62,8 @@ html {
 }
 .menu {
   width: 100vw;
+}
+.item-right {
+  float: right;
 }
 </style>

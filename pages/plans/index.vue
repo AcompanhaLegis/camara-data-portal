@@ -57,7 +57,7 @@ export default {
 }
 .title-holder {
   text-align: center;
-  margin-bottom: 40px;
+  margin: 40px 0;
   h1 {
     color: #1890ff;
     font-size: 3rem;

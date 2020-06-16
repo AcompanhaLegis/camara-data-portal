@@ -3,6 +3,7 @@
     mode="horizontal"
     theme="light"
     :default-selected-keys="[$nuxt.$route.name]"
+    id="top-menu"
   >
     <a-menu-item class="item-right" key="profile">
       <n-link to="/profile">
@@ -19,7 +20,12 @@
 </template>
 
 <style lang="scss">
-.item-right {
-  float: right;
+#top-menu {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  .item-right {
+    float: right;
+  }
 }
 </style>

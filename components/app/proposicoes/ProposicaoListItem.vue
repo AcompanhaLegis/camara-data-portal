@@ -59,7 +59,7 @@ export default {
       );
     },
     subscribed() {
-      return this.$auth.user.subscriptions.find(
+      return this.$auth.user.subscriptions?.find(
         (s) => s.external_model === 'P' && s.external_id === this.proposicao.id
       );
     },

@@ -1,5 +1,5 @@
 <template>
-  <a-calendar @panelChange="changeMonth" locale="pt_BR">
+  <a-calendar @panelChange="changeMonth">
     <ul slot="dateCellRender" slot-scope="value" class="events">
       <li v-for="item in getListData(value)" :key="item.id">
         <n-link :to="`/eventos/${item.id}`">

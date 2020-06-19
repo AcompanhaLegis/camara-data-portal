@@ -12,7 +12,7 @@
       </n-link>
     </a-menu-item>
 
-    <a-menu-item class="item-right" key="notifications">
+    <a-menu-item class="item-right" key="notifications" v-if="false">
       <a-icon type="bell" />
       Notificaçōes
     </a-menu-item>

@@ -41,6 +41,6 @@ Vue.prototype.$calendarLocale = {
   },
   dateFormat: 'DD/MM/YYYY',
   dateTimeFormat: 'DD/MM/YYYY HH:mm:ss',
-  weekFormat: 'YYYY-ddd',
+  weekFormat: 'YYYY-wo',
   monthFormat: 'YYYY-MM'
 };

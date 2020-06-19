@@ -65,6 +65,17 @@
           </a-list-item>
           <a-list-item v-for="s in subDeputados" :key="s.id">
             {{ s.name }}
+            <a-button
+              shape="circle"
+              @click="
+                $router.push({
+                  path: '/deputados',
+                  query: { id: s.external_id }
+                })
+              "
+            >
+              <a-icon type="link" />
+            </a-button>
             <a-popconfirm
               title="Confirmar"
               ok-text="Sim"

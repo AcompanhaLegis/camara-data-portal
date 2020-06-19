@@ -7,12 +7,6 @@
         </n-link>
       </li>
     </ul>
-    <template slot="monthCellRender" slot-scope="value">
-      <div v-if="getMonthData(value)" class="notes-month">
-        <section>{{ getMonthData(value) }}</section>
-        <span>Backlog number</span>
-      </div>
-    </template>
   </a-calendar>
 </template>
 <script>
@@ -39,12 +33,6 @@ export default {
           this.$moment(event.dataHoraInicio).year() === value.year()
       );
       return listData || [];
-    },
-
-    getMonthData(value) {
-      if (value.month() === 8) {
-        return 1394;
-      }
     },
     fetchEventos(month, year) {
       const initialDate = this.$moment()

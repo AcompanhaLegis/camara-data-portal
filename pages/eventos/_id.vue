@@ -45,7 +45,11 @@
             </a-list>
           </a-tab-pane>
 
-          <a-tab-pane key="2" tab="Participantes">
+          <a-tab-pane
+            key="2"
+            tab="Participantes"
+            v-if="(deputados && deputados.length) || loadingDeputados"
+          >
             <section class="deputados">
               <a-spin size="large" v-if="loadingDeputados" />
               <deputado-card
@@ -54,10 +58,15 @@
                 :key="deputado.id"
                 :deputado="deputado"
                 no-img
+                external
               />
             </section>
           </a-tab-pane>
-          <a-tab-pane key="3" tab="Pauta">
+          <a-tab-pane
+            key="3"
+            tab="Pauta"
+            v-if="(pauta && pauta.length) || loadingPauta"
+          >
             <section class="proposicoes">
               <a-spin size="large" v-if="loadingPauta" />
               <section v-else v-for="item in pauta" :key="item.ordem">

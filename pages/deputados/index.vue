@@ -31,7 +31,7 @@
       </a-form-item>
 
       <section v-if="recentSearch" class="recent-search">
-        <h4>Pesquisas recentes</h4>
+        <h3>Pesquisas recentes</h3>
 
         <a-tag
           v-for="deputadoId in recentSearch"
@@ -65,7 +65,7 @@
         <a-spin v-if="loadingInfo" class="loading-info" />
         <section class="deputado-info" v-else>
           <a-list>
-            <h4>Últimos discursos</h4>
+            <h3>Últimos discursos</h3>
             <a-alert
               v-if="!speeches || !speeches.length"
               description="Sem informaçōes"
@@ -76,7 +76,7 @@
           <a-divider />
 
           <a-list>
-            <h4>Últimos eventos</h4>
+            <h3>Últimos eventos</h3>
             <a-alert
               v-if="!events || !events.length"
               description="Sem informaçōes"
@@ -113,6 +113,9 @@ export default {
       '/deputados?ordem=ASC&ordenarPor=nome'
     );
     this.deputados = data.dados;
+    if (this.$route.query.id) {
+      this.setSelectedDeputado(this.$route.query.id);
+    }
   },
   data() {
     return {
@@ -248,7 +251,8 @@ export default {
   .info-holder {
     margin-top: 20px;
     display: flex;
-    h4 {
+    h3 {
+      font-size: 1.5rem;
       color: #1890ff;
     }
     .deputado-profile {

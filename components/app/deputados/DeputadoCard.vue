@@ -6,9 +6,16 @@
       :alt="deputado.nome"
       :src="deputado.urlFoto"
     />
-    <template v-if="deputado.email" slot="actions" class="ant-card-actions">
-      <a-icon key="mail" type="mail" @click="sendMail" />
-      <a-icon key="info" type="idcard" @click="sendMail" />
+    <template slot="actions" class="ant-card-actions">
+      <a-icon v-if="deputado.email" key="mail" type="mail" @click="sendMail" />
+      <a-icon
+        v-if="external"
+        key="link"
+        type="link"
+        @click="
+          $router.push({ path: '/deputados', query: { id: `${deputado.id}` } })
+        "
+      />
     </template>
     <a-card-meta :title="deputado.nome" :description="descriptionDeputado">
       <a-avatar v-if="partido" slot="avatar" :src="partido.urlLogo" />
@@ -24,6 +31,11 @@ export default {
       required: true
     },
     noImg: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    external: {
       type: Boolean,
       required: false,
       default: false

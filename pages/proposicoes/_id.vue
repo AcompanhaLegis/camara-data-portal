@@ -66,12 +66,12 @@
 
           <a-tab-pane key="2" tab="Autores">
             <section class="autores">
-              <deputado-card
-                v-for="d in autores"
-                :key="d.id"
-                :deputado="d"
-                no-img
-              />
+              <a-list>
+                <a-list-item v-for="(d, idx) in autores" :key="idx">
+                  {{ d.nome }}
+                  <a-tag>{{ d.tipo }}</a-tag>
+                </a-list-item>
+              </a-list>
             </section>
           </a-tab-pane>
         </a-tabs>
@@ -94,14 +94,12 @@
 
 <script>
 import TramitacaoCard from '~/components/app/proposicoes/TramitacaoCard';
-import DeputadoCard from '~/components/app/deputados/DeputadoCard';
 import ProposicaoListItem from '~/components/app/proposicoes/ProposicaoListItem';
 
 export default {
   layout: 'auth',
   components: {
     TramitacaoCard,
-    DeputadoCard,
     ProposicaoListItem
   },
   validate({ params }) {
@@ -157,8 +155,12 @@ export default {
 .autores {
   display: flex;
   flex-wrap: wrap;
-  > div {
-    margin: 10px;
+  width: 45%;
+  div {
+    width: 100%;
+  }
+  .ant-tag {
+    float: right;
   }
 }
 

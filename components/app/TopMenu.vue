@@ -2,6 +2,7 @@
   <a-menu
     mode="horizontal"
     theme="light"
+    :style="{ boxShadow: '0 -4px 10px #1890ff' }"
     :default-selected-keys="[$nuxt.$route.name]"
     id="top-menu"
   >

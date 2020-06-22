@@ -9,9 +9,16 @@
     <template v-else>
       <a-form layout="inline">
         <a-form-item label="Tipo">
-          <a-select v-model="search.siglaTipo" style="width: 120px;">
-            <a-select-option v-for="tipo in tipos" :key="tipo" :value="tipo">
-              {{ tipo }}
+          <a-select v-model="search.siglaTipo" style="width: 400px;">
+            <a-select-option value="">
+              Selecione um tipo
+            </a-select-option>
+            <a-select-option
+              v-for="tipo in tipos"
+              :key="tipo.sigla"
+              :value="tipo.sigla"
+            >
+              {{ getTipoLabel(tipo) }}
             </a-select-option>
           </a-select>
         </a-form-item>
@@ -32,7 +39,7 @@
           />
         </a-form-item>
 
-        <a-form-item label="Data de abertura">
+        <a-form-item label="Data de apresentaçāo">
           <a-date-picker
             :locale="$calendarLocale"
             v-model="search.dataApresentacaoInicio"
@@ -74,9 +81,14 @@ export default {
     const resSigla = await this.$openData.get(
       '/referencias/proposicoes/siglaTipo'
     );
-    this.tipos = Array.from(
-      new Set(resSigla.data.dados.map((s) => s.sigla))
-    ).sort();
+    this.tipos = resSigla.data.dados
+      .sort((s1, s2) => s1.sigla.localeCompare(s2.sigla))
+      .reduce((acc, s) => {
+        if (s.sigla && !acc.find((siglas) => siglas.sigla === s.sigla)) {
+          acc.push(s);
+        }
+        return acc;
+      }, []);
     const resTemas = await this.$openData.get(
       '/referencias/proposicoes/codTema'
     );

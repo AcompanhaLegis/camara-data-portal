@@ -9,17 +9,17 @@
       theme="dark"
       class="full-menu"
     >
-      <a-menu-item key="proposicoes">
-        <n-link to="/proposicoes">
-          <a-icon type="book" />
-          <span>Proposições</span>
-        </n-link>
-      </a-menu-item>
-
       <a-menu-item key="deputados">
         <n-link to="/deputados">
           <a-icon type="idcard" />
           <span>Deputados</span>
+        </n-link>
+      </a-menu-item>
+
+      <a-menu-item key="proposicoes">
+        <n-link to="/proposicoes">
+          <a-icon type="book" />
+          <span>Proposições</span>
         </n-link>
       </a-menu-item>
 

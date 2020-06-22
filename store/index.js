@@ -1,4 +1,5 @@
 export const state = () => ({
+  proposicaoTypes: [],
   tramitacaoTypes: [],
   deputados: [],
   lastLoaded: null
@@ -10,6 +11,9 @@ export const mutations = {
   },
   setDeputados(state, deputados) {
     state.deputados = deputados;
+  },
+  setProposicaoTypes(state, types) {
+    state.proposicaoTypes = types;
   }
 };
 
@@ -19,5 +23,11 @@ export const actions = {
       '/deputados?ordem=ASC&ordenarPor=nome'
     );
     commit('setDeputados', dados);
+  },
+  async fetchProposicoes({ commit }) {
+    const { dados } = await this.$openData.$get(
+      '/referencias/proposicoes/siglaTipo'
+    );
+    commit('setProposicaoTypes', dados);
   }
 };

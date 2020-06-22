@@ -78,17 +78,6 @@
 <script>
 export default {
   async fetch() {
-    const resSigla = await this.$openData.get(
-      '/referencias/proposicoes/siglaTipo'
-    );
-    this.tipos = resSigla.data.dados
-      .sort((s1, s2) => s1.sigla.localeCompare(s2.sigla))
-      .reduce((acc, s) => {
-        if (s.sigla && !acc.find((siglas) => siglas.sigla === s.sigla)) {
-          acc.push(s);
-        }
-        return acc;
-      }, []);
     const resTemas = await this.$openData.get(
       '/referencias/proposicoes/codTema'
     );
@@ -103,9 +92,23 @@ export default {
         dataApresentacaoInicio: null
       },
       lastSearch: '',
-      tipos: [],
       temas: []
     };
+  },
+  computed: {
+    tipos() {
+      return this.$store.state.proposicaoTypes
+        .reduce((acc, s) => {
+          if (s.sigla && !acc.find((siglas) => siglas.sigla === s.sigla)) {
+            acc.push(s);
+          }
+          return acc;
+        }, [])
+        .sort((s1, s2) => s1.sigla.localeCompare(s2.sigla));
+    },
+    deputados() {
+      return this.$store.state.deputados;
+    }
   },
   methods: {
     getTipoLabel(tipo) {

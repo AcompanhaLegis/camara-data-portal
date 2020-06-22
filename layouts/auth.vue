@@ -32,6 +32,9 @@ export default {
     if (!this.$store.state.deputados.length) {
       await this.$store.dispatch('fetchDeputados');
     }
+    if (!this.$store.state.proposicaoTypes.length) {
+      await this.$store.dispatch('fetchProposicoes');
+    }
   }
 };
 </script>

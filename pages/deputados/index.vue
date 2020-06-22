@@ -45,6 +45,7 @@
           :disabled="subscriptionLoading"
           ><a-icon type="bell" />Ativar notificaçōes</a-button
         >
+        <a-alert v-else type="info" description="Notificaçōes ativas" />
         <a-alert
           v-if="subscriptionError"
           type="error"
@@ -79,25 +80,8 @@
 
         <a-divider />
 
-        <a-list>
-          <h3>Últimos eventos</h3>
-          <a-alert
-            v-if="!events || !events.length"
-            description="Sem informaçōes"
-            show-icon
-          />
-          <a-list-item v-else v-for="e in events" :key="e.id">
-            <b>{{ e.descricaoTipo }}</b>
-            <br />
-            <a-tag color="cyan">
-              {{ formattedDate(e.dataHoraInicio) }}
-            </a-tag>
-            <br />
-            <b>Local:</b> {{ e.localExterno || e.localCamara.nome }}
-            <br />
-            {{ e.descricao }}
-          </a-list-item>
-        </a-list>
+        <h3>Últimos eventos</h3>
+        <deputado-events :events="events" />
       </section>
     </section>
   </div>
@@ -105,11 +89,13 @@
 
 <script>
 import DeputadoCard from '~/components/app/deputados/DeputadoCard';
+import DeputadoEvents from '~/components/app/deputados/DeputadoEvents';
 
 export default {
   layout: 'auth',
   components: {
-    DeputadoCard
+    DeputadoCard,
+    DeputadoEvents
   },
   data() {
     return {

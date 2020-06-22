@@ -1,115 +1,105 @@
 <template>
   <div class="deputados">
-    <template v-if="$fetchState.pending">
-      <section class="loading">
-        <a-spin size="large" />
-      </section>
-    </template>
-    <template v-else-if="$fetchState.error">
-      Error: {{ $fetchState.error }}
-    </template>
-    <template v-else>
-      <a-form-item label="Pesquisar deputado">
-        <a-auto-complete
-          v-model="query"
-          style="width: 400px"
-          placeholder="Procurar por deputado"
-          @select="setSelectedDeputado"
-          label=""
-          allowClear
-        >
-          <template slot="dataSource">
-            <a-select-option
-              v-for="d in filteredDeputados"
-              :key="d.id"
-              :value="d.id.toString()"
-            >
-              {{ `${d.nome} - ${d.siglaUf} (${d.siglaPartido})` }}
-            </a-select-option>
-          </template>
-        </a-auto-complete>
-      </a-form-item>
-
-      <section v-if="recentSearch" class="recent-search">
-        <h3>Pesquisas recentes</h3>
-
-        <a-tag
-          v-for="deputadoId in recentSearch"
-          :key="deputadoId"
-          color="green"
-          @click="setSelectedDeputado(deputadoId)"
-        >
-          {{ getLabel(deputados.find((d) => d.id === deputadoId)) }}
-        </a-tag>
-      </section>
-
-      <h2 v-if="selectedDeputado">Deputado selecionado</h2>
-      <section v-if="selectedDeputado" class="info-holder">
-        <section class="deputado-profile">
-          <deputado-card :deputado="selectedDeputado" />
-          <br />
-          <a-button
-            v-if="notSubscribed"
-            @click="subscribe"
-            :disabled="subscriptionLoading"
-            ><a-icon type="bell" />Ativar notificaçōes</a-button
+    <a-form-item label="Pesquisar deputado">
+      <a-auto-complete
+        v-model="query"
+        style="width: 400px"
+        placeholder="Procurar por deputado"
+        @select="setSelectedDeputado"
+        label=""
+        allowClear
+      >
+        <template slot="dataSource">
+          <a-select-option
+            v-for="d in filteredDeputados"
+            :key="d.id"
+            :value="d.id.toString()"
           >
+            {{ `${d.nome} - ${d.siglaUf} (${d.siglaPartido})` }}
+          </a-select-option>
+        </template>
+      </a-auto-complete>
+    </a-form-item>
+
+    <section v-if="recentSearch" class="recent-search">
+      <h3>Pesquisas recentes</h3>
+
+      <a-tag
+        v-for="deputadoId in recentSearch"
+        :key="deputadoId"
+        color="green"
+        @click="setSelectedDeputado(deputadoId)"
+      >
+        {{ getLabel(deputados.find((d) => d.id === deputadoId)) }}
+      </a-tag>
+    </section>
+
+    <h2 v-if="selectedDeputado">Deputado selecionado</h2>
+    <section v-if="selectedDeputado" class="info-holder">
+      <section class="deputado-profile">
+        <deputado-card :deputado="selectedDeputado" />
+        <br />
+        <a-button
+          v-if="notSubscribed"
+          @click="subscribe"
+          :disabled="subscriptionLoading"
+          ><a-icon type="bell" />Ativar notificaçōes</a-button
+        >
+        <a-alert
+          v-if="subscriptionError"
+          type="error"
+          :description="subscriptionError"
+          show-icon
+        />
+      </section>
+
+      <a-spin v-if="loadingInfo" class="loading-info" />
+      <section class="deputado-info" v-else>
+        <a-list>
+          <h3>Últimos discursos</h3>
           <a-alert
-            v-if="subscriptionError"
-            type="error"
-            :description="subscriptionError"
+            v-if="!speeches || !speeches.length"
+            description="Sem informaçōes"
             show-icon
           />
-        </section>
+          <a-list-item v-else v-for="(s, idx) in speeches" :key="idx">
+            <b>{{ s.faseEvento.titulo }}</b>
+            <br />
+            <a-tag color="cyan">
+              {{ formattedDate(s.dataHoraInicio) }}
+            </a-tag>
+            <br />
+            <b>Tipo: </b> {{ s.tipoDiscurso || '-' }}
+            <br />
+            <b>Sumário: </b> {{ s.sumario || '-' }}
+            <br />
+            <b>Transcriçāo: </b> {{ s.transcricao || '-' }}
+          </a-list-item>
+        </a-list>
 
-        <a-spin v-if="loadingInfo" class="loading-info" />
-        <section class="deputado-info" v-else>
-          <a-list>
-            <h3>Últimos discursos</h3>
-            <a-alert
-              v-if="!speeches || !speeches.length"
-              description="Sem informaçōes"
-              show-icon
-            />
-            <a-list-item v-else v-for="(s, idx) in speeches" :key="idx">
-              <b>{{ s.faseEvento.titulo }}</b>
-              <br />
-              <a-tag color="cyan">
-                {{ formattedDate(s.dataHoraInicio) }}
-              </a-tag>
-              <br />
-              <b>Tipo: </b> {{ s.tipoDiscurso || '-' }}
-              <br />
-              <b>Sumário: </b> {{ s.sumario || '-' }}
-              <br />
-              <b>Transcriçāo: </b> {{ s.transcricao || '-' }}
-            </a-list-item>
-          </a-list>
+        <a-divider />
 
-          <a-divider />
-
-          <a-list>
-            <h3>Últimos eventos</h3>
-            <a-alert
-              v-if="!events || !events.length"
-              description="Sem informaçōes"
-              show-icon
-            />
-            <a-list-item v-else v-for="e in events" :key="e.id">
-              <b>{{ e.descricaoTipo }}</b>
-              <br />
-              <a-tag color="cyan">
-                {{ formattedDate(e.dataHoraInicio) }}
-              </a-tag>
-              <br />
-              <b>Local:</b> {{ e.localExterno || e.localCamara.nome }}
-              <br />
-              {{ e.descricao }}
-            </a-list-item>
-          </a-list>
-        </section>
+        <a-list>
+          <h3>Últimos eventos</h3>
+          <a-alert
+            v-if="!events || !events.length"
+            description="Sem informaçōes"
+            show-icon
+          />
+          <a-list-item v-else v-for="e in events" :key="e.id">
+            <b>{{ e.descricaoTipo }}</b>
+            <br />
+            <a-tag color="cyan">
+              {{ formattedDate(e.dataHoraInicio) }}
+            </a-tag>
+            <br />
+            <b>Local:</b> {{ e.localExterno || e.localCamara.nome }}
+            <br />
+            {{ e.descricao }}
+          </a-list-item>
+        </a-list>
       </section>
-    </template>
+    </section>
   </div>
 </template>
 
@@ -121,18 +111,8 @@ export default {
   components: {
     DeputadoCard
   },
-  async fetch() {
-    const { data } = await this.$openData.get(
-      '/deputados?ordem=ASC&ordenarPor=nome'
-    );
-    this.deputados = data.dados;
-    if (this.$route.query.id) {
-      this.setSelectedDeputado(this.$route.query.id);
-    }
-  },
   data() {
     return {
-      deputados: [],
       query: '',
       selectedDeputado: null,
       recentSearch: null,
@@ -145,6 +125,9 @@ export default {
     };
   },
   computed: {
+    deputados() {
+      return this.$store.state.deputados;
+    },
     notSubscribed() {
       if (
         this.$auth.user.subscriptions.find(

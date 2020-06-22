@@ -1,12 +1,22 @@
 <template>
   <div id="auth">
-    <left-menu />
-    <div id="auth-container">
-      <top-menu />
-      <main id="content">
-        <nuxt />
-      </main>
-    </div>
+    <template v-if="$fetchState.pending">
+      <section class="loading">
+        <a-spin size="large" />
+      </section>
+    </template>
+    <template v-else-if="$fetchState.error">
+      Error: {{ $fetchState.error }}
+    </template>
+    <template v-else>
+      <left-menu />
+      <div id="auth-container">
+        <top-menu />
+        <main id="content">
+          <nuxt />
+        </main>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -17,6 +27,11 @@ export default {
   components: {
     LeftMenu,
     TopMenu
+  },
+  async fetch() {
+    if (!this.$store.state.deputados.length) {
+      await this.$store.dispatch('fetchDeputados');
+    }
   }
 };
 </script>

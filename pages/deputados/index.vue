@@ -58,27 +58,8 @@
         <a-tab-pane key="1" tab="Geral">
           <a-spin v-if="loadingInfo" class="loading-info" />
           <section v-else>
-            <a-list>
-              <h3>Últimos discursos</h3>
-              <a-alert
-                v-if="!speeches || !speeches.length"
-                description="Sem informaçōes"
-                show-icon
-              />
-              <a-list-item v-else v-for="(s, idx) in speeches" :key="idx">
-                <b>{{ s.faseEvento.titulo }}</b>
-                <br />
-                <a-tag color="cyan">
-                  {{ formattedDate(s.dataHoraInicio) }}
-                </a-tag>
-                <br />
-                <b>Tipo: </b> {{ s.tipoDiscurso || '-' }}
-                <br />
-                <b>Sumário: </b> {{ s.sumario || '-' }}
-                <br />
-                <b>Transcriçāo: </b> {{ s.transcricao || '-' }}
-              </a-list-item>
-            </a-list>
+            <h3>Últimos discursos</h3>
+            <deputado-speeches :speeches="speeches" />
 
             <a-divider />
 
@@ -114,13 +95,15 @@
 import DeputadoCard from '~/components/app/deputados/DeputadoCard';
 import DeputadoEvents from '~/components/app/deputados/DeputadoEvents';
 import ProposicaoListItem from '~/components/app/proposicoes/ProposicaoListItem';
+import DeputadoSpeeches from '~/components/app/deputados/DeputadoSpeeches';
 
 export default {
   layout: 'auth',
   components: {
     DeputadoCard,
     DeputadoEvents,
-    ProposicaoListItem
+    ProposicaoListItem,
+    DeputadoSpeeches
   },
   data() {
     return {
@@ -187,9 +170,6 @@ export default {
       }
       this.$auth.fetchUser();
       this.subscriptionLoading = false;
-    },
-    formattedDate(dt) {
-      return this.$moment(dt).format('LLL');
     },
     setSelectedDeputado(deputadoId) {
       const d = this.deputados.find((d) => d.id === parseInt(deputadoId, 10));

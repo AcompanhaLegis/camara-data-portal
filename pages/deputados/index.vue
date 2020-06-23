@@ -54,35 +54,58 @@
         />
       </section>
 
-      <a-spin v-if="loadingInfo" class="loading-info" />
-      <section class="deputado-info" v-else>
-        <a-list>
-          <h3>Últimos discursos</h3>
-          <a-alert
-            v-if="!speeches || !speeches.length"
-            description="Sem informaçōes"
-            show-icon
-          />
-          <a-list-item v-else v-for="(s, idx) in speeches" :key="idx">
-            <b>{{ s.faseEvento.titulo }}</b>
-            <br />
-            <a-tag color="cyan">
-              {{ formattedDate(s.dataHoraInicio) }}
-            </a-tag>
-            <br />
-            <b>Tipo: </b> {{ s.tipoDiscurso || '-' }}
-            <br />
-            <b>Sumário: </b> {{ s.sumario || '-' }}
-            <br />
-            <b>Transcriçāo: </b> {{ s.transcricao || '-' }}
-          </a-list-item>
-        </a-list>
+      <a-tabs class="deputado-info" default-active-key="1">
+        <a-tab-pane key="1" tab="Geral">
+          <a-spin v-if="loadingInfo" class="loading-info" />
+          <section v-else>
+            <a-list>
+              <h3>Últimos discursos</h3>
+              <a-alert
+                v-if="!speeches || !speeches.length"
+                description="Sem informaçōes"
+                show-icon
+              />
+              <a-list-item v-else v-for="(s, idx) in speeches" :key="idx">
+                <b>{{ s.faseEvento.titulo }}</b>
+                <br />
+                <a-tag color="cyan">
+                  {{ formattedDate(s.dataHoraInicio) }}
+                </a-tag>
+                <br />
+                <b>Tipo: </b> {{ s.tipoDiscurso || '-' }}
+                <br />
+                <b>Sumário: </b> {{ s.sumario || '-' }}
+                <br />
+                <b>Transcriçāo: </b> {{ s.transcricao || '-' }}
+              </a-list-item>
+            </a-list>
 
-        <a-divider />
+            <a-divider />
 
-        <h3>Últimos eventos</h3>
-        <deputado-events :events="events" />
-      </section>
+            <h3>Últimos eventos</h3>
+            <deputado-events :events="events" />
+          </section>
+        </a-tab-pane>
+        <a-tab-pane key="2" tab="Proposições">
+          <section>
+            <a-list>
+              <h3>Autor</h3>
+              <a-alert
+                v-if="!proposicao || !proposicao.length"
+                description="Sem informaçōes"
+                show-icon
+              />
+              <proposicao-list-item
+                v-else
+                v-for="(prop, idx) in proposicao"
+                :proposicao="prop"
+                :key="idx"
+              >
+              </proposicao-list-item>
+            </a-list>
+          </section>
+        </a-tab-pane>
+      </a-tabs>
     </section>
   </div>
 </template>
@@ -90,12 +113,14 @@
 <script>
 import DeputadoCard from '~/components/app/deputados/DeputadoCard';
 import DeputadoEvents from '~/components/app/deputados/DeputadoEvents';
+import ProposicaoListItem from '~/components/app/proposicoes/ProposicaoListItem';
 
 export default {
   layout: 'auth',
   components: {
     DeputadoCard,
-    DeputadoEvents
+    DeputadoEvents,
+    ProposicaoListItem
   },
   data() {
     return {
@@ -106,6 +131,7 @@ export default {
       metrics: null,
       events: null,
       loadingInfo: false,
+      proposicao: null,
       subscriptionError: null,
       subscriptionLoading: false
     };
@@ -181,6 +207,7 @@ export default {
       this.metrics = null;
       this.speeches = null;
       this.events = null;
+      this.proposicao = null;
       this.loadingInfo = true;
 
       const id = this.selectedDeputado.id;
@@ -198,6 +225,11 @@ export default {
 
       const resEvents = await this.$openData.$get(`/deputados/${id}/eventos`);
       this.events = resEvents.dados;
+
+      const resProp = await this.$openData.$get(
+        `/proposicoes?idDeputadoAutor=${id}`
+      );
+      this.proposicao = resProp.dados;
       this.loadingInfo = false;
     }
   },

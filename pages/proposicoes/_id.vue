@@ -25,17 +25,19 @@
         <a-tabs default-active-key="1">
           <a-tab-pane key="1" tab="Informações gerais">
             <proposicao-list-item :proposicao="proposicao" full />
-
-            <a-collapse accordion v-if="propPrincipal">
-              <a-collapse-panel
-                key="1"
-                :header="
-                  `Proposicao principal: ${propPrincipal.siglaTipo} - ${propPrincipal.numero} / ${propPrincipal.ano}`
-                "
-              >
-                <proposicao-list-item :proposicao="propPrincipal" />
-              </a-collapse-panel>
-            </a-collapse>
+            <section v-if="propPrincipal">
+              <h4 class="apensado">Apensado</h4>
+              <a-collapse accordion>
+                <a-collapse-panel
+                  key="1"
+                  :header="
+                    `Proposicao principal: ${propPrincipal.siglaTipo} - ${propPrincipal.numero} / ${propPrincipal.ano}`
+                  "
+                >
+                  <proposicao-list-item :proposicao="propPrincipal" />
+                </a-collapse-panel>
+              </a-collapse>
+            </section>
 
             <br />
             <br />
@@ -166,5 +168,8 @@ export default {
 
 .clickable {
   cursor: pointer;
+}
+.apensado {
+  color: #1890ff;
 }
 </style>

@@ -1,13 +1,18 @@
 <template>
-  <a-card hoverable class="deputado-card" style="width: 280px;">
+  <a-card
+    class="deputado-card"
+    style="width: 320px;"
+    :loading="loading"
+    :title="deputado.nome"
+  >
     <img
       v-if="!noImg"
       slot="cover"
       :alt="deputado.nome"
       :src="deputado.urlFoto"
+      style="margin-top: 2px;"
     />
     <template slot="actions" class="ant-card-actions">
-      <a-icon v-if="deputado.email" key="mail" type="mail" @click="sendMail" />
       <a-icon
         v-if="external"
         key="link"
@@ -16,10 +21,25 @@
           $router.push({ path: '/deputados', query: { id: `${deputado.id}` } })
         "
       />
+      <a :href="twitter" target="_blank" key="link" v-if="twitter">
+        <a-icon type="twitter" />
+      </a>
+      <a :href="youtube" target="_blank" key="link" v-if="youtube">
+        <a-icon type="youtube" />
+      </a>
     </template>
-    <a-card-meta :title="deputado.nome" :description="descriptionDeputado">
-      <a-avatar v-if="partido" slot="avatar" :src="partido.urlLogo" />
-    </a-card-meta>
+    <a-avatar v-if="partido" slot="avatar" :src="partido.urlLogo" />
+    <div v-if="fullInfo">
+      <div>
+        <p><b>Estado: </b>{{ deputado.siglaUf }}</p>
+        <p><b>Partido: </b>{{ fullInfo.ultimoStatus.siglaPartido }}</p>
+        <p><b>Email: </b>{{ deputado.email }}</p>
+        <p>
+          <b>Telefone Gabinete: </b
+          >{{ fullInfo.ultimoStatus.gabinete.telefone }}
+        </p>
+      </div>
+    </div>
   </a-card>
 </template>
 
@@ -43,20 +63,38 @@ export default {
   },
   data() {
     return {
-      partido: null
+      partido: null,
+      fullInfo: null,
+      loading: false
     };
   },
   computed: {
-    descriptionDeputado() {
-      return `Deputadx do estado ${this.deputado.siglaUf ||
-        'não informado'} é afilhado ao partido ${this.deputado.siglaPartido}.`;
+    twitter() {
+      const twitter = this.fullInfo?.redeSocial?.find((sm) =>
+        sm.includes('twitter')
+      );
+      if (!twitter) return null;
+      return twitter.startsWith('http') ? twitter : `https://${twitter}`;
+    },
+    youtube() {
+      const youtube = this.fullInfo?.redeSocial?.find((sm) =>
+        sm.includes('youtube')
+      );
+      if (!youtube) return null;
+      return youtube.startsWith('http') ? youtube : `https://${youtube}`;
     }
   },
   watch: {
     deputado: {
       immediate: true,
-      handler() {
+      async handler() {
         this.fetchPartido();
+        this.loading = true;
+        const { dados } = await this.$openData.$get(
+          `/deputados/${this.deputado.id}`
+        );
+        this.fullInfo = dados;
+        this.loading = false;
       }
     }
   },

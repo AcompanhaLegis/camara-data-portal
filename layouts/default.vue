@@ -12,12 +12,6 @@
         </n-link>
       </a-menu-item>
 
-      <a-menu-item class="item-right" key="plans">
-        <n-link to="/plans">
-          Planos
-        </n-link>
-      </a-menu-item>
-
       <a-menu-item class="item-right" key="index">
         <n-link to="/">
           Home

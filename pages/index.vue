@@ -9,7 +9,6 @@
             A plataforma que possibilita acompanhar proposiçōes, deputados e
             outras atividades na camara dos deputados!
           </h2>
-          <a-button size="large">Assine agora!</a-button>
         </section>
       </section>
     </main>

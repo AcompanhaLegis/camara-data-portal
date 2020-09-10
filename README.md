@@ -2,6 +2,8 @@
 
 > This is the frontend app for visualization of the acquired and processed data from "Camara dos Deputados" 
 
+It also needs the following project running under port 8000 locally: https://github.com/AcompanhaLegis/acompanha-legis-api
+
 ## Build Setup
 
 ```bash

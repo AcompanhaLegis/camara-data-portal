@@ -12,7 +12,6 @@
             placeholder="Senha"
             type="password"
             v-model="credentials.password"
-            @keyup.enter="doLogin"
           />
         </a-form-item>
 
@@ -54,11 +53,12 @@ export default {
         });
         this.$router.push('/proposicoes');
       } catch (err) {
-        if (err.response?.status) {
+        if (err.response?.status === 400) {
           this.$notification.error({
             message: 'Credenciais incorretas',
             description: 'Email ou senha incorretos, revise seus dados!'
           });
+          return;
         }
         this.$notification.error({
           message: 'Erro',

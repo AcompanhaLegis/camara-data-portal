@@ -1,5 +1,5 @@
 <template>
-  <div id="left-menu">
+  <div :class="['left-menu', { collapsed }]">
     <div class="logo">
       <img src="~/assets/logo_light.svg" />
     </div>
@@ -8,6 +8,7 @@
       mode="inline"
       theme="dark"
       class="full-menu"
+      :inline-collapsed="collapsed"
     >
       <a-menu-item key="deputados">
         <n-link to="/deputados">
@@ -52,11 +53,21 @@
         <span>Logout</span>
       </a-menu-item>
     </a-menu>
+    <a-icon
+      class="collapse-icon"
+      :type="collapsed ? 'right-circle' : 'left-circle'"
+      @click="collapsed = !collapsed"
+    />
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      collapsed: false
+    };
+  },
   computed: {
     favoriteProposicoes() {
       return (
@@ -68,7 +79,7 @@ export default {
 </script>
 
 <style lang="scss">
-#left-menu {
+.left-menu {
   width: 260px;
   height: 100vh;
   overflow: hidden;
@@ -89,6 +100,19 @@ export default {
   .last {
     position: absolute;
     bottom: 0;
+  }
+  .collapse-icon {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    font-size: 1rem;
+    color: white;
+  }
+}
+.collapsed {
+  width: fit-content;
+  > ul {
+    margin-right: 0;
   }
 }
 </style>

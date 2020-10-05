@@ -53,8 +53,8 @@ export default {
 #auth-container {
   height: 100vh;
   overflow-y: auto;
-  width: calc(100vw - 260px);
   display: flex;
+  flex: 1;
   flex-direction: column;
 }
 

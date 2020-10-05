@@ -1,7 +1,25 @@
 <template>
   <div :class="['left-menu', { collapsed }]">
     <div class="logo">
-      <img src="~/assets/logo_light.svg" />
+      <a-button
+        class="collapsed-button"
+        type="primary"
+        shape="circle"
+        @click="collapsed = !collapsed"
+      >
+        <a-icon
+          class="collapse-icon"
+          :type="collapsed ? 'right-circle' : 'left-circle'"
+        />
+      </a-button>
+      <br />
+      <img
+        :src="
+          require(!collapsed
+            ? '~/assets/logo_light.svg'
+            : '~/assets/logo-light-notext.svg')
+        "
+      />
     </div>
     <a-menu
       :default-selected-keys="[$nuxt.$route.name]"
@@ -53,11 +71,6 @@
         <span>Logout</span>
       </a-menu-item>
     </a-menu>
-    <a-icon
-      class="collapse-icon"
-      :type="collapsed ? 'right-circle' : 'left-circle'"
-      @click="collapsed = !collapsed"
-    />
   </div>
 </template>
 
@@ -86,7 +99,7 @@ export default {
   position: relative;
   .logo {
     background-color: #001529;
-    padding: 20px 0;
+    padding: 5px 0 20px 0;
     text-align: center;
     border-bottom: 1px solid white;
     > img {
@@ -101,18 +114,27 @@ export default {
     position: absolute;
     bottom: 0;
   }
+  .collapsed-button {
+    position: fixed;
+    left: 1px;
+    background-color: #001529;
+    border: none;
+  }
   .collapse-icon {
-    position: absolute;
-    top: 30px;
-    left: 20px;
     font-size: 1rem;
     color: white;
   }
 }
 .collapsed {
-  width: fit-content;
+  width: 80px;
   > ul {
     margin-right: 0;
+  }
+  .logo {
+    > img {
+      max-width: 50%;
+      padding: 10px 0 0 0;
+    }
   }
 }
 </style>

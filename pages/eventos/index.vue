@@ -1,25 +1,37 @@
 <template>
-  <a-calendar @panelChange="changeMonth">
-    <ul slot="dateCellRender" slot-scope="value" class="events">
-      <li v-for="item in getListData(value)" :key="item.id">
-        <n-link :to="`/eventos/${item.id}`">
-          <a-tag class="clickable" color="cyan">{{ item.descricaoTipo }}</a-tag>
-        </n-link>
-      </li>
-    </ul>
-  </a-calendar>
+  <div class="events">
+    <template v-if="$fetchState.pending">
+      <a-spin size="large" />
+    </template>
+    <template v-else-if="$fetchState.error">
+      Error: {{ $fetchState.error }}
+    </template>
+    <template v-else>
+      <a-calendar @panelChange="changeMonth">
+        <ul slot="dateCellRender" slot-scope="value" class="events">
+          <li v-for="item in getListData(value)" :key="item.id">
+            <n-link :to="`/eventos/${item.id}`">
+              <a-tag class="clickable" color="cyan">{{
+                item.descricaoTipo
+              }}</a-tag>
+            </n-link>
+          </li>
+        </ul>
+      </a-calendar>
+    </template>
+  </div>
 </template>
 <script>
 export default {
   layout: 'auth',
+  async fetch() {
+    const today = this.$moment();
+    await this.fetchEventos(today.month(), today.year());
+  },
   data() {
     return {
       events: []
     };
-  },
-  created() {
-    const today = this.$moment();
-    this.fetchEventos(today.month(), today.year());
   },
   methods: {
     changeMonth(date) {
@@ -45,7 +57,7 @@ export default {
         .year(year)
         .endOf('month')
         .format('YYYY-MM-DD');
-      this.$openData
+      return this.$openData
         .get(
           `/eventos?dataInicio=${initialDate}&dataFim=${finalDate}&ordem=ASC&ordenarPor=dataHoraInicio`
         )

@@ -2,7 +2,7 @@
   <div id="home">
     <main class="full-height-section">
       <section class="presentation">
-        <img src="~/assets/home_laptop.png" class="home-laptop" />
+        <img src="~/assets/home_laptop.png" class="home-laptop" :alt="home_laptop" />
         <section class="presentation-text">
           <h1>Acompanha Legis</h1>
           <h2>

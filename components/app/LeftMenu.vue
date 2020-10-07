@@ -1,7 +1,7 @@
 <template>
   <div id="left-menu">
     <div class="logo">
-      <img src="~/assets/logo_light.svg" />
+      <img src="~/assets/logo_light.svg" :alt="logo_light" />
     </div>
     <a-menu
       :default-selected-keys="[$nuxt.$route.name]"

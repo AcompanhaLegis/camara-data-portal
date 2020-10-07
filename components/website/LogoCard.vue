@@ -1,7 +1,7 @@
 <template>
   <a-card id="logo-card">
     <header class="login-logo">
-      <img src="~/assets/logo_dark.svg" />
+      <img src="~/assets/logo_dark.svg" :alt="logo_dark" />
     </header>
     <section class="content">
       <slot></slot>

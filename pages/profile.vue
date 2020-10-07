@@ -129,7 +129,7 @@ export default {
         return;
       }
       try {
-        await this.$axios.post('/reset_password/', { ...this.newPass });
+        await this.$axios.post('/change_password/', { ...this.newPass });
         this.$auth.logout();
       } catch (err) {
         this.passwordErr = err;

@@ -1,6 +1,7 @@
 <template>
   <a-list-item>
     <a-button
+      v-if="$auth.loggedIn"
       icon="bell"
       slot="actions"
       @click="subscriptionHandle"
@@ -10,6 +11,7 @@
     >
     </a-button>
     <a-button
+      v-if="$auth.loggedIn"
       icon="heart"
       slot="actions"
       :ghost="!favorite"
@@ -27,7 +29,7 @@
 
     <a-list-item-meta :description="proposicao.ementa">
       <h3 slot="title">
-        {{ this.proposicaoNome }}
+        {{ proposicaoNome }}
         {{ proposicao.ano || 'Ano desconhecido' }}
       </h3>
     </a-list-item-meta>
@@ -54,13 +56,20 @@ export default {
   },
   computed: {
     favorite() {
-      return this.$auth.user.favorite_proposicoes.find(
-        (p) => p.proposicao_id === this.proposicao.id
+      return (
+        this.$auth.loggedIn &&
+        this.$auth.user.favorite_proposicoes.find(
+          (p) => p.proposicao_id === this.proposicao.id
+        )
       );
     },
     subscribed() {
-      return this.$auth.user.subscriptions?.find(
-        (s) => s.external_model === 'P' && s.external_id === this.proposicao.id
+      return (
+        this.$auth.loggedIn &&
+        this.$auth.user.subscriptions?.find(
+          (s) =>
+            s.external_model === 'P' && s.external_id === this.proposicao.id
+        )
       );
     },
     proposicaoNome() {

@@ -12,7 +12,7 @@
         <a-divider />
 
         <div class="lista-proposicoes">
-          <a-spin size="large" v-if="loading" />
+          <a-spin v-if="loading" size="large" />
           <a-alert
             v-if="!loading && !proposicoes.length"
             description="Nenhum resultado para pesquisa."
@@ -29,9 +29,9 @@
           <br />
           <br />
           <br />
-          <a-button v-if="nextPage" block type="primary" @click="loadMore"
-            >Carregar mais</a-button
-          >
+          <a-button v-if="nextPage" block type="primary" @click="loadMore">
+            Carregar mais
+          </a-button>
         </div>
       </section>
     </template>
@@ -43,6 +43,7 @@ import ProposicaoSearch from '~/components/app/proposicoes/ProposicaoSearch';
 import ProposicaoListItem from '~/components/app/proposicoes/ProposicaoListItem';
 
 export default {
+  auth: false,
   layout: 'auth',
   components: {
     ProposicaoSearch,

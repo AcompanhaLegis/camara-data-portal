@@ -88,6 +88,7 @@
 import DeputadoCard from '~/components/app/deputados/DeputadoCard';
 import ProposicaoListItem from '~/components/app/proposicoes/ProposicaoListItem';
 export default {
+  auth: false,
   layout: 'auth',
   components: {
     DeputadoCard,

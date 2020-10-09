@@ -99,6 +99,7 @@ import TramitacaoCard from '~/components/app/proposicoes/TramitacaoCard';
 import ProposicaoListItem from '~/components/app/proposicoes/ProposicaoListItem';
 
 export default {
+  auth: false,
   layout: 'auth',
   components: {
     TramitacaoCard,

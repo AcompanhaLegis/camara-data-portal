@@ -5,9 +5,9 @@
         v-model="query"
         style="width: 400px"
         placeholder="Procurar por deputado"
-        @select="setSelectedDeputado"
         label=""
         allowClear
+        @select="setSelectedDeputado"
       >
         <template slot="dataSource">
           <a-select-option
@@ -41,8 +41,8 @@
         <br />
         <a-button
           v-if="notSubscribed"
-          @click="subscribe"
           :disabled="subscriptionLoading"
+          @click="subscribe"
           ><a-icon type="bell" />Ativar notificaçōes</a-button
         >
         <a-alert v-else type="info" description="Notificaçōes ativas" />
@@ -77,10 +77,10 @@
                 show-icon
               />
               <proposicao-list-item
-                v-else
                 v-for="(prop, idx) in proposicao"
-                :proposicao="prop"
+                v-else
                 :key="idx"
+                :proposicao="prop"
               >
               </proposicao-list-item>
             </a-list>
@@ -98,6 +98,7 @@ import ProposicaoListItem from '~/components/app/proposicoes/ProposicaoListItem'
 import DeputadoSpeeches from '~/components/app/deputados/DeputadoSpeeches';
 
 export default {
+  auth: false,
   layout: 'auth',
   components: {
     DeputadoCard,
@@ -125,6 +126,7 @@ export default {
     },
     notSubscribed() {
       if (
+        this.$auth.loggedIn &&
         this.$auth.user.subscriptions.find(
           (s) =>
             s.external_model === 'D' &&

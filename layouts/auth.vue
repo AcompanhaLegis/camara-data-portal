@@ -12,6 +12,7 @@
       <left-menu />
       <div id="auth-container">
         <top-menu />
+        <bread-crumbs />
         <main id="content">
           <nuxt />
         </main>
@@ -23,10 +24,12 @@
 <script>
 import LeftMenu from '~/components/app/LeftMenu.vue';
 import TopMenu from '~/components/app/TopMenu.vue';
+import BreadCrumbs from '~/components/app/BreadCrumbs.vue';
 export default {
   components: {
     LeftMenu,
-    TopMenu
+    TopMenu,
+    BreadCrumbs
   },
   async fetch() {
     if (!this.$store.state.deputados.length) {

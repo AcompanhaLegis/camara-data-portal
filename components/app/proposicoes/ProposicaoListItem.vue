@@ -27,7 +27,7 @@
 
     <a-list-item-meta :description="proposicao.ementa">
       <h3 slot="title">
-        {{ this.proposicaoNome }}
+        {{ proposicaoNome }}
         {{ proposicao.ano || 'Ano desconhecido' }}
       </h3>
     </a-list-item-meta>

@@ -1,17 +1,17 @@
 <template>
   <a-list-item>
     <a-button
-      icon="bell"
       slot="actions"
-      @click="subscriptionHandle"
+      icon="bell"
       shape="circle"
       :type="!subscribed ? 'default' : 'primary'"
       :disabled="loading"
+      @click="subscriptionHandle"
     >
     </a-button>
     <a-button
-      icon="heart"
       slot="actions"
+      icon="heart"
       :ghost="!favorite"
       type="danger"
       :disabled="loading"

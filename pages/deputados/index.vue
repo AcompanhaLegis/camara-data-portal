@@ -5,9 +5,9 @@
         v-model="query"
         style="width: 400px"
         placeholder="Procurar por deputado"
-        @select="setSelectedDeputado"
         label=""
-        allowClear
+        allow-clear
+        @select="setSelectedDeputado"
       >
         <template slot="dataSource">
           <a-select-option
@@ -41,8 +41,8 @@
         <br />
         <a-button
           v-if="notSubscribed"
-          @click="subscribe"
           :disabled="subscriptionLoading"
+          @click="subscribe"
           ><a-icon type="bell" />Ativar notificaçōes</a-button
         >
         <a-alert v-else type="info" description="Notificaçōes ativas" />
@@ -77,10 +77,10 @@
                 show-icon
               />
               <proposicao-list-item
-                v-else
                 v-for="(prop, idx) in proposicao"
-                :proposicao="prop"
+                v-else
                 :key="idx"
+                :proposicao="prop"
               >
               </proposicao-list-item>
             </a-list>
@@ -144,6 +144,11 @@ export default {
           .slice(0, 20);
       }
       return this.deputados.slice(0, 20);
+    }
+  },
+  watch: {
+    selectedDeputado() {
+      this.getDeputadoDetails();
     }
   },
   mounted() {
@@ -211,11 +216,6 @@ export default {
       );
       this.proposicao = resProp.dados;
       this.loadingInfo = false;
-    }
-  },
-  watch: {
-    selectedDeputado() {
-      this.getDeputadoDetails();
     }
   },
   watchQuery(q, oldQ) {

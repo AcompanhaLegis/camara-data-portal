@@ -6,13 +6,13 @@
       class="menu"
       :default-selected-keys="[$nuxt.$route.name]"
     >
-      <a-menu-item class="item-right" key="login">
+      <a-menu-item key="login" class="item-right">
         <n-link :to="loginRoute">
           Login
         </n-link>
       </a-menu-item>
 
-      <a-menu-item class="item-right" key="index">
+      <a-menu-item key="index" class="item-right">
         <n-link to="/">
           Home
         </n-link>

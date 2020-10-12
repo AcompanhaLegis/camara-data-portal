@@ -12,7 +12,7 @@
         <a-divider />
 
         <div class="lista-proposicoes">
-          <a-spin size="large" v-if="loading" />
+          <a-spin v-if="loading" size="large" />
           <a-alert
             v-if="!loading && !proposicoes.length"
             description="Nenhum resultado para pesquisa."

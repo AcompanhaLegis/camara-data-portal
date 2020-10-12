@@ -1,19 +1,19 @@
 <template>
   <a-menu
+    id="top-menu"
     mode="horizontal"
     theme="light"
     :style="{ boxShadow: '0 -4px 10px #1890ff' }"
     :default-selected-keys="[$nuxt.$route.name]"
-    id="top-menu"
   >
-    <a-menu-item class="item-right" key="profile">
+    <a-menu-item key="profile" class="item-right">
       <n-link to="/profile">
         <a-icon type="user" />
         Perfil
       </n-link>
     </a-menu-item>
 
-    <a-menu-item class="item-right" key="notifications" v-if="false">
+    <a-menu-item v-if="false" key="notifications" class="item-right">
       <a-icon type="bell" />
       Notificaçōes
     </a-menu-item>

@@ -2,14 +2,14 @@
   <logo-card>
     <a-form @submit.prevent="doLogin">
       <a-form-item label="Email">
-        <a-input placeholder="Email" v-model="credentials.username" />
+        <a-input v-model="credentials.username" placeholder="Email" />
       </a-form-item>
 
       <a-form-item label="Senha">
         <a-input
+          v-model="credentials.password"
           placeholder="Senha"
           type="password"
-          v-model="credentials.password"
         />
       </a-form-item>
 

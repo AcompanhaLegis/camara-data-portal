@@ -42,8 +42,8 @@
             <br />
             <br />
             <a
-              :href="proposicao.urlInteiroTeor"
               v-if="proposicao.urlInteiroTeor"
+              :href="proposicao.urlInteiroTeor"
               target="_blank"
             >
               <a-button icon="download" type="secondary">

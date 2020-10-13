@@ -6,13 +6,19 @@
       class="menu"
       :default-selected-keys="[$nuxt.$route.name]"
     >
-      <a-menu-item class="item-right" key="login">
-        <n-link :to="loginRoute">
+      <a-menu-item v-if="!$auth.loggedIn" key="login" class="item-right">
+        <n-link to="/login">
           Login
         </n-link>
       </a-menu-item>
 
-      <a-menu-item class="item-right" key="index">
+      <a-menu-item key="proposicoes" class="item-right">
+        <n-link to="/proposicoes">
+          Proposicoes
+        </n-link>
+      </a-menu-item>
+
+      <a-menu-item key="index" class="item-right">
         <n-link to="/">
           Home
         </n-link>
@@ -23,16 +29,7 @@
 </template>
 
 <script>
-export default {
-  computed: {
-    loginRoute() {
-      if (this.$auth.loggedIn) {
-        return '/proposicoes';
-      }
-      return '/login';
-    }
-  }
-};
+export default {};
 </script>
 
 <style>

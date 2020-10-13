@@ -23,6 +23,7 @@
 </template>
 <script>
 export default {
+  auth: false,
   layout: 'auth',
   async fetch() {
     const today = this.$moment();

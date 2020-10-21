@@ -98,6 +98,7 @@ import ProposicaoListItem from '~/components/app/proposicoes/ProposicaoListItem'
 import DeputadoSpeeches from '~/components/app/deputados/DeputadoSpeeches';
 
 export default {
+  auth: false,
   layout: 'auth',
   components: {
     DeputadoCard,
@@ -125,6 +126,7 @@ export default {
     },
     notSubscribed() {
       if (
+        this.$auth.loggedIn &&
         this.$auth.user.subscriptions.find(
           (s) =>
             s.external_model === 'D' &&

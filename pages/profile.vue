@@ -109,7 +109,7 @@ export default {
   },
   computed: {
     subscriptions() {
-      return this.$auth.user.subscriptions;
+      return (this.$auth.loggedIn && this.$auth.user.subscriptions) || [];
     },
     subProposicoes() {
       return this.subscriptions.filter((s) => s.external_model === 'P');

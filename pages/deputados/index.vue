@@ -6,7 +6,7 @@
         style="width: 400px"
         placeholder="Procurar por deputado"
         label=""
-        allowClear
+        allow-clear
         @select="setSelectedDeputado"
       >
         <template slot="dataSource">

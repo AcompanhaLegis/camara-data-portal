@@ -2,7 +2,6 @@
   <a-list-item>
     <a-button
       v-if="$auth.loggedIn"
-      icon="bell"
       slot="actions"
       icon="bell"
       shape="circle"
@@ -13,7 +12,6 @@
     </a-button>
     <a-button
       v-if="$auth.loggedIn"
-      icon="heart"
       slot="actions"
       icon="heart"
       :ghost="!favorite"

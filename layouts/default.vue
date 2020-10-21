@@ -6,7 +6,7 @@
       class="menu"
       :default-selected-keys="[$nuxt.$route.name]"
     >
-
+      <<<<<<< HEAD ======= >>>>>>> master
       <a-menu-item v-if="!$auth.loggedIn" key="login" class="item-right">
         <n-link to="/login">
           Login

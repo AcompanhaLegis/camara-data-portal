@@ -46,15 +46,15 @@
           </a-tab-pane>
 
           <a-tab-pane
+            v-if="(deputados && deputados.length) || loadingDeputados"
             key="2"
             tab="Participantes"
-            v-if="(deputados && deputados.length) || loadingDeputados"
           >
             <section class="deputados">
-              <a-spin size="large" v-if="loadingDeputados" />
+              <a-spin v-if="loadingDeputados" size="large" />
               <deputado-card
-                v-else
                 v-for="deputado in deputados"
+                v-else
                 :key="deputado.id"
                 :deputado="deputado"
                 no-img
@@ -63,13 +63,13 @@
             </section>
           </a-tab-pane>
           <a-tab-pane
+            v-if="(pauta && pauta.length) || loadingPauta"
             key="3"
             tab="Pauta"
-            v-if="(pauta && pauta.length) || loadingPauta"
           >
             <section class="proposicoes">
-              <a-spin size="large" v-if="loadingPauta" />
-              <section v-else v-for="item in pauta" :key="item.ordem">
+              <a-spin v-if="loadingPauta" size="large" />
+              <section v-for="item in pauta" v-else :key="item.ordem">
                 <a-tag color="orange">
                   {{ item.regime }} - Ordem {{ item.ordem }}</a-tag
                 >
@@ -103,6 +103,15 @@ export default {
     );
     this.event = response.data.dados;
   },
+  data() {
+    return {
+      event: null,
+      deputados: null,
+      pauta: null,
+      loadingDeputados: false,
+      loadingPauta: false
+    };
+  },
   mounted() {
     this.loadingDeputados = true;
     this.loadingPauta = true;
@@ -123,15 +132,6 @@ export default {
       .finally(() => {
         this.loadingPauta = false;
       });
-  },
-  data() {
-    return {
-      event: null,
-      deputados: null,
-      pauta: null,
-      loadingDeputados: false,
-      loadingPauta: false
-    };
   },
   methods: {
     formattedDate(dt) {

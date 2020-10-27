@@ -2,18 +2,18 @@
   <a-list-item>
     <a-button
       v-if="$auth.loggedIn"
-      icon="bell"
       slot="actions"
-      @click="subscriptionHandle"
+      icon="bell"
       shape="circle"
       :type="!subscribed ? 'default' : 'primary'"
       :disabled="loading"
+      @click="subscriptionHandle"
     >
     </a-button>
     <a-button
       v-if="$auth.loggedIn"
-      icon="heart"
       slot="actions"
+      icon="heart"
       :ghost="!favorite"
       type="danger"
       :disabled="loading"

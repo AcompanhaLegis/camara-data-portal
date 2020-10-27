@@ -40,11 +40,11 @@
           <a-list-item v-for="s in subProposicoes" :key="s.id">
             {{ s.name }}
             <a-popconfirm
+              slot="actions"
               title="Confirmar"
               ok-text="Sim"
               cancel-text="Nāo"
               @confirm="deleteSubscription(s.id)"
-              slot="actions"
             >
               <a-button type="danger">
                 <a-icon type="delete" />
@@ -77,11 +77,11 @@
               <a-icon type="link" />
             </a-button>
             <a-popconfirm
+              slot="actions"
               title="Confirmar"
               ok-text="Sim"
               cancel-text="Nāo"
               @confirm="deleteSubscription(s.id)"
-              slot="actions"
             >
               <a-button type="danger">
                 <a-icon type="delete" />

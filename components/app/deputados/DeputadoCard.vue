@@ -21,10 +21,10 @@
           $router.push({ path: '/deputados', query: { id: `${deputado.id}` } })
         "
       />
-      <a :href="twitter" target="_blank" key="link" v-if="twitter">
+      <a v-if="twitter" key="link" :href="twitter" target="_blank">
         <a-icon type="twitter" />
       </a>
-      <a :href="youtube" target="_blank" key="link" v-if="youtube">
+      <a v-if="youtube" key="link" :href="youtube" target="_blank">
         <a-icon type="youtube" />
       </a>
     </template>

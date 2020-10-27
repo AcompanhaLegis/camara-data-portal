@@ -25,24 +25,24 @@
 
         <a-form-item label="Número">
           <a-input
-            type="number"
             v-model.number="search.numero"
+            type="number"
             @keyup.enter="onSearch"
           />
         </a-form-item>
 
         <a-form-item label="Ano">
           <a-input
-            type="number"
             v-model.number="search.ano"
+            type="number"
             @keyup.enter="onSearch"
           />
         </a-form-item>
 
         <a-form-item label="Data de apresentaçāo">
           <a-date-picker
-            :locale="$calendarLocale"
             v-model="search.dataApresentacaoInicio"
+            :locale="$calendarLocale"
             format="DD/MM/YYYY"
           />
         </a-form-item>
@@ -51,8 +51,8 @@
       <a-form layout="vertical">
         <a-form-item label="Temas:">
           <a-select
-            mode="multiple"
             v-model="search.codTema"
+            mode="multiple"
             :filter-option="false"
           >
             <a-select-option

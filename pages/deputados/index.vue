@@ -6,7 +6,7 @@
         style="width: 400px"
         placeholder="Procurar por deputado"
         label=""
-        allowClear
+        allow-clear
         @select="setSelectedDeputado"
       >
         <template slot="dataSource">
@@ -148,6 +148,11 @@ export default {
       return this.deputados.slice(0, 20);
     }
   },
+  watch: {
+    selectedDeputado() {
+      this.getDeputadoDetails();
+    }
+  },
   mounted() {
     this.$nextTick(() => {
       if (this.$route.query.id && !this.selectedDeputado) {
@@ -213,11 +218,6 @@ export default {
       );
       this.proposicao = resProp.dados;
       this.loadingInfo = false;
-    }
-  },
-  watch: {
-    selectedDeputado() {
-      this.getDeputadoDetails();
     }
   },
   watchQuery(q, oldQ) {

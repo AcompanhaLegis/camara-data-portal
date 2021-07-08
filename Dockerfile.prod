@@ -1,18 +1,17 @@
-FROM node:12
+FROM node:12-alpine
+
+WORKDIR /tmp/build
 
 ENV HOST 0.0.0.0
-ENV NODE_ENV=development
-WORKDIR /opt/acompanha_legis
 
-COPY . .
+COPY . . 
+
+RUN cd /tmp/build
 
 RUN yarn install
 
-ENV NODE_ENV=production
+RUN yarn generate
 
-RUN yarn build
+RUN mkdir -p /var/acompanha_legis/www/
 
-EXPOSE "3000:3000"
-
-CMD ["yarn", "start"]
-
+RUN cp -r dist/* /var/acompanha_legis/www/

@@ -5,7 +5,7 @@
       description="Sem informaçōes"
       show-icon
     />
-    <a-list-item v-else v-for="(s, idx) in speeches" :key="idx">
+    <a-list-item v-for="(s, idx) in speeches" v-else :key="idx">
       <b>{{ s.faseEvento.titulo }}</b>
       <br />
       <a-tag color="cyan">

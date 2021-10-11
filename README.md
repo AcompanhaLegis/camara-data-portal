@@ -4,6 +4,10 @@
 
 It also needs the following project running under port 8000 locally: https://github.com/AcompanhaLegis/acompanha-legis-api
 
+# Live Version:
+
+http://acompanhalegis.info/
+
 ## Build Setup
 
 ```bash

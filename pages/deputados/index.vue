@@ -210,7 +210,9 @@ export default {
       );
       this.speeches = resSpeeches.dados;
 
-      const resEvents = await this.$openData.$get(`/deputados/${id}/eventos`);
+      const resEvents = await this.$openData.$get(
+        `/deputados/${id}/eventos?ordem=desc&ordenarPor=dataHoraInicio`
+      );
       this.events = resEvents.dados;
 
       const resProp = await this.$openData.$get(

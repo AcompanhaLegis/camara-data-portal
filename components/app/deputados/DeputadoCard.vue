@@ -33,7 +33,10 @@
       <div>
         <p><b>Estado: </b>{{ deputado.siglaUf }}</p>
         <p><b>Partido: </b>{{ fullInfo.ultimoStatus.siglaPartido }}</p>
-        <p><b>Email: </b>{{ deputado.email }}</p>
+        <a-tooltip>
+          <template slot="title">{{ deputado.email }}</template>
+          <p class="email"><b>Email: </b>{{ deputado.email }}</p>
+        </a-tooltip>
         <p>
           <b>Telefone Gabinete: </b
           >{{ fullInfo.ultimoStatus.gabinete.telefone }}
@@ -112,3 +115,10 @@ export default {
   }
 };
 </script>
+<style scoped>
+.email {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+</style>

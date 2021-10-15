@@ -46,6 +46,26 @@
             format="DD/MM/YYYY"
           />
         </a-form-item>
+        <a-form-item label="Autor">
+          <a-auto-complete
+            v-model="query"
+            style="width: 400px"
+            placeholder="Procurar por deputado"
+            label=""
+            allow-clear
+            @select="setSelectedDeputado"
+          >
+            <template slot="dataSource">
+              <a-select-option
+                v-for="d in filteredDeputados"
+                :key="d.id"
+                :value="d.id.toString()"
+              >
+                {{ `${d.nome} - ${d.siglaUf} (${d.siglaPartido})`.trim() }}
+              </a-select-option>
+            </template>
+          </a-auto-complete>
+        </a-form-item>
       </a-form>
 
       <a-form layout="vertical">
@@ -89,10 +109,12 @@ export default {
         numero: '',
         siglaTipo: '',
         ano: '',
+        idDeputadoAutor: null,
         dataApresentacaoInicio: null
       },
       lastSearch: '',
-      temas: []
+      temas: [],
+      query: ''
     };
   },
   computed: {
@@ -108,11 +130,24 @@ export default {
     },
     deputados() {
       return this.$store.state.deputados;
+    },
+    filteredDeputados() {
+      if (this.query) {
+        return this.deputados
+          .filter((d) => {
+            return d.nome.toLowerCase().includes(this.query.toLowerCase());
+          })
+          .slice(0, 20);
+      }
+      return this.deputados.slice(0, 20);
     }
   },
   methods: {
     getTipoLabel(tipo) {
       return `${tipo.sigla} (${tipo.nome})`;
+    },
+    getLabel(d) {
+      return `${d.nome} - ${d.siglaUf} (${d.siglaPartido})`;
     },
     onSearch() {
       if (this.lastSearch !== JSON.stringify(this.search)) {
@@ -126,6 +161,15 @@ export default {
             : null
         });
         this.lastSearch = JSON.stringify(this.search);
+      }
+    },
+    setSelectedDeputado(deputadoId) {
+      const d = this.deputados.find((d) => d.id === parseInt(deputadoId, 10));
+      if (d) {
+        this.$router.push({ query: { id: deputadoId } });
+
+        this.query = this.getLabel(d);
+        this.search.idDeputadoAutor = d.id;
       }
     }
   }

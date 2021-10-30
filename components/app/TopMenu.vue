@@ -24,8 +24,8 @@
       <a-icon type="bell" />
       Notificaçōes
     </a-menu-item>
-    <a-dropdown class="fav-item-margin" v-if="$auth.loggedIn" key="favoritos">
-      <a-menu class="fav-list" slot="overlay" @click="handleMenuClick">
+    <a-dropdown v-if="$auth.loggedIn" key="favoritos" class="fav-item-margin">
+      <a-menu slot="overlay" class="fav-list" @click="handleMenuClick">
         <template v-if="$auth.user.favorite_proposicoes.length">
           <a-menu-item>
             <a-input
@@ -41,7 +41,7 @@
             </n-link>
           </a-menu-item>
         </template>
-        <a-menu-item class="no-favs" v-else>Não existem favoritos</a-menu-item>
+        <a-menu-item v-else class="no-favs">Não existem favoritos</a-menu-item>
       </a-menu>
       <a-button class="item-right">
         <a-icon type="heart" />Favoritos <a-icon type="down" />
@@ -56,11 +56,6 @@ export default {
       searchFav: ''
     };
   },
-  methods: {
-    handleMenuClick(e) {
-      console.log('click', e);
-    }
-  },
   computed: {
     favoriteProposicoes() {
       return (
@@ -71,6 +66,11 @@ export default {
           .toLowerCase()
           .includes(this.searchFav.toLowerCase());
       });
+    }
+  },
+  methods: {
+    handleMenuClick(e) {
+      console.log('click', e);
     }
   }
 };

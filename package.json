@@ -11,8 +11,9 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "format": "prettier --write \"{pages,components,layouts,plugins}/**/*.{vue,js}\"",
-    "format:check": "prettier \"{pages,components,layouts,plugins}/**/*.{vue,js}\"",
-    "test": "jest"
+    "format:check": "prettier -c \"{pages,components,layouts,plugins}/**/*.{vue,js}\"",
+    "test": "jest",
+    "test:ci": "jest --ci"
   },
   "dependencies": {
     "@nuxtjs/auth": "^4.9.1",

@@ -1,13 +1,32 @@
 <template>
-  <div id="left-menu">
+  <div :class="['left-menu', { collapsed }]">
     <div class="logo">
-      <img src="~/assets/logo_light.svg" />
+      <a-button
+        class="collapsed-button"
+        type="primary"
+        shape="circle"
+        @click="collapsed = !collapsed"
+      >
+        <a-icon
+          class="collapse-icon"
+          :type="collapsed ? 'right-circle' : 'left-circle'"
+        />
+      </a-button>
+      <br />
+      <img
+        :src="
+          require(!collapsed
+            ? '~/assets/logo_light.svg'
+            : '~/assets/logo-light-notext.svg')
+        "
+      />
     </div>
     <a-menu
       :default-selected-keys="[$nuxt.$route.name]"
       mode="inline"
       theme="dark"
       class="full-menu"
+      :inline-collapsed="collapsed"
     >
       <a-menu-item key="deputados">
         <n-link to="/deputados">
@@ -38,15 +57,32 @@
   </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      collapsed: false
+    };
+  },
+  computed: {
+    favoriteProposicoes() {
+      return (
+        (this.$auth.loggedIn && this.$auth.user.favorite_proposicoes) || []
+      );
+    }
+  }
+};
+</script>
+
 <style lang="scss">
-#left-menu {
+.left-menu {
   width: 260px;
   height: 100vh;
   overflow: hidden;
   position: relative;
   .logo {
     background-color: #001529;
-    padding: 20px 0;
+    padding: 5px 0 20px 0;
     text-align: center;
     border-bottom: 1px solid white;
     > img {
@@ -60,6 +96,28 @@
   .last {
     position: absolute;
     bottom: 0;
+  }
+  .collapsed-button {
+    position: fixed;
+    left: 1px;
+    background-color: #001529;
+    border: none;
+  }
+  .collapse-icon {
+    font-size: 1rem;
+    color: white;
+  }
+}
+.collapsed {
+  width: 80px;
+  > ul {
+    margin-right: 0;
+  }
+  .logo {
+    > img {
+      max-width: 50%;
+      padding: 10px 0 0 0;
+    }
   }
 }
 </style>

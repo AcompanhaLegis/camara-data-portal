@@ -44,14 +44,11 @@ import ProposicaoListItem from '~/components/app/proposicoes/ProposicaoListItem'
 
 export default {
   auth: false,
-  layout: 'auth',
   components: {
     ProposicaoSearch,
     ProposicaoListItem
   },
-  async fetch() {
-    await this.fetchProposicoes({ ordem: 'DESC', ordenarPor: 'id' });
-  },
+  layout: 'auth',
   data() {
     return {
       query: '',
@@ -59,6 +56,9 @@ export default {
       loading: false,
       nextPage: ''
     };
+  },
+  async fetch() {
+    await this.fetchProposicoes({ ordem: 'DESC', ordenarPor: 'id' });
   },
   methods: {
     async fetchProposicoes(queryObj) {

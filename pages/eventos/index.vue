@@ -25,14 +25,14 @@
 export default {
   auth: false,
   layout: 'auth',
-  async fetch() {
-    const today = this.$moment();
-    await this.fetchEventos(today.month(), today.year());
-  },
   data() {
     return {
       events: []
     };
+  },
+  async fetch() {
+    const today = this.$moment();
+    await this.fetchEventos(today.month(), today.year());
   },
   methods: {
     changeMonth(date) {

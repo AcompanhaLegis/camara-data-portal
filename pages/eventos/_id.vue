@@ -89,19 +89,13 @@ import DeputadoCard from '~/components/app/deputados/DeputadoCard';
 import ProposicaoListItem from '~/components/app/proposicoes/ProposicaoListItem';
 export default {
   auth: false,
-  layout: 'auth',
   components: {
     DeputadoCard,
     ProposicaoListItem
   },
+  layout: 'auth',
   validate({ params }) {
     return /^\d+$/.test(params.id);
-  },
-  async fetch() {
-    const response = await this.$openData.get(
-      `/eventos/${this.$route.params.id}`
-    );
-    this.event = response.data.dados;
   },
   data() {
     return {
@@ -111,6 +105,12 @@ export default {
       loadingDeputados: false,
       loadingPauta: false
     };
+  },
+  async fetch() {
+    const response = await this.$openData.get(
+      `/eventos/${this.$route.params.id}`
+    );
+    this.event = response.data.dados;
   },
   mounted() {
     this.loadingDeputados = true;

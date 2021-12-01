@@ -1,3 +1,7 @@
+import redirectSSL from 'redirect-ssl';
+import path from 'path';
+import fs from 'fs';
+
 export default {
   mode: 'universal',
   /*
@@ -33,7 +37,8 @@ export default {
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/google-analytics'
   ],
   /*
    ** Nuxt.js modules
@@ -92,6 +97,23 @@ export default {
           fix: true
         }
       });
+    }
+  },
+  /*
+  ** Google Analytics
+  */
+  googleAnalytics: {
+    id: process.env.GOOGLE_ANALYTICS_ID,
+  },
+  serverMiddleware: [
+    redirectSSL.create({
+      enabled: process.env.NODE_ENV === 'production'
+     }),
+  ],
+  server: {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'privkey.pem')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'fullchain.pem'))
     }
   }
 };

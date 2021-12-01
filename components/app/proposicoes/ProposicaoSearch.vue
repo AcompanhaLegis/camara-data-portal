@@ -77,12 +77,6 @@
 
 <script>
 export default {
-  async fetch() {
-    const resTemas = await this.$openData.get(
-      '/referencias/proposicoes/codTema'
-    );
-    this.temas = resTemas.data.dados;
-  },
   data() {
     return {
       search: {
@@ -94,6 +88,12 @@ export default {
       lastSearch: '',
       temas: []
     };
+  },
+  async fetch() {
+    const resTemas = await this.$openData.get(
+      '/referencias/proposicoes/codTema'
+    );
+    this.temas = resTemas.data.dados;
   },
   computed: {
     tipos() {

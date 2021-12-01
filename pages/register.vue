@@ -78,10 +78,10 @@ import LogoCard from '@/components/website/LogoCard';
 
 export default {
   auth: false,
-  layout: 'default',
   components: {
     LogoCard
   },
+  layout: 'default',
   beforeCreate() {
     this.registerForm = this.$form.createForm(this, { name: 'register' });
   },

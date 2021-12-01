@@ -99,13 +99,13 @@ import DeputadoSpeeches from '~/components/app/deputados/DeputadoSpeeches';
 
 export default {
   auth: false,
-  layout: 'auth',
   components: {
     DeputadoCard,
     DeputadoEvents,
     ProposicaoListItem,
     DeputadoSpeeches
   },
+  layout: 'auth',
   data() {
     return {
       query: '',
@@ -151,6 +151,11 @@ export default {
   watch: {
     selectedDeputado() {
       this.getDeputadoDetails();
+    }
+  },
+  watchQuery(q, oldQ) {
+    if (parseInt(q.id, 10) !== this.selectedDeputado.id) {
+      this.setSelectedDeputado(q.id);
     }
   },
   mounted() {
@@ -220,11 +225,6 @@ export default {
       );
       this.proposicao = resProp.dados;
       this.loadingInfo = false;
-    }
-  },
-  watchQuery(q, oldQ) {
-    if (parseInt(q.id, 10) !== this.selectedDeputado.id) {
-      this.setSelectedDeputado(q.id);
     }
   }
 };

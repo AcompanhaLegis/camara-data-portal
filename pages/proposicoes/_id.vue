@@ -100,13 +100,22 @@ import ProposicaoListItem from '~/components/app/proposicoes/ProposicaoListItem'
 
 export default {
   auth: false,
-  layout: 'auth',
   components: {
     TramitacaoCard,
     ProposicaoListItem
   },
+  layout: 'auth',
   validate({ params }) {
     return /^\d+$/.test(params.id);
+  },
+  data() {
+    return {
+      proposicao: null,
+      tramitacoes: null,
+      autores: [],
+      temas: [],
+      propPrincipal: null
+    };
   },
   async fetch() {
     try {
@@ -137,15 +146,6 @@ export default {
       console.log(err.response);
       throw err;
     }
-  },
-  data() {
-    return {
-      proposicao: null,
-      tramitacoes: null,
-      autores: [],
-      temas: [],
-      propPrincipal: null
-    };
   }
 };
 </script>

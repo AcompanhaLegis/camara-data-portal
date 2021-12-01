@@ -1,6 +1,6 @@
-import redirectSSL from 'redirect-ssl';
 import path from 'path';
 import fs from 'fs';
+import redirectSSL from 'redirect-ssl';
 
 export default {
   mode: 'universal',
@@ -100,15 +100,15 @@ export default {
     }
   },
   /*
-  ** Google Analytics
-  */
+   ** Google Analytics
+   */
   googleAnalytics: {
-    id: process.env.GOOGLE_ANALYTICS_ID,
+    id: process.env.GOOGLE_ANALYTICS_ID
   },
   serverMiddleware: [
     redirectSSL.create({
       enabled: process.env.NODE_ENV === 'production'
-     }),
+    })
   ],
   server: {
     https: {

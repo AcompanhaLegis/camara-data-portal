@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import redirectSSL from 'redirect-ssl';
 
-export default {
+let config = {
   mode: 'universal',
   /*
    ** Headers of the page
@@ -104,16 +104,30 @@ export default {
    */
   googleAnalytics: {
     id: process.env.GOOGLE_ANALYTICS_ID
-  },
-  serverMiddleware: [
-    redirectSSL.create({
-      enabled: process.env.NODE_ENV === 'production'
-    })
-  ],
-  server: {
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, 'privkey.pem')),
-      cert: fs.readFileSync(path.resolve(__dirname, 'fullchain.pem'))
-    }
   }
 };
+
+if (process.env.NODE_ENV === 'production') {
+  config = {
+    ...config,
+    vue: {
+      config: {
+        productionTip: true,
+        devtools: false
+      }
+    },
+    serverMiddleware: [
+      redirectSSL.create({
+        enabled: true
+      })
+    ],
+    server: {
+      https: {
+        key: fs.readFileSync(path.resolve(__dirname, 'privkey.pem')),
+        cert: fs.readFileSync(path.resolve(__dirname, 'fullchain.pem'))
+      }
+    }
+  };
+}
+
+export default config;

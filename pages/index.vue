@@ -8,6 +8,8 @@
               <Header />
             </v-col>
           </v-row>
+
+          <HomeInitialContent />
         </v-container>
       </section>
     </main>
@@ -16,24 +18,33 @@
 
 <script>
 import Header from '@/components/website/Header.vue';
+import HomeInitialContent from '@/components/website/HomeInitialContent.vue';
 
 export default {
   auth: false,
   components: {
-    Header
+    Header,
+    HomeInitialContent
   },
   layout: 'default'
 };
 </script>
 
 <style lang="scss">
+@import '~assets/css/utils.scss';
+
 #home {
   background-color: #f2f6ff;
+
+  .v-btn__content {
+    font-weight: 600;
+    font-size: 1.5rem;
+  }
 
   .home-section {
     height: 100vh;
     width: 100vw;
-    padding: 4rem 10rem 0 4rem;
+    padding: 4rem 12% 0 12%;
     position: relative;
   }
 

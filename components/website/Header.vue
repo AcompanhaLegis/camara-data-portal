@@ -42,7 +42,7 @@
     a {
       color: #000;
       text-decoration: none;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       font-weight: bold;
     }
   }
@@ -63,7 +63,7 @@
       justify-content: end;
       a {
         text-decoration: none;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         font-weight: bold;
       }
     }

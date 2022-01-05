@@ -3,7 +3,6 @@ import fs from 'fs';
 import redirectSSL from 'redirect-ssl';
 
 let config = {
-  mode: 'universal',
   /*
    ** Headers of the page
    */
@@ -18,7 +17,13 @@ let config = {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=IBM+Plex+Mono'
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -38,7 +43,8 @@ let config = {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    '@nuxtjs/google-analytics'
+    '@nuxtjs/google-analytics',
+    '@nuxtjs/vuetify'
   ],
   /*
    ** Nuxt.js modules
@@ -99,12 +105,21 @@ let config = {
       });
     }
   },
+
   /*
    ** Google Analytics
    */
   googleAnalytics: {
     id: process.env.GOOGLE_ANALYTICS_ID
-  }
+  },
+
+  /**
+   * Vuetify
+   */
+  vuetify: {
+    customVariables: ['~/assets/css/variables.scss'],
+    treeShake: process.env.NODE_ENV === 'production',
+  },
 };
 
 if (process.env.NODE_ENV === 'production') {

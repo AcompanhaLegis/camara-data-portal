@@ -131,17 +131,6 @@ if (process.env.NODE_ENV === 'production') {
         devtools: false
       }
     },
-    serverMiddleware: [
-      redirectSSL.create({
-        enabled: true
-      })
-    ],
-    server: {
-      https: {
-        key: fs.readFileSync(path.resolve(__dirname, 'privkey.pem')),
-        cert: fs.readFileSync(path.resolve(__dirname, 'fullchain.pem'))
-      }
-    }
   };
 }
 

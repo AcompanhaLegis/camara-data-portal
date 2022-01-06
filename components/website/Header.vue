@@ -1,10 +1,11 @@
 <template functional>
   <header class="website-header">
+    <div class="cube-background" role="none" />
     <div class="header-title">
       <img src="~/assets/logo-dark-notext.svg" />
       <h1>Acompanha Legis</h1>
     </div>
-    <nav class="navbar">
+    <nav class="navbar desktop-only">
       <n-link to="/">
         Sobre
       </n-link>
@@ -18,17 +19,32 @@
   </header>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
+@import '~assets/css/utils.scss';
+
 .website-header {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
   background: transparent;
+  width: 100%;
+  .cube-background {
+    z-index: -1;
+    position: absolute;
+    width: 680px;
+    height: 680px;
+    top: -48%;
+    left: 0;
+    transform: rotate(42deg);
+    background-color: white;
+    border-radius: 20px;
+  }
   .header-title {
     display: grid;
     grid-template-columns: auto auto;
     grid-gap: 1rem;
     align-items: center;
+    z-index: 3;
     h1 {
       font-size: 1.5rem;
     }
@@ -39,6 +55,7 @@
     grid-gap: 2rem;
     align-items: center;
     justify-content: end;
+    z-index: 3;
     a {
       color: #000;
       text-decoration: none;
@@ -50,10 +67,9 @@
 
 @media screen and (max-width: 1024px) {
   .website-header {
-    .header-title {
-      h1 {
-        display: none;
-      }
+    .cube-background {
+      width: 340px;
+      height: 340px;
     }
     .navbar {
       display: grid;

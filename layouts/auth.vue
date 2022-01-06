@@ -40,6 +40,9 @@ export default {
 </script>
 
 <style lang="scss">
+.ant-btn-primary {
+  color: white !important;
+}
 #auth {
   height: 100vh;
   width: 100vw;

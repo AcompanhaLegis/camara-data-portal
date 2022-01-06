@@ -33,7 +33,7 @@
         large
         @click.prevent="scrollTo('#home-contribute')"
       >
-        Seja um apoiador
+        Seja um contribuidor
       </v-btn>
     </nav>
   </header>

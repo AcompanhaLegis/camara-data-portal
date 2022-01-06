@@ -68,7 +68,7 @@ export default {
     background-color: white;
   }
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 960px) {
   #home {
     .v-btn__content {
       font-weight: 600;

@@ -1,6 +1,6 @@
 <template functional>
   <header class="website-header">
-    <div class="cube-background" role="none" />
+    <div class="square-background" role="none" />
     <div class="header-title">
       <img src="~/assets/logo-dark-notext.svg" />
       <h1>Acompanha Legis</h1>
@@ -28,7 +28,7 @@
   align-items: center;
   background: transparent;
   width: 100%;
-  .cube-background {
+  .square-background {
     z-index: -1;
     position: absolute;
     width: 680px;
@@ -67,7 +67,7 @@
 
 @media screen and (max-width: 1024px) {
   .website-header {
-    .cube-background {
+    .square-background {
       width: 340px;
       height: 340px;
     }

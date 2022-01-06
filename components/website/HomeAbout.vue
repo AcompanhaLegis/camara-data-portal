@@ -42,4 +42,19 @@
     }
   }
 }
+
+@media screen and (max-width: 960px) {
+  #home-about {
+    h2 {
+      font-size: 2rem;
+    }
+
+    .home-about-text {
+      p {
+        font-size: 1.2rem;
+        color: #000;
+      }
+    }
+  }
+}
 </style>

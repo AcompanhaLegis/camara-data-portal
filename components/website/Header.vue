@@ -1,4 +1,4 @@
-<template functional>
+<template>
   <header class="website-header">
     <div class="square-background" role="none" />
     <div class="header-title">
@@ -6,18 +6,37 @@
       <h1>Acompanha Legis</h1>
     </div>
     <nav class="navbar desktop-only">
-      <n-link to="/">
+      <a href="#" @click.prevent="scrollTo('#home-about')">
         Sobre
-      </n-link>
+      </a>
 
       <n-link to="/proposicoes">
         Proposições
       </n-link>
 
-      <v-btn color="primary" large>Seja um apoiador</v-btn>
+      <v-btn
+        color="primary"
+        large
+        @click.prevent="scrollTo('#home-contribute')"
+      >
+        Seja um apoiador
+      </v-btn>
     </nav>
   </header>
 </template>
+
+<script>
+export default {
+  layout: 'default',
+  methods: {
+    scrollTo(selector) {
+      document.querySelector(selector)?.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 @import '~assets/css/utils.scss';

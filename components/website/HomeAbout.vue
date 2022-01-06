@@ -12,7 +12,7 @@
       <p>
         Porem o projeto foi transformado em um projeto público, para que todos
         possam acompanhar essas atividades no governo e, como projeto de código
-        aberto (Open Source), possibilita a qualquer pessoa da comunidade
+        aberto (Open Source), possibilita qualquer pessoa da comunidade
         contribuir para o crescimento do projeto e do conteúdo apresentado.
       </p>
 

@@ -105,7 +105,7 @@ export default {
 
 .interpage-square {
   position: absolute;
-  top: -250px;
+  top: -150px;
   right: -120px;
   width: 500px;
   height: 500px;
@@ -123,8 +123,8 @@ export default {
   z-index: -1;
   width: 222px;
   height: 222px;
-  top: -111px;
-  right: -90px;
+  top: -25px;
+  right: -70px;
 }
 
 .square-side {

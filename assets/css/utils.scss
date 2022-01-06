@@ -1,5 +1,13 @@
 .desktop-only {
-    @media (max-width: 960px) {
-        display: none;
+    @media screen and (max-width: 960px) {
+        display: none !important;
+        opacity: 0;
+    }
+}
+
+.mobile-only {
+    @media (min-width: 959px) {
+        display: none !important;
+        opacity: 0;
     }
 }

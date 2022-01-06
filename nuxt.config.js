@@ -1,8 +1,4 @@
-import path from 'path';
-import fs from 'fs';
-import redirectSSL from 'redirect-ssl';
-
-let config = {
+const config = {
   /*
    ** Headers of the page
    */
@@ -118,20 +114,18 @@ let config = {
    */
   vuetify: {
     customVariables: ['~/assets/css/variables.scss'],
-    treeShake: process.env.NODE_ENV === 'production',
+    treeShake: process.env.NODE_ENV === 'production'
   },
-};
 
-if (process.env.NODE_ENV === 'production') {
-  config = {
-    ...config,
-    vue: {
-      config: {
-        productionTip: true,
-        devtools: false
-      }
-    },
-  };
-}
+  /**
+   * Vue
+   */
+  vue: {
+    config: {
+      productionTip: process.env.NODE_ENV === 'production',
+      devtools: process.env.NODE_ENV !== 'production'
+    }
+  }
+};
 
 export default config;

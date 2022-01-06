@@ -10,9 +10,23 @@
         Sobre
       </a>
 
-      <n-link to="/proposicoes">
-        Proposições
-      </n-link>
+      <v-menu offset-y>
+        <template
+          #activator="{
+            // eslint-disable-next-line vue/no-unused-vars
+            on, attrs 
+          }"
+        >
+          <a href="#" v-bind="attrs" v-on="on">Plataforma</a>
+        </template>
+        <v-list>
+          <v-list-item v-for="r in routes" :key="r.to">
+            <v-list-item-title>
+              <router-link :to="r.to">{{ r.name }}</router-link>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
 
       <v-btn
         color="primary"
@@ -28,6 +42,15 @@
 <script>
 export default {
   layout: 'default',
+  data() {
+    return {
+      routes: [
+        { to: '/proposicoes', name: 'Proposições' },
+        { to: '/deputados', name: 'Deputados' },
+        { to: '/eventos', name: 'Eventos' }
+      ]
+    };
+  },
   methods: {
     scrollTo(selector) {
       document.querySelector(selector)?.scrollIntoView({

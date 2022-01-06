@@ -4,20 +4,18 @@
 
     <section class="home-about-text">
       <p>
-        O projeto começou como um projeto privado para fornecermos dados
-        compilados de proposições e deputados, para que gabinetes pudessem
-        acompanhar as atividades da câmara dos deputados.
+        O projeto começou como um projeto privado para fornecer dados compilados
+        de proposições e deputados, para que gabinetes pudessem acompanhar as
+        atividades da câmara dos deputados.
       </p>
 
       <p>
-        Porem o projeto foi transformado em um projeto público, para que todos
-        possam acompanhar essas atividades no governo e, como projeto de código
-        aberto (Open Source), possibilita qualquer pessoa da comunidade
-        contribuir para o crescimento do projeto e do conteúdo apresentado.
+        Em 2020 projeto foi transformado em um projeto público e aberto (Open
+        Source), para que todos possam acompanhar essas atividades no governo.
       </p>
 
       <p>
-        Hoje o projeto está em constante desenvolvimento utilizamos nosso
+        Hoje o projeto está em constante desenvolvimento e utilizamos nosso
         <a href="https://github.com/acompanhalegis" target="_blank">GitHub</a>
         para gerenciar o código fonte e o roadmap.
       </p>
@@ -26,10 +24,13 @@
 </template>
 
 <style lang="scss" scoped>
+@import '~assets/css/variables.scss';
+
 #home-about {
+  padding: 4rem 0;
   h2 {
     font-size: 2.5rem;
-    border-left: 8px solid #1890ff;
+    border-left: 8px solid $primary-color;
     padding-left: 0.5rem;
     margin-bottom: 9%;
   }

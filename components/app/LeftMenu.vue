@@ -1,123 +1,93 @@
 <template>
-  <div :class="['left-menu', { collapsed }]">
-    <div class="logo">
-      <a-button
-        class="collapsed-button"
-        type="primary"
-        shape="circle"
-        @click="collapsed = !collapsed"
+  <v-navigation-drawer
+    v-model="drawer"
+    :mini-variant="!drawer"
+    dark
+    permanent
+    app
+    class="left-menu"
+  >
+    <v-list-item>
+      <v-img :src="logo" class="logo" />
+    </v-list-item>
+
+    <v-btn icon class="collapse-btn" @click.stop="drawer = !drawer">
+      <v-icon>{{ `mdi-chevron-${drawer ? 'left' : 'right'}` }}</v-icon>
+    </v-btn>
+
+    <v-divider></v-divider>
+
+    <v-list>
+      <v-list-item
+        v-for="item in routes"
+        :key="item.title"
+        link
+        @click="$router.push({ path: item.to })"
       >
-        <a-icon
-          class="collapse-icon"
-          :type="collapsed ? 'right-circle' : 'left-circle'"
-        />
-      </a-button>
-      <br />
-      <img
-        :src="
-          require(!collapsed
-            ? '~/assets/logo_light.svg'
-            : '~/assets/logo-light-notext.svg')
-        "
-      />
-    </div>
-    <a-menu
-      :default-selected-keys="[$nuxt.$route.name]"
-      mode="inline"
-      theme="dark"
-      class="full-menu"
-      :inline-collapsed="collapsed"
-    >
-      <a-menu-item key="deputados">
-        <n-link to="/deputados">
-          <a-icon type="idcard" />
-          <span>Deputados</span>
-        </n-link>
-      </a-menu-item>
+        <v-list-item-icon>
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-list-item-icon>
 
-      <a-menu-item key="proposicoes">
-        <n-link to="/proposicoes">
-          <a-icon type="book" />
-          <span>Proposições</span>
-        </n-link>
-      </a-menu-item>
-
-      <a-menu-item key="eventos">
-        <n-link to="/eventos">
-          <a-icon type="calendar" />
-          <span>Eventos</span>
-        </n-link>
-      </a-menu-item>
-
-      <a-menu-item v-if="$auth.loggedIn" class="last" @click="$auth.logout()">
-        <a-icon type="logout" />
-        <span>Logout</span>
-      </a-menu-item>
-    </a-menu>
-  </div>
+        <v-list-item-title>
+          {{ item.title }}
+        </v-list-item-title>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
 </template>
 
 <script>
+import Logo from '~/assets/logo_light.svg';
+
 export default {
   data() {
     return {
-      collapsed: false
+      routes: [
+        {
+          to: '/proposicoes',
+          title: 'Proposições',
+          icon: 'mdi-book-open-variant'
+        },
+        {
+          to: '/deputados',
+          title: 'Deputados',
+          icon: 'mdi-card-account-details-star'
+        },
+        { to: '/eventos', title: 'Eventos', icon: 'mdi-calendar-alert' }
+      ],
+      drawer: true,
+      mini: true,
+      collapsed: false,
+      logo: Logo
     };
-  },
-  computed: {
-    favoriteProposicoes() {
-      return (
-        (this.$auth.loggedIn && this.$auth.user.favorite_proposicoes) || []
-      );
-    }
   }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import '~/assets/css/variables.scss';
+
 .left-menu {
-  width: 260px;
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
+  padding: 20px 0;
+  .collapse-btn {
+    display: flex;
+    margin: 10px 10px 10px auto;
+  }
   .logo {
-    background-color: #001529;
-    padding: 5px 0 20px 0;
-    text-align: center;
-    border-bottom: 1px solid white;
+    margin-bottom: 20px;
     > img {
       max-width: 100%;
     }
   }
-  .full-menu {
-    width: 100%;
-    height: 100%;
-  }
-  .last {
-    position: absolute;
-    bottom: 0;
-  }
-  .collapsed-button {
-    position: fixed;
-    left: 1px;
-    background-color: #001529;
-    border: none;
-  }
-  .collapse-icon {
-    font-size: 1rem;
+  .route {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 20px;
     color: white;
   }
-}
-.collapsed {
-  width: 80px;
-  > ul {
-    margin-right: 0;
-  }
-  .logo {
-    > img {
-      max-width: 50%;
-      padding: 10px 0 0 0;
-    }
+
+  a.nuxt-link-active {
+    color: $primary-color !important;
   }
 }
 </style>

@@ -153,7 +153,7 @@ export default {
       this.getDeputadoDetails();
     }
   },
-  watchQuery(q, oldQ) {
+  watchQuery(q) {
     if (parseInt(q.id, 10) !== this.selectedDeputado.id) {
       this.setSelectedDeputado(q.id);
     }
@@ -166,23 +166,6 @@ export default {
     });
   },
   methods: {
-    async subscribe() {
-      this.subscriptionError = '';
-      this.subscriptionLoading = true;
-      try {
-        await this.$axios.post('/updates/', {
-          external_id: this.selectedDeputado.id,
-          external_model: 'D',
-          name: this.selectedDeputado.nome
-        });
-      } catch (err) {
-        console.log(err);
-        this.subscriptionError =
-          'Erro ao cadastrar deputado em suas notificaçōes, por favor, tente novamente';
-      }
-      this.$auth.fetchUser();
-      this.subscriptionLoading = false;
-    },
     setSelectedDeputado(deputadoId) {
       const d = this.deputados.find((d) => d.id === parseInt(deputadoId, 10));
       if (d) {
@@ -203,12 +186,6 @@ export default {
       this.loadingInfo = true;
 
       const id = this.selectedDeputado.id;
-
-      try {
-        this.metrics = await this.$axios.$get(`/metrics/deputado/${id}/`);
-      } catch (err) {
-        console.log(err);
-      }
 
       const resSpeeches = await this.$openData.$get(
         `/deputados/${id}/discursos`

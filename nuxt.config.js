@@ -3,6 +3,9 @@ const config = {
    ** Headers of the page
    */
   head: {
+    htmlAttrs: {
+      lang: 'pt-br'
+    },
     title: 'Portal Acompanha Legis',
     meta: [
       { charset: 'utf-8' },

@@ -1,5 +1,5 @@
 <template>
-  <div id="auth">
+  <v-app>
     <template v-if="$fetchState.pending">
       <section class="loading">
         <a-spin size="large" />
@@ -9,20 +9,23 @@
       Error: {{ $fetchState.error }}
     </template>
     <template v-else>
-      <left-menu />
-      <div id="auth-container">
-        <bread-crumbs />
-        <main id="content">
-          <nuxt />
-        </main>
-      </div>
+      <LeftMenu />
+      <v-main>
+        <div id="auth-container">
+          <bread-crumbs />
+          <main id="content">
+            <nuxt />
+          </main>
+        </div>
+      </v-main>
     </template>
-  </div>
+  </v-app>
 </template>
 
 <script>
 import LeftMenu from '~/components/app/LeftMenu.vue';
 import BreadCrumbs from '~/components/app/BreadCrumbs.vue';
+
 export default {
   components: {
     LeftMenu,
@@ -40,25 +43,17 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~assets/css/variables.scss';
+
 .ant-btn-primary {
   color: white !important;
 }
-#auth {
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  display: flex;
-}
 
 #auth-container {
-  height: 100vh;
   overflow-y: auto;
   display: flex;
   flex: 1;
   flex-direction: column;
-}
-
-#content {
-  padding: 40px 20px;
+  padding: 20px;
 }
 </style>

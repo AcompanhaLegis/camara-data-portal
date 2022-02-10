@@ -22,7 +22,7 @@
     "ant-design-vue": "^1.1.10",
     "dayjs": "^1.8.28",
     "moment": "^2.26.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "nuxt": "^2.15.8",
     "redirect-ssl": "^2.0.0",
     "sass-loader": "^10"

@@ -50,8 +50,7 @@ export default {
   data() {
     return {
       chartData: null,
-      error: null,
-      filteredTypes: []
+      error: null
     };
   },
   async fetch() {
@@ -142,6 +141,17 @@ export default {
   watch: {
     deputadoId() {
       this.loadData();
+    },
+    '$vuetify.breakpoint.name'() {
+      /*
+       * Hack thing to force chart to redraw on resize.
+       * It can't be with $nextTick because it's not late enough to resize the container.
+       */
+      const restore = { ...this.chartData };
+      this.chartData = null;
+      setTimeout(() => {
+        this.chartData = restore;
+      }, 300);
     }
   },
   methods: {
@@ -152,9 +162,6 @@ export default {
       } catch {
         this.error = 'Não foi possível carregar os dados';
       }
-      this.$nextTick(() => {
-        this.filteredTypes = [...this.allUniqueProposicaoTypes];
-      });
     }
   }
 };

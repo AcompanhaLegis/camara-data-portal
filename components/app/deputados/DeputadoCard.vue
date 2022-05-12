@@ -13,7 +13,7 @@
         ></v-card-subtitle>
       </div>
 
-      <v-avatar class="ma-3" size="200">
+      <v-avatar class="ma-3" :size="avatarSize">
         <v-img :src="deputado.urlFoto"></v-img>
       </v-avatar>
     </div>
@@ -59,6 +59,21 @@ export default {
       );
       if (!youtube) return null;
       return youtube.startsWith('http') ? youtube : `https://${youtube}`;
+    },
+    avatarSize() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return 100;
+        case 'sm':
+          return 120;
+        case 'md':
+          return 160;
+        case 'xl':
+        case 'lg':
+          return 200;
+        default:
+          return 200;
+      }
     }
   },
   watch: {

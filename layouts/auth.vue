@@ -9,7 +9,11 @@
       Error: {{ $fetchState.error }}
     </template>
     <template v-else>
-      <LeftMenu />
+      <v-app-bar v-if="!$vuetify.breakpoint.mdAndUp">
+        <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-toolbar-title>AcompanhaLegis</v-toolbar-title>
+      </v-app-bar>
+      <LeftMenu :drawer="drawer" @toggle="drawer = !drawer" />
       <v-main>
         <div id="auth-container">
           <bread-crumbs />
@@ -30,6 +34,11 @@ export default {
   components: {
     LeftMenu,
     BreadCrumbs
+  },
+  data() {
+    return {
+      drawer: null
+    };
   },
   async fetch() {
     if (!this.$store.state.deputados.length) {

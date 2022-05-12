@@ -1,19 +1,15 @@
 <template>
   <v-navigation-drawer
-    v-model="drawer"
-    :mini-variant="!drawer"
+    :value="drawer"
     dark
-    permanent
+    :permanent="$vuetify.breakpoint.mdAndUp"
+    :absolute="!$vuetify.breakpoint.mdAndUp"
     app
     class="left-menu"
   >
     <v-list-item>
       <v-img :src="logo" class="logo" />
     </v-list-item>
-
-    <v-btn icon class="collapse-btn" @click.stop="drawer = !drawer">
-      <v-icon>{{ `mdi-chevron-${drawer ? 'left' : 'right'}` }}</v-icon>
-    </v-btn>
 
     <v-divider></v-divider>
 
@@ -40,6 +36,12 @@
 import Logo from '~/assets/logo_light.svg';
 
 export default {
+  props: {
+    drawer: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       routes: [
@@ -55,9 +57,7 @@ export default {
         },
         { to: '/eventos', title: 'Eventos', icon: 'mdi-calendar-alert' }
       ],
-      drawer: true,
       mini: true,
-      collapsed: false,
       logo: Logo
     };
   }
@@ -69,6 +69,7 @@ export default {
 
 .left-menu {
   padding: 20px 0;
+  z-index: 99;
   .collapse-btn {
     display: flex;
     margin: 10px 10px 10px auto;

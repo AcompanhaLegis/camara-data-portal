@@ -54,24 +54,8 @@ const config = {
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
-    '@nuxtjs/auth'
   ],
-  auth: {
-    strategies: {
-      local: {
-        endpoints: {
-          login: { url: '/auth/', method: 'post', propertyName: 'token' },
-          logout: false,
-          user: { url: '/profile/', method: 'get', propertyName: 'user' }
-        },
-        tokenType: 'Token',
-        globalToken: true
-      }
-    }
-  },
-  router: {
-    middleware: ['auth']
-  },
+  router: {},
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
@@ -103,7 +87,8 @@ const config = {
           fix: true
         }
       });
-    }
+    },
+    transpile: [/echarts/, /zrender/],
   },
 
   /*

@@ -35,27 +35,25 @@
     </section>
 
     <h2 v-if="selectedDeputado">Deputado selecionado</h2>
-    <section v-if="selectedDeputado" class="info-holder">
-      <section class="deputado-profile">
-        <deputado-card :deputado="selectedDeputado" />
-        <br />
-        <a-button
-          v-if="notSubscribed"
-          :disabled="subscriptionLoading"
-          @click="subscribe"
-          ><a-icon type="bell" />Ativar notificaçōes</a-button
-        >
-        <a-alert v-else type="info" description="Notificaçōes ativas" />
-        <a-alert
-          v-if="subscriptionError"
-          type="error"
-          :description="subscriptionError"
-          show-icon
-        />
-      </section>
+    <section v-if="selectedDeputado">
+      <deputado-card :deputado="selectedDeputado" />
 
-      <a-tabs class="deputado-info" default-active-key="1">
-        <a-tab-pane key="1" tab="Geral">
+      <br />
+
+      <v-tabs v-model="tabs" centered>
+        <v-tab>
+          Geral
+        </v-tab>
+        <v-tab>
+          Proposições
+        </v-tab>
+        <v-tab>
+          Gráficos
+        </v-tab>
+      </v-tabs>
+
+      <v-tabs-items v-model="tabs">
+        <v-tab-item>
           <a-spin v-if="loadingInfo" class="loading-info" />
           <section v-else>
             <h3>Últimos discursos</h3>
@@ -66,8 +64,8 @@
             <h3>Últimos eventos</h3>
             <deputado-events :events="events" />
           </section>
-        </a-tab-pane>
-        <a-tab-pane key="2" tab="Proposições">
+        </v-tab-item>
+        <v-tab-item>
           <section>
             <a-list>
               <h3>Autor</h3>
@@ -85,8 +83,14 @@
               </proposicao-list-item>
             </a-list>
           </section>
-        </a-tab-pane>
-      </a-tabs>
+        </v-tab-item>
+
+        <v-tab-item>
+          <section>
+            <deputado-proposicoes-chart :deputado-id="selectedDeputado.id" />
+          </section>
+        </v-tab-item>
+      </v-tabs-items>
     </section>
   </div>
 </template>
@@ -94,16 +98,18 @@
 <script>
 import DeputadoCard from '~/components/app/deputados/DeputadoCard';
 import DeputadoEvents from '~/components/app/deputados/DeputadoEvents';
-import ProposicaoListItem from '~/components/app/proposicoes/ProposicaoListItem';
+import DeputadoProposicoesChart from '~/components/app/deputados/DeputadoProposicoesChart';
 import DeputadoSpeeches from '~/components/app/deputados/DeputadoSpeeches';
+import ProposicaoListItem from '~/components/app/proposicoes/ProposicaoListItem';
 
 export default {
   auth: false,
   components: {
     DeputadoCard,
     DeputadoEvents,
-    ProposicaoListItem,
-    DeputadoSpeeches
+    DeputadoProposicoesChart,
+    DeputadoSpeeches,
+    ProposicaoListItem
   },
   layout: 'auth',
   data() {
@@ -117,25 +123,13 @@ export default {
       loadingInfo: false,
       proposicao: null,
       subscriptionError: null,
-      subscriptionLoading: false
+      subscriptionLoading: false,
+      tabs: null
     };
   },
   computed: {
     deputados() {
       return this.$store.state.deputados;
-    },
-    notSubscribed() {
-      if (
-        this.$auth.loggedIn &&
-        this.$auth.user.subscriptions.find(
-          (s) =>
-            s.external_model === 'D' &&
-            s.external_id === this.selectedDeputado.id
-        )
-      ) {
-        return false;
-      }
-      return true;
     },
     filteredDeputados() {
       if (this.query) {
@@ -226,17 +220,10 @@ export default {
   .info-holder {
     margin-top: 20px;
     display: flex;
+    gap: 20px;
     h3 {
       font-size: 1.5rem;
       color: #1890ff;
-    }
-    .deputado-profile {
-      display: flex;
-      flex-direction: column;
-    }
-    .deputado-info {
-      flex: 1;
-      padding: 0 20px;
     }
   }
 }

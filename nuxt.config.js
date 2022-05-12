@@ -35,7 +35,7 @@ const config = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/antd-ui', '@/plugins/openData', '@/plugins/moment'],
+  plugins: ['@/plugins/antd-ui', '@/plugins/openData', '@/plugins/moment', '@/plugins/chartData'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -43,7 +43,8 @@ const config = {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     '@nuxtjs/google-analytics',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    '@nuxtjs/composition-api/module',
   ],
   /*
    ** Nuxt.js modules
@@ -128,7 +129,9 @@ const config = {
       productionTip: process.env.NODE_ENV === 'production',
       devtools: process.env.NODE_ENV !== 'production'
     }
-  }
+  },
+  
+  target: 'static',
 };
 
 export default config;

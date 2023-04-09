@@ -4,7 +4,7 @@ import ALHeader from './ALHeader.vue';
 </script>
 
 <template>
-  <div class="mx-auto h-screen w-screen">
+  <div class="mx-auto min-h-screen w-screen flex flex-col overflow-y-auto">
     <ALHeader />
 
     <main>

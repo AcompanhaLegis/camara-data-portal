@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import AcompanhaLegisHome from './pages/AcompanhaLegisHome.vue';
+import AcompanhaLegisHome from './components/home/AcompanhaLegisHome.vue';
 
 const router = createRouter({
     history: createWebHistory(),

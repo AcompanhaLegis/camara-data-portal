@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .al-input {
+    @apply block border border-gray-200 rounded-md shadow-sm text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 p-2 text-base;
+  }
+  .al-dropdown {
+    @apply min-w-full w-max mt-2 p-1 shadow border border-gray-200 rounded-md shadow-sm text-slate-700 focus:outline-none p-2 text-base max-h-32 overflow-y-auto;
+  }
+  .al-dropdown-option {
+    @apply text-left pl-2 pr-4 py-2 text-slate-700 hover:bg-gray-100 hover:text-slate-900 cursor-pointer rounded-md mb-2;
+  }
+  .al-dropdown-option-active {
+    @apply bg-gray-100 hover:bg-gray-100 hover:text-slate-900;
+  }
+  .al-dropdown-option-selected {
+    @apply bg-gray-100 bg-gray-100 text-slate-900;
+  }
+  .al-avatar {
+    @apply inline-block rounded-full overflow-hidden bg-gray-100 ring-2 ring-slate-500 h-12 w-12;
+  }
+}

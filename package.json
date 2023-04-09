@@ -11,8 +11,7 @@
     "lint:fix": "eslint --ext .js,.ts,.tsx,.vue src --fix"
   },
   "dependencies": {
-    "flowbite": "^1.6.4",
-    "flowbite-vue": "^0.0.10",
+    "@headlessui/vue": "^1.7.12",
     "pinia": "^2.0.33",
     "vue": "^3.2.47"
   },

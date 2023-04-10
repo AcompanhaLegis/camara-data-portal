@@ -1,7 +1,6 @@
 import { ref } from "vue";
 import fetchCamaraAPI from "@/utils/fetchCamaraAPI";
 import { IDeputado } from "@/types/IDeputado";
-import IDiscurso from "@/types/IDiscurso";
 
 export default function useDeputadoDetails() {
     const deputado = ref<IDeputado | null>(null);

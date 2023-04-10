@@ -14,7 +14,7 @@ import { IDeputadoSummary } from "@/types/IDeputado";
 const props = defineProps<{
   modelValue: IDeputadoSummary | null;
 }>();
-const { deputados, loading, error, getDeputados } = useDeputados();
+const { deputados, loading, getDeputados } = useDeputados();
 onMounted(() => {
     getDeputados();
 });

@@ -1,13 +1,12 @@
 <script setup lang='ts'>
 import { onMounted, watch, computed } from "vue";
-import { IDeputado } from "@/types/IDeputado";
 import useDeputadoDetails from "@/composables/useDeputadoDetails";
 
 const props = defineProps<{
   deputadoId: number;
 }>();
 
-const { deputado, loading, error, getDeputadoDetails } = useDeputadoDetails();
+const { deputado, loading, getDeputadoDetails } = useDeputadoDetails();
 
 onMounted(async () => {
     getDeputadoDetails(props.deputadoId);

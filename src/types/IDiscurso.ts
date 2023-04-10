@@ -1,4 +1,4 @@
-export default interface IDiscurso {
+interface IDiscurso {
     dataHoraFim: string;
     dataHoraInicio: string;
     faseEvento: {
@@ -15,3 +15,5 @@ export default interface IDiscurso {
     urlTexto: string;
     urlVideo: string;
 }
+
+export default IDiscurso;

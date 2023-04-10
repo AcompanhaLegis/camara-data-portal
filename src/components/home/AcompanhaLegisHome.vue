@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import HomeTabs from './HomeTabs.vue';
+import HomeTabs from "./HomeTabs.vue";
 </script>
 
 <template>

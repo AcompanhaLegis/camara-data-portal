@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 interface Link {
   label: string;
@@ -7,8 +7,8 @@ interface Link {
 }
 
 const links = ref<Link[]>([
-    { label: 'Home', route: '/' },
-    { label: 'Sobre', route: '/about' },
+    { label: "Home", route: "/" },
+    { label: "Sobre", route: "/about" },
 ]);
 </script>
 

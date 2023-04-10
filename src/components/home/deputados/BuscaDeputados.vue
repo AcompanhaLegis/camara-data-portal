@@ -1,36 +1,36 @@
-<script setup lang="ts">
-import { ref, computed, watch, defineEmits, defineProps } from 'vue';
-import { onMounted } from 'vue';
-import useDeputados from '@/composables/useDeputados';
+<script setup lang='ts'>
+import { ref, computed } from "vue";
+import { onMounted } from "vue";
+import useDeputados from "@/composables/useDeputados";
 import {
     Combobox,
     ComboboxInput,
     ComboboxOptions,
-    ComboboxOption,
-} from '@headlessui/vue';
-import debounce from '@/utils/debounce';
-import { IDeputadoSummary } from '@/types/IDeputado';
+    ComboboxOption
+} from "@headlessui/vue";
+import debounce from "@/utils/debounce";
+import { IDeputadoSummary } from "@/types/IDeputado";
 
 const props = defineProps<{
-    modelValue: IDeputadoSummary | null;
+  modelValue: IDeputadoSummary | null;
 }>();
 const { deputados, loading, error, getDeputados } = useDeputados();
 onMounted(() => {
     getDeputados();
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(["update:modelValue"]);
 
 const selectedDeputado = computed({
     get: () => {
         return props.modelValue;
     },
     set: (value) => {
-        emit('update:modelValue', value);
-    },
+        emit("update:modelValue", value);
+    }
 });
 
-const query = ref('');
+const query = ref("");
 const filteredDeputados = computed(() => {
     return deputados.value
         .filter((deputado) => {
@@ -46,27 +46,27 @@ const displayName = (deputado: unknown) => {
     if (deputado) {
         return (deputado as IDeputadoSummary).nome;
     }
-    return '';
+    return "";
 };
 </script>
 
 <template>
-  <div class="flex flex-col gap-1">
+  <div class='flex flex-col gap-1 w-full md:w-1/2 relative'>
     <label>Busca por deputados</label>
-    <template v-if="!loading">
-      <Combobox v-model="selectedDeputado">
+    <template v-if='!loading'>
+      <Combobox v-model='selectedDeputado'>
         <ComboboxInput
-          class="al-input"
-          :displayValue="displayName"
-          @change="setQueryDebounce($event.target.value)"
+          class='al-input'
+          :displayValue='displayName'
+          @change='setQueryDebounce($event.target.value)'
         />
-        <ComboboxOptions class="al-dropdown" v-show="filteredDeputados.length">
+        <ComboboxOptions class='al-dropdown' v-show='filteredDeputados.length'>
           <ComboboxOption
-            v-for="deputado in filteredDeputados"
-            :key="deputado.id"
-            :value="deputado"
-            v-slot="{ active, selected }"
-            as="template"
+            v-for='deputado in filteredDeputados'
+            :key='deputado.id'
+            :value='deputado'
+            v-slot='{ active, selected }'
+            as='template'
           >
             <li
               :class="[
@@ -75,16 +75,16 @@ const displayName = (deputado: unknown) => {
                 { 'al-dropdown-option-selected': selected },
               ]"
             >
-              <div class="flex items-center gap-2">
+              <div class='flex items-center gap-2'>
                 <img
-                  :src="deputado.urlFoto"
-                  class="al-avatar"
-                  alt="Foto de {{ deputado.nome }}"
-                  loading="lazy"
+                  :src='deputado.urlFoto'
+                  class='al-avatar'
+                  alt='Foto de {{ deputado.nome }}'
+                  loading='lazy'
                 />
                 <div>
                   <div>{{ deputado.nome }}</div>
-                  <div class="text-sm text-gray-500">
+                  <div class='text-sm text-gray-500'>
                     {{ deputado.siglaPartido }}
                   </div>
                 </div>

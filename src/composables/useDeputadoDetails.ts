@@ -1,6 +1,7 @@
-import { ref } from 'vue';
-import fetchCamaraAPI from '@/utils/fetchCamaraAPI';
-import { IDeputado } from '@/types/IDeputado';
+import { ref } from "vue";
+import fetchCamaraAPI from "@/utils/fetchCamaraAPI";
+import { IDeputado } from "@/types/IDeputado";
+import IDiscurso from "@/types/IDiscurso";
 
 export default function useDeputadoDetails() {
     const deputado = ref<IDeputado | null>(null);
@@ -17,8 +18,7 @@ export default function useDeputadoDetails() {
                 error.value = err.message;
                 return;
             }
-            error.value = 'An unknown error occurred.';
-
+            error.value = "An unknown error occurred.";
             console.error(err);
         } finally {
             loading.value = false;

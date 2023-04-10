@@ -1,0 +1,93 @@
+<script setup lang='ts'>
+import { onMounted, watch, computed } from "vue";
+import { IDeputado } from "@/types/IDeputado";
+import useDeputadoDetails from "@/composables/useDeputadoDetails";
+
+const props = defineProps<{
+  deputadoId: number;
+}>();
+
+const { deputado, loading, error, getDeputadoDetails } = useDeputadoDetails();
+
+onMounted(async () => {
+    getDeputadoDetails(props.deputadoId);
+});
+
+watch(props, async (value) => {
+    await getDeputadoDetails(value.deputadoId);
+});
+
+const ultimoStatusList = computed(() => {
+    const labelMapping = {
+        nomeEleitoral: "Nome Eleitoral",
+        email: "Email",
+        siglaPartido: "Partido",
+        siglaUf: "UF",
+        situacao: "Situação",
+        condicaoEleitoral: "Condição Eleitoral"
+    };
+    if (!deputado.value) {
+        return [];
+    }
+    return Object.keys(labelMapping).map((key) => ({
+        label: labelMapping[key],
+        value: deputado.value.ultimoStatus[key]
+    }));
+});
+
+const gabineteList = computed(() => {
+    const labelMapping = {
+        predio: "Prédio",
+        sala: "Sala",
+        andar: "Andar",
+        telefone: "Telefone",
+        email: "Email"
+    };
+    if (!deputado.value) {
+        return [];
+    }
+    return Object.keys(labelMapping).map((key) => ({
+        label: labelMapping[key],
+        value: deputado.value.ultimoStatus.gabinete[key]
+    }));
+});
+</script>
+
+<template>
+  <div v-if='!loading'>
+    <template v-if='deputado'>
+      <section class='w-full flex flex-col w-full gap-8 items-center sm:flex-row sm:items-start'>
+        <figure>
+          <img class='h-60 w-60 object-cover rounded-full overflow-none ring-1 ring-slate-700'
+               :src='deputado.ultimoStatus.urlFoto'
+               :alt='`Foto de ${deputado.nomeCivil}`' />
+        </figure>
+
+        <section class='w-full sm:w-2/3'>
+          <b class='block mt-4 text-blue-500'>Dados do parlamentar</b>
+          <ul class='al-list w-full mb-6'>
+            <li class='al-list-item' v-for='(item, index) in ultimoStatusList' :key='index'>
+              <span class='font-bold'>{{ item.label }}:</span>
+              <span>{{ item.value }}</span>
+            </li>
+          </ul>
+
+          <b class='text-blue-500'>Dados do gabinete</b>
+          <ul class='al-list w-full mb-6'>
+            <li class='al-list-item' v-for='(item, index) in gabineteList' :key='index'>
+              <span class='font-bold'>{{ item.label }}:</span>
+              <span>{{ item.value }}</span>
+            </li>
+          </ul>
+          <router-link to='/'>
+            <button class='al-btn al-btn-primary'>
+              Clique aqui para visualizar todos os dados disponíveis para este deputado
+            </button>
+          </router-link>
+        </section>
+      </section>
+    </template>
+  </div>
+</template>
+
+<style scoped></style>

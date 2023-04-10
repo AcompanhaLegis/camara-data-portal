@@ -30,8 +30,7 @@
             "unix"
         ],
         "quotes": [
-            "error",
-            "single"
+            "error"
         ],
         "semi": [
             "error",

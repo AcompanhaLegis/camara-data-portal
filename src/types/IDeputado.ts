@@ -48,5 +48,5 @@ export interface IDeputadoSummary {
     siglaUf: string;
     uri: string;
     urlFoto: string;
-    uriPartido: string;
+    uriPartido?: string;
 }

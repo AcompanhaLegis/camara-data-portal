@@ -9,7 +9,7 @@ const selectedDeputado = ref<IDeputadoSummary | null>(null);
 
 const route = useRoute();
 const router = useRouter();
-watch(selectedDeputado, (value: IDeputadoSummary) => {
+watch(selectedDeputado, (value) => {
     if (!value) {
         return;
     }

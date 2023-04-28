@@ -35,26 +35,29 @@ const ultimoStatusList = computed(() => {
         return [];
     }
     return Object.keys(labelMapping).map((key: string) => ({
-        label: labelMapping[key],
-        value: deputado.value?.ultimoStatus[key] || ""
+        label: labelMapping[key as keyof IUltimoStatus],
+        value: deputado.value?.ultimoStatus[key as keyof IUltimoStatus] || ""
     }) as IKeyValue);
 });
 
 const gabineteList = computed(() => {
-    const labelMapping = {
+    const labelMapping = Object.freeze({
         predio: "Prédio",
         sala: "Sala",
         andar: "Andar",
         telefone: "Telefone",
-        email: "Email"
-    };
+        email: "Email",
+        nome: "Nome"
+    });
     if (!deputado.value) {
         return [];
     }
-    return Object.keys(labelMapping).map((key: string) => ({
-        label: labelMapping[key] as keyof IGabinete,
-        value: deputado.value.ultimoStatus.gabinete[key]
-    }) as { label: keyof IGabinete; value: string });
+    return Object.keys(labelMapping).map((key: string) => {
+        return ({
+            label: labelMapping[key as keyof IGabinete],
+            value: deputado.value?.ultimoStatus.gabinete[key as keyof IGabinete] || ""
+        });
+    });
 });
 </script>
 

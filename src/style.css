@@ -21,6 +21,9 @@
   .al-avatar {
     @apply inline-block rounded-full overflow-hidden bg-gray-100 ring-2 ring-slate-500 h-12 w-12 object-cover;
   }
+  .al-avatar-sm {
+    @apply h-8 w-8 ring-1 ring-slate-500;
+  }
   .al-list {
     @apply flex flex-col border border-slate-700 rounded-md;
   }

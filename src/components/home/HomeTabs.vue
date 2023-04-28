@@ -2,7 +2,8 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { TabGroup, Tab, TabPanels, TabList, TabPanel } from "@headlessui/vue";
-import DeputadosTab from "./deputados/DeputadosTab.vue";
+import DeputadosTab from "../deputados/DeputadosTab.vue";
+import ProposicoesTab from "../proposicoes/ProposicoesTab.vue";
 
 const route = useRoute();
 const selectedTab = computed(() => {
@@ -40,7 +41,9 @@ const tabs = [
       </Tab>
     </TabList>
     <TabPanels class='mt-4'>
-      <TabPanel>Content 1</TabPanel>
+      <TabPanel>
+        <ProposicoesTab />
+      </TabPanel>
       <TabPanel>
         <DeputadosTab />
       </TabPanel>

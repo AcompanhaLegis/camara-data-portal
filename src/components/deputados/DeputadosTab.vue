@@ -2,8 +2,8 @@
 import { ref, watch, onBeforeMount } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { IDeputadoSummary } from "@/types/IDeputado";
-import BuscaDeputados from "@/components/home/deputados/BuscaDeputados.vue";
-import DeputadoDetails from "@/components/home/deputados/DeputadoDetails.vue";
+import BuscaDeputados from "@/components/deputados/BuscaDeputados.vue";
+import DeputadoDetails from "@/components/deputados/DeputadoDetails.vue";
 
 const selectedDeputado = ref<IDeputadoSummary | null>(null);
 

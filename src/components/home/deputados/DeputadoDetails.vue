@@ -1,6 +1,7 @@
 <script setup lang='ts'>
 import { onMounted, watch, computed } from "vue";
 import useDeputadoDetails from "@/composables/useDeputadoDetails";
+import { IGabinete, IUltimoStatus } from "@/types/IDeputado";
 
 const props = defineProps<{
   deputadoId: number;
@@ -16,6 +17,11 @@ watch(props, async (value) => {
     await getDeputadoDetails(value.deputadoId);
 });
 
+interface IKeyValue {
+  label: string;
+  value: string;
+}
+
 const ultimoStatusList = computed(() => {
     const labelMapping = {
         nomeEleitoral: "Nome Eleitoral",
@@ -24,14 +30,14 @@ const ultimoStatusList = computed(() => {
         siglaUf: "UF",
         situacao: "Situação",
         condicaoEleitoral: "Condição Eleitoral"
-    };
-    if (!deputado.value) {
+    } as IUltimoStatus;
+    if (deputado.value === null) {
         return [];
     }
-    return Object.keys(labelMapping).map((key) => ({
+    return Object.keys(labelMapping).map((key: string) => ({
         label: labelMapping[key],
-        value: deputado.value.ultimoStatus[key]
-    }));
+        value: deputado.value?.ultimoStatus[key] || ""
+    }) as IKeyValue);
 });
 
 const gabineteList = computed(() => {
@@ -45,10 +51,10 @@ const gabineteList = computed(() => {
     if (!deputado.value) {
         return [];
     }
-    return Object.keys(labelMapping).map((key) => ({
-        label: labelMapping[key],
+    return Object.keys(labelMapping).map((key: string) => ({
+        label: labelMapping[key] as keyof IGabinete,
         value: deputado.value.ultimoStatus.gabinete[key]
-    }));
+    }) as { label: keyof IGabinete; value: string });
 });
 </script>
 
@@ -78,11 +84,6 @@ const gabineteList = computed(() => {
               <span>{{ item.value }}</span>
             </li>
           </ul>
-          <router-link to='/'>
-            <button class='al-btn al-btn-primary'>
-              Clique aqui para visualizar todos os dados disponíveis para este deputado
-            </button>
-          </router-link>
         </section>
       </section>
     </template>

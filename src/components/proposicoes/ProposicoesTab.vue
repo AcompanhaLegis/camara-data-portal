@@ -12,7 +12,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class='flex gap-8'>
+  <section class='flex flex-col gap-8 md:flex-row'>
     <ProposicoesSearchFilters />
 
     <section class='h-full'>

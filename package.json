@@ -25,7 +25,7 @@
     "echarts": "^5.3.2",
     "moment": "^2.29.2",
     "node-sass": "^7.0.0",
-    "nuxt": "^2.15.8",
+    "nuxt": "^3.4.3",
     "redirect-ssl": "^2.0.0",
     "sass-loader": "^10",
     "vue-echarts": "^6.0.3"

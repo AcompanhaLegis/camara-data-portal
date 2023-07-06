@@ -1,6 +1,4 @@
 <script setup lang='ts'>
-import { defineProps, defineEmits } from "vue";
-
 interface IProps {
   label: string;
   modelValue: string;

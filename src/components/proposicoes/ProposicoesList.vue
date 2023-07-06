@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { defineEmits, defineProps, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import { IProposicaoSummary } from "@/types/IProposicao";
 import ALSkeletonLoading from "@/components/ui/ALSkeletonLoading.vue";
 import ALPagination from "@/components/ui/ALPagination.vue";

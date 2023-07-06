@@ -11,7 +11,7 @@ const useReferenciasStore = defineStore("referencias", () => {
 
     const getTiposProposicao = async () => {
         try {
-            const res = await fetchCamaraAPI("/referencias/tiposProposicao");
+            const res = await fetchCamaraAPI("/referencias/tiposProposicao/");
             tiposProposicao.value = res.dados;
         } catch (err) {
             if (err instanceof Error) {

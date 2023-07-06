@@ -24,7 +24,7 @@ const useProposicoesStore = defineStore("proposicoes", () => {
         lastPage.value = page;
 
         try {
-            const res = await fetchCamaraAPI(`/proposicoes?ordem=${order}&ordenarPor=${orderBy}&pagina=${page}&itens=10&${query}`);
+            const res = await fetchCamaraAPI(`/proposicoes/?ordem=${order}&ordenarPor=${orderBy}&pagina=${page}&itens=10&${query}`);
             curProposicoes.value = res.dados;
             // Parse URL and get page from query
             const url = new URL(res.links.find((l: any) => l.rel === "last")?.href ?? "");

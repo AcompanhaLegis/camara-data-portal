@@ -9,7 +9,6 @@ const useProposicoesStore = defineStore("proposicoes", () => {
     const loadingProposicoes = ref<boolean>(false);
     const errorProposicoes = ref<string | null>(null);
     const curProposicoes = ref<IProposicaoSummary[]>([]);
-    const totalProposicoes = ref<number>(0);
     const totalPagesProposicoes = ref<number>(0);
 
     const lastQuery = ref<string>("");
@@ -18,6 +17,7 @@ const useProposicoesStore = defineStore("proposicoes", () => {
     const lastPage = ref<number>(1);
 
     const getProposicoes = async (page: number, query = "", orderBy: ProposicoesOrderBy = "ano", order: "DESC" | "ASC" = "DESC") => {
+        loadingProposicoes.value = true;
         lastQuery.value = query;
         lastOrderBy.value = orderBy;
         lastOrder.value = order;
@@ -26,12 +26,17 @@ const useProposicoesStore = defineStore("proposicoes", () => {
         try {
             const res = await fetchCamaraAPI(`/proposicoes?ordem=${order}&ordenarPor=${orderBy}&pagina=${page}&itens=10&${query}`);
             curProposicoes.value = res.dados;
+            // Parse URL and get page from query
+            const url = new URL(res.links.find(l => l.rel === "last")?.href ?? "");
+            totalPagesProposicoes.value = parseInt(url.searchParams.get("pagina") ?? "0");
         } catch (err) {
             if (err instanceof Error) {
                 errorProposicoes.value = err?.message;
                 return;
             }
             errorProposicoes.value = "Erro ao carregar proposições";
+        } finally {
+            loadingProposicoes.value = false;
         }
     };
 
@@ -39,7 +44,6 @@ const useProposicoesStore = defineStore("proposicoes", () => {
         loadingProposicoes,
         errorProposicoes,
         curProposicoes,
-        totalProposicoes,
         totalPagesProposicoes,
         getProposicoes
     };

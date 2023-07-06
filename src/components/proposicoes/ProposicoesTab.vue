@@ -15,8 +15,13 @@ onMounted(() => {
   <section class='flex flex-col gap-8 md:flex-row'>
     <ProposicoesSearchFilters />
 
-    <section class='h-full'>
-      <ProposicoesList :proposicoes='store.curProposicoes' />
+    <section class='h-full w-full'>
+      <ProposicoesList
+        :proposicoes='store.curProposicoes'
+        :is-loading='store.loadingProposicoes'
+        :totalPages='store.totalPagesProposicoes'
+        @pageChange='store.getProposicoes'
+      />
     </section>
   </section>
 </template>

@@ -23,7 +23,7 @@ watch(page, () => {
 <template>
   <ul class='flex flex-col w-full gap-2'>
     <template v-if='isLoading'>
-      <ALSkeletonLoading class='mb-6' rows='3' v-for='mocks in 10' :key='mocks' />
+      <ALSkeletonLoading class='mb-6' :rows='3' v-for='mocks in 10' :key='mocks' />
     </template>
     <template v-else>
       <li class='p-2 ring-1 ring-primary rounded text-slate-700' v-for='p in props.proposicoes' :key='p.id'>
@@ -41,7 +41,7 @@ watch(page, () => {
     <ALPagination
       v-if='props.showPagination'
       v-model='page'
-      :totalPages='props.totalPages'
+      :total-pages='props.totalPages || 0'
     />
   </ul>
 </template>

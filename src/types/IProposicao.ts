@@ -24,13 +24,6 @@ export interface IProposicaoPrincipal {
     proposicaoPrincipal: string;
 }
 
-export interface IProposicaoSituacao {
-    descricao: string;
-    id: number;
-    orgao: IProposicaoOrgao;
-    principal: IProposicaoPrincipal;
-}
-
 export interface IProposicaoAutor {
     codPartido: number;
     ideCadastro: number;
@@ -60,10 +53,28 @@ export interface IProposicaoSummary {
     uri: string;
 }
 
+export interface IStatusProposicao {
+    ambito: string;
+    apreciacao: string;
+    codSituacao: number;
+    codTipoTramitacao: number | string;
+    dataHora: string;
+    descricaoSituacao: string;
+    descricaoTramitacao: string;
+    despacho: string;
+    regime: string;
+    sequencia: number;
+    siglaOrgao: string;
+    uriOrgao: string;
+    uriUltimoRelator: string;
+    url: string | null;
+}
+
 interface IProposicao {
     ano: number;
     apreciacao: IProposicaoApreciacao;
     autor: IProposicaoAutor;
+    siglaTipo: string;
     dataApresentacao: string;
     ementa: string;
     explicacaoEmenta: string;
@@ -75,9 +86,9 @@ interface IProposicao {
     qtdAutores: number;
     qtdOrgaosComEstado: number;
     regime: IProposicaoRegime;
-    situacao: IProposicaoSituacao;
     tipo: ITipoProposicao;
     ultimoDespacho: IProposicaoUltimoDespacho;
+    statusProposicao: IStatusProposicao[];
 }
 
 export default IProposicao;

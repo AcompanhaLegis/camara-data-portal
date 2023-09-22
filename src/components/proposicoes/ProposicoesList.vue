@@ -3,6 +3,7 @@ import { ref, watch } from "vue";
 import { IProposicaoSummary } from "@/types/IProposicao";
 import ALSkeletonLoading from "@/components/ui/ALSkeletonLoading.vue";
 import ALPagination from "@/components/ui/ALPagination.vue";
+import ProposicaoSummary from "@/components/proposicoes/ProposicaoSummary.vue";
 
 interface IProps {
   proposicoes: IProposicaoSummary[];
@@ -26,15 +27,13 @@ watch(page, () => {
       <ALSkeletonLoading class='mb-6' :rows='3' v-for='mocks in 10' :key='mocks' />
     </template>
     <template v-else>
-      <li class='p-2 ring-1 ring-primary rounded text-slate-700' v-for='p in props.proposicoes' :key='p.id'>
-        <p>
-          <b class='al-avatar al-avatar-sm text-xs inline-flex justify-center items-center text-primary'>
-            {{ p.siglaTipo }}
-          </b>
-          {{ p.numero }}/{{ p.ano }}
-        </p>
-        <hr class='my-2' />
-        <p>{{ p.ementa }}</p>
+      <li
+          class='p-2 ring-1 ring-primary rounded text-slate-700 cursor-pointer hover:bg-gray-50'
+          v-for='p in props.proposicoes'
+          :key='p.id'
+          @click="$router.push(`/proposicoes/${p.id}`)"
+      >
+        <ProposicaoSummary :proposicao="p"/>
       </li>
     </template>
 

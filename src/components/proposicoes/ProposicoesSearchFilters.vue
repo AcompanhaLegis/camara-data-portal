@@ -16,7 +16,7 @@ const doFilter = () => {
 </script>
 
 <template>
-  <form @submit.prevent='doFilter' class='flex flex-col gap-2 bg-zinc-100 p-4 rounded w-screen'>
+  <form @submit.prevent='doFilter' class='flex flex-col gap-2 bg-zinc-100 p-4 rounded w-full'>
     <ALInput label='Ano(s)' v-model='ano' />
 
     <button type='submit' class='al-btn al-btn-primary block text-center'>Buscar</button>

@@ -7,7 +7,7 @@ import ALHeader from "./ALHeader.vue";
   <div class='mx-auto min-h-screen w-screen! flex flex-col overflow-y-auto overflow-x-none'>
     <ALHeader />
 
-    <main>
+    <main class="p-2 md:p-8 pb-8">
       <slot />
     </main>
 

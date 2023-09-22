@@ -23,14 +23,14 @@ onBeforeMount(async () => {
 
 <template>
   <section class="mt-4">
-    <ALSkeletonLoading rows="20" v-if="loading" />
+    <ALSkeletonLoading :rows="20" v-if="loading" />
 
     <div v-else-if="error" class="text-red-500">
       <p>Erro ao carregar a proposição</p>
       <p>{{ error }}</p>
     </div>
 
-    <template v-else>
+    <template v-else-if="proposicao">
       <h2 class="text-center">
         {{ proposicao.siglaTipo }} - {{ proposicao.numero }}/{{ proposicao.ano }}
       </h2>
@@ -53,6 +53,10 @@ onBeforeMount(async () => {
         <ProposicaoStatusPanel :status-proposicao="proposicao.statusProposicao" />
       </div>
     </template>
+
+    <div v-else>
+      <p>Proposição não encontrada</p>
+    </div>
   </section>
 </template>
 

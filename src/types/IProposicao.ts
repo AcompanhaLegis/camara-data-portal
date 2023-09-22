@@ -26,7 +26,7 @@ export interface IProposicaoPrincipal {
 
 export interface IProposicaoAutor {
     codPartido: number;
-    ideCadastro: number;
+    idCadastro: number;
     nome: string;
     siglaPartido: string;
     siglaUF: string;
@@ -88,7 +88,9 @@ interface IProposicao {
     regime: IProposicaoRegime;
     tipo: ITipoProposicao;
     ultimoDespacho: IProposicaoUltimoDespacho;
-    statusProposicao: IStatusProposicao[];
+    statusProposicao: IStatusProposicao;
+    keywords: string;
+    ementaDetalhada: string;
 }
 
 export default IProposicao;

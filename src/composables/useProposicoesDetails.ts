@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import fetchCamaraAPI from "@/utils/fetchCamaraAPI";
-import { IProposicao } from "@/types/IProposicao";
+import IProposicao from "@/types/IProposicao";
 
 export default function useProposicaoDetails() {
     const proposicao = ref<IProposicao | null>(null);

@@ -7,17 +7,17 @@ import ProposicoesTab from "../proposicoes/ProposicoesTab.vue";
 
 const route = useRoute();
 const router = useRouter();
-const selectedTab = ref<Number>(0);
+const selectedTab = ref<number>(0);
 
 onMounted(() => {
-  const tab = route.query.tab;
-  if (tab) {
-    const index = tabs.findIndex((t) => t.route === `/?tab=${tab}`);
-    if (index >= 0) {
-      selectedTab.value = index;
+    const tab = route.query.tab;
+    if (tab) {
+        const index = tabs.findIndex((t) => t.route === `/?tab=${tab}`);
+        if (index >= 0) {
+            selectedTab.value = index;
+        }
     }
-  }
-})
+});
 
 const tabs = [
     { label: "Proposições", route: "/?tab=proposicoes" },
@@ -25,9 +25,9 @@ const tabs = [
     //{ label: "Agenda", route: "/?tab=agenda" }
 ];
 
-const changeTab = (index: Number) => {
-  selectedTab.value = index ;
-  router.push(tabs[index].route);
+const changeTab = (index: number) => {
+    selectedTab.value = index ;
+    router.push(tabs[index].route);
 };
 </script>
 

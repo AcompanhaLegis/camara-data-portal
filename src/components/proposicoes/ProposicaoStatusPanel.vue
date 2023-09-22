@@ -9,19 +9,19 @@ const props = defineProps<{
 }>();
 
 const labeledStatus = computed(() => {
-  const labelMap = {
-    'dataHora': 'Data/Hora',
-    'descricaoTramitacao': 'Descrição da tramitação',
-    'despacho': 'Despacho',
-    'orgao': 'Órgão',
-    apreciacao: 'Apreciação',
-  };
-  return Object.keys(labelMap).map(key => {
-    return {
-      label: labelMap[key],
-      value: props.statusProposicao[key],
+    const labelMap = {
+        "dataHora": "Data/Hora",
+        "descricaoTramitacao": "Descrição da tramitação",
+        "despacho": "Despacho",
+        "orgao": "Órgão",
+        apreciacao: "Apreciação",
     };
-  });
+    return Object.keys(labelMap).map(key => {
+        return {
+            label: labelMap[key],
+            value: props.statusProposicao[key],
+        };
+    });
 });
 </script>
 

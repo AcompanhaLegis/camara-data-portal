@@ -9,15 +9,15 @@ const route = useRoute();
 const {proposicao, loading, getProposicaoDetails, error} = useProposicaoDetails();
 
 const keywords = computed<string[]>(() => {
-  return proposicao.value?.keywords?.split(',') ?? [];
+    return proposicao.value?.keywords?.split(",") ?? [];
 });
 
 onBeforeMount(async () => {
-  const proposicaoId = route.params.id as string;
-  if (!proposicaoId || new RegExp('^[0-9]+$').test(proposicaoId) === false) {
-    return;
-  }
-  await getProposicaoDetails(parseInt(proposicaoId, 10));
+    const proposicaoId = route.params.id as string;
+    if (!proposicaoId || new RegExp("^[0-9]+$").test(proposicaoId) === false) {
+        return;
+    }
+    await getProposicaoDetails(parseInt(proposicaoId, 10));
 });
 </script>
 

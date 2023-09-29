@@ -10,7 +10,7 @@ export default function useProposicaoDetails() {
     const getProposicaoDetails = async (id: number) => {
         loading.value = true;
         try {
-            const { dados } = await fetchCamaraAPI(`/proposicoes/${id}/`);
+            const { dados } = await fetchCamaraAPI(`/proposicoes/${id}`);
             proposicao.value = dados;
         } catch (err) {
             if (err instanceof Error) {

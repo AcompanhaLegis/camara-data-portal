@@ -9,7 +9,7 @@ export default function useDeputados() {
     const error = ref<string | null>(null);
     const getDeputados = async (force = false) => {
         if (force || deputados.value.length === 0) {
-            const { dados } = await fetchCamaraAPI("/deputados/?ordem=ASC&ordenarPor=nome");
+            const { dados } = await fetchCamaraAPI("/deputados?ordem=ASC&ordenarPor=nome");
             deputados.value = dados;
         }
     };

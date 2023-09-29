@@ -35,6 +35,9 @@
         "semi": [
             "error",
             "always"
+        ],
+        "@typescript-eslint/ban-ts-comment": [
+            "warn"
         ]
     }
 }

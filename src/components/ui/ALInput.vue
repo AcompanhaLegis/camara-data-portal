@@ -5,7 +5,7 @@ interface IProps {
   type?: string;
 }
 
-const props = defineProps<IProps>();
+defineProps<IProps>();
 const emit = defineEmits(["update:modelValue"]);
 
 const handleChange = (e: Event) => {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {IProposicaoSummary} from "@/types/IProposicao";
 
-const props = defineProps<{
+defineProps<{
   proposicao: IProposicaoSummary
 }>();
 </script>

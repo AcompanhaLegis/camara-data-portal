@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import {computed, onMounted, ref} from "vue";
+import {onMounted, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import { TabGroup, Tab, TabPanels, TabList, TabPanel } from "@headlessui/vue";
 import DeputadosTab from "../deputados/DeputadosTab.vue";

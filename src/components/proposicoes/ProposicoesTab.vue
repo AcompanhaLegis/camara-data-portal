@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { onMounted } from "vue";
 import useProposicoesStore from "@/stores/proposicoesStore";
 import ProposicoesList from "@/components/proposicoes/ProposicoesList.vue";
@@ -12,15 +12,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class='flex flex-col gap-8 md:flex-row'>
+  <section class="flex flex-col gap-8 md:flex-row">
     <ProposicoesSearchFilters />
 
-    <section class='h-full w-full'>
+    <section class="h-full w-full">
       <ProposicoesList
-        :proposicoes='store.curProposicoes'
-        :is-loading='store.loadingProposicoes'
-        :totalPages='store.totalPagesProposicoes'
-        @pageChange='store.getProposicoes'
+        :proposicoes="store.curProposicoes"
+        :is-loading="store.loadingProposicoes"
+        :totalPages="store.totalPagesProposicoes"
+        @pageChange="store.getProposicoes"
       />
     </section>
   </section>

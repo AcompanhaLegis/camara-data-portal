@@ -10,7 +10,7 @@ export default function useDeputadoDetails() {
     const getDeputadoDetails = async (id: number) => {
         loading.value = true;
         try {
-            const { dados } = await fetchCamaraAPI(`/deputados/${id}/`);
+            const { dados } = await fetchCamaraAPI(`/deputados/${id}`);
             deputado.value = dados;
         } catch (err) {
             if (err instanceof Error) {

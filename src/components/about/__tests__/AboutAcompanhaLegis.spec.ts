@@ -8,15 +8,15 @@ describe("Test AboutAcompanhaLegis component", () => {
     const getWrapper = () => mount(AboutAcompanhaLegis);
 
     it("should mount", () => {
-      const wrapper = getWrapper();
+        const wrapper = getWrapper();
       
-      expect(wrapper.vm).toBeDefined();
+        expect(wrapper.vm).toBeDefined();
     });
 
     it("should match snapshot", () => {
-      const wrapper = getWrapper();
+        const wrapper = getWrapper();
 
-      expect(wrapper.html()).toMatchSnapshot();
+        expect(wrapper.html()).toMatchSnapshot();
     });
 });
 

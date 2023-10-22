@@ -1,8 +1,6 @@
 # camara-data-portal
 
-> This is the frontend app for visualization of the acquired and processed data from "Camara dos Deputados" 
-
-It also needs the following project running under port 8000 locally: https://github.com/AcompanhaLegis/acompanha-legis-api
+Esta é a aplicação frontend para visualização dos dados adquiridos e processados da "Câmara dos Deputados".
 
 # Live Version:
 
@@ -25,8 +23,6 @@ $ pnpm start
 $ pnpm generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
-
 ## Development guidelines
 
-Check our [CONTRIBUTING.md](CONTRIBUTING.md)
+Confira nosso guia de contribuições: [CONTRIBUTING.md](CONTRIBUTING.md)

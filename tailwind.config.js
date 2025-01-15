@@ -1,15 +1,19 @@
+import tailwindcssPrimeui from "tailwindcss-primeui";
+
 /** @type {import("tailwindcss").Config} */
-import colors from "tailwindcss/colors.js";
 export default {
     content: [
         "./index.html",
         "./src/**/*.{vue,js,ts,jsx,tsx}",
     ],
-    plugins: [],
+    plugins: [tailwindcssPrimeui],
     theme: {
         extend: {
             colors: {
-                primary: "#3b82f6",
+                primary: {
+                    default: "#3b82f6",
+                    700: "#2563eb",
+                },
                 primaryDark: "#2563eb",
             }
         },

@@ -13,7 +13,6 @@
     "unit:ci": "vitest run --coverage"
   },
   "dependencies": {
-    "@headlessui/vue": "^1.7.16",
     "@primevue/themes": "^4.2.5",
     "minisearch": "^7.1.1",
     "pinia": "^2.1.7",

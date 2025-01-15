@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import { computed } from "vue";
+import {Button} from "primevue";
 
 interface IProps {
   modelValue: number;
@@ -35,48 +36,51 @@ const showingPages = computed(() => {
 </script>
 
 <template>
-  <div class='flex gap-2 justify-center align-center md:text-base'>
-    <button
-      class='al-btn'
-      :disabled='modelValue === 1'
-      @click='onPageClick(1)'
-      aria-label='Primeira página'
-    >
-      {{ `<<` }}
-    </button>
-    <button
-      class='al-btn hidden md:block'
-      :disabled='modelValue === 1'
-      @click='onPageClick(modelValue - 1)'
-      aria-label='Página anterior'
-    >
-      {{ `<` }}
-    </button>
-    <button
-      v-for='pg in showingPages'
-      :key='pg'
+  <div class="flex gap-2 justify-center align-center md:text-base">
+    <Button
+      :disabled="modelValue === 1"
+      @click="onPageClick(1)"
+      aria-label="Primeira página"
+      severity="secondary"
+      rounded
+      icon="pi pi-angle-double-left"
+    />
+    <Button
+      class="hidden md:block"
+      :disabled="modelValue === 1"
+      severity="secondary"
+      @click="onPageClick(modelValue - 1)"
+      aria-label="Página anterior"
+      rounded
+      icon="pi pi-angle-left"
+    />
+    <Button
+      v-for="pg in showingPages"
+      :key="pg"
+      :severity="pg === modelValue ? 'primary' : 'secondary'"
       :class="`${pg === modelValue ? 'text-primary font-bold' : 'text-secondary'} pageButton`"
-      @click='onPageClick(pg)'
+      @click="onPageClick(pg)"
       :aria-label="`Página ${pg} ${pg === modelValue ? 'selecionada' : ''}`"
     >
       {{ pg }}
-    </button>
-    <button
-      class='al-btn hidden md:block'
-      :disabled='modelValue === totalPages'
-      @click='onPageClick(modelValue + 1)'
-      aria-label='Página seguinte'
-    >
-      {{ `>` }}
-    </button>
-    <button
-      class='al-btn'
-      :disabled='modelValue === totalPages'
-      @click='onPageClick(totalPages)'
-      aria-label='Última página'
-    >
-      {{ `>>` }}
-    </button>
+    </Button>
+    <Button
+      class="hidden md:block"
+      :disabled="modelValue === totalPages"
+      severity="secondary"
+      @click="onPageClick(modelValue + 1)"
+      aria-label="Página seguinte"
+      rounded
+      icon="pi pi-angle-right"
+    />
+    <Button
+      :disabled="modelValue === totalPages"
+      @click="onPageClick(totalPages)"
+      aria-label="Última página"
+      severity="secondary"
+      rounded
+      icon="pi pi-angle-double-right"
+    />
   </div>
 </template>
 

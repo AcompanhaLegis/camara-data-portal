@@ -1,98 +1,67 @@
-<script setup lang='ts'>
-import { ref, computed } from "vue";
+<script setup lang="ts">
+import { defineModel, ref, watch } from "vue";
 import { onMounted } from "vue";
 import useDeputados from "@/composables/useDeputados";
-import {
-    Combobox,
-    ComboboxInput,
-    ComboboxOptions,
-    ComboboxOption
-} from "@headlessui/vue";
-import debounce from "@/utils/debounce";
+import { AutoComplete, AutoCompleteCompleteEvent, AutoCompleteOptionSelectEvent } from "primevue";
 import { IDeputadoSummary } from "@/types/IDeputado";
 
-const props = defineProps<{
-  modelValue: IDeputadoSummary | null;
-}>();
 const { deputados, loading, getDeputados } = useDeputados();
 onMounted(() => {
     getDeputados();
 });
 
-const emit = defineEmits(["update:modelValue"]);
+const selectedDeputado = defineModel<IDeputadoSummary>();
+const query = ref<string | IDeputadoSummary>("");
 
-const selectedDeputado = computed({
-    get: () => {
-        return props.modelValue;
-    },
-    set: (value) => {
-        emit("update:modelValue", value);
+const filteredDeputados = ref<IDeputadoSummary[]>([]);
+
+const onComplete = (event: AutoCompleteCompleteEvent) => {
+    if (event.query.trim().length) {
+        filteredDeputados.value = deputados.value.filter(
+            deputado => deputado.nome.toLowerCase().includes(event.query.toLowerCase())
+        );
+    } else {
+        filteredDeputados.value = [...deputados.value];
     }
-});
-
-const query = ref("");
-const filteredDeputados = computed(() => {
-    return deputados.value
-        .filter((deputado) => {
-            return deputado.nome.toLowerCase().includes(query.value.toLowerCase());
-        })
-        .slice(0, 20);
-});
-const setQueryDebounce = debounce((value: string) => {
-    query.value = value;
-}, 200);
-
-const displayName = (deputado: unknown) => {
-    if (deputado) {
-        return (deputado as IDeputadoSummary).nome;
-    }
-    return "";
 };
+
+watch(query, () => {
+    if (typeof query.value !== "string" && query.value.id) {
+        selectedDeputado.value = query.value;
+    }
+});
 </script>
 
 <template>
-  <div class='flex flex-col gap-1 w-full md:w-1/2 relative'>
-    <label>Busca por deputados</label>
-    <template v-if='!loading'>
-      <Combobox v-model='selectedDeputado'>
-        <ComboboxInput
-          class='al-input'
-          :displayValue='displayName'
-          @change='setQueryDebounce($event.target.value)'
-        />
-        <ComboboxOptions class='al-dropdown' v-show='filteredDeputados.length'>
-          <ComboboxOption
-            v-for='deputado in filteredDeputados'
-            :key='deputado.id'
-            :value='deputado'
-            v-slot='{ active, selected }'
-            as='template'
-          >
-            <li
-              :class="[
-                'al-dropdown-option',
-                { 'al-dropdown-option-active': active },
-                { 'al-dropdown-option-selected': selected },
-              ]"
-            >
-              <div class='flex items-center gap-2'>
-                <img
-                  :src='deputado.urlFoto'
-                  class='al-avatar'
-                  alt='Foto de {{ deputado.nome }}'
-                  loading='lazy'
-                />
-                <div>
-                  <div>{{ deputado.nome }}</div>
-                  <div class='text-sm text-gray-500'>
-                    {{ deputado.siglaPartido }}
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ComboboxOption>
-        </ComboboxOptions>
-      </Combobox>
-    </template>
+  <div class='flex flex-col gap-1 w-full relative'>
+    <label for="searchDeputados">Busca por deputados</label>
+    <AutoComplete
+      class="max-w-[30rem] w-full"
+      input-class="w-full"
+      :loading="loading"
+      inputId="searchDeputados"
+      v-model="query"
+      :suggestions="filteredDeputados"
+      optionLabel="nome"
+      emptySearchMessage="Nenhum deputado encontrado"
+      @complete="onComplete"
+    >
+      <template #option="slotProps">
+        <div class="flex items-center gap-2">
+          <img
+            :src="slotProps.option.urlFoto"
+            class="w-[4rem] border border-slate-400 rounded-full"
+            alt="Foto de {{ slotProps.option.nome }}"
+            loading="lazy"
+          />
+          <div>
+            <p class="!text-xl">{{ slotProps.option.nome }}</p>
+            <p class="text-sm italic">
+              {{ slotProps.option.siglaPartido }}
+            </p>
+          </div>
+        </div>
+      </template>
+    </AutoComplete>
   </div>
 </template>

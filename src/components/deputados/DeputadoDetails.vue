@@ -2,6 +2,7 @@
 import { onMounted, watch, computed } from "vue";
 import useDeputadoDetails from "@/composables/useDeputadoDetails";
 import { IGabinete, IUltimoStatus } from "@/types/IDeputado";
+import { ProgressSpinner } from "primevue";
 
 const props = defineProps<{
   deputadoId: number;
@@ -62,28 +63,29 @@ const gabineteList = computed(() => {
 </script>
 
 <template>
-  <div v-if='!loading'>
-    <template v-if='deputado'>
-      <section class='w-full flex flex-col w-full gap-8 items-center sm:flex-row sm:items-start'>
+  <div>
+    <ProgressSpinner v-if="loading"/>
+    <template v-if="deputado && !loading">
+      <section class="w-full flex flex-col w-full gap-8 items-center sm:flex-row sm:items-start">
         <figure>
-          <img class='h-60 w-60 object-cover rounded-full overflow-none ring-1 ring-slate-700'
-               :src='deputado.ultimoStatus.urlFoto'
-               :alt='`Foto de ${deputado.nomeCivil}`' />
+          <img class="h-60 w-60 object-cover rounded-full overflow-none ring-1 ring-slate-700"
+               :src="deputado.ultimoStatus.urlFoto"
+               :alt="`Foto de ${deputado.nomeCivil}`" />
         </figure>
 
-        <section class='w-full sm:w-2/3'>
-          <b class='block mt-4 text-blue-500'>Dados do parlamentar</b>
-          <ul class='al-list w-full mb-6'>
-            <li class='al-list-item' v-for='(item, index) in ultimoStatusList' :key='index'>
-              <span class='font-bold'>{{ item.label }}:</span>
+        <section class="w-full sm:w-2/3">
+          <b class="block mt-4 text-blue-500">Dados do parlamentar</b>
+          <ul class="al-list w-full mb-6">
+            <li class="al-list-item" v-for="(item, index) in ultimoStatusList" :key="index">
+              <span class="font-bold">{{ item.label }}:</span>
               <span>{{ item.value }}</span>
             </li>
           </ul>
 
-          <b class='text-blue-500'>Dados do gabinete</b>
-          <ul class='al-list w-full mb-6'>
-            <li class='al-list-item' v-for='(item, index) in gabineteList' :key='index'>
-              <span class='font-bold'>{{ item.label }}:</span>
+          <b class="text-blue-500">Dados do gabinete</b>
+          <ul class="al-list w-full mb-6">
+            <li class="al-list-item" v-for="(item, index) in gabineteList" :key="index">
+              <span class="font-bold">{{ item.label }}:</span>
               <span>{{ item.value }}</span>
             </li>
           </ul>

@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import {onMounted, ref} from "vue";
+import { onMounted, ref, watch } from "vue";
 import {useRoute, useRouter} from "vue-router";
-import { TabGroup, Tab, TabPanels, TabList, TabPanel } from "@headlessui/vue";
+import { Tabs, Tab, TabPanels, TabList, TabPanel } from "primevue";
 import DeputadosTab from "../deputados/DeputadosTab.vue";
 import ProposicoesTab from "../proposicoes/ProposicoesTab.vue";
 
@@ -12,7 +12,7 @@ const selectedTab = ref<number>(0);
 onMounted(() => {
     const tab = route.query.tab;
     if (tab) {
-        const index = tabs.findIndex((t) => t.route === `/?tab=${tab}`);
+        const index = tabs.findIndex((t) => t.tab === tab);
         if (index >= 0) {
             selectedTab.value = index;
         }
@@ -20,44 +20,32 @@ onMounted(() => {
 });
 
 const tabs = [
-    { label: "Proposições", route: "/?tab=proposicoes" },
-    { label: "Deputados", route: "/?tab=deputados" },
-    //{ label: "Agenda", route: "/?tab=agenda" }
+    { label: "Proposições", tab: "proposicoes" },
+    { label: "Deputados", tab: "deputados" },
 ];
 
-const changeTab = (index: number) => {
-    selectedTab.value = index ;
-    router.push(tabs[index].route);
-};
+watch(selectedTab, (index) => {
+    const { tab } = tabs[index];
+    router.push({ query: { tab }});
+});
 </script>
 
 <template>
-  <TabGroup
-      :selectedIndex="selectedTab"
-      @change='changeTab'
-  >
-    <TabList
-        class='flex bg-gray-200 p-1 rounded-md text-slate-700 justify-between md:justify-start md:gap-8'
-    >
-      <Tab
-        v-for='(tab, idx) in tabs'
-        :key='tab.label'
-        :class="[
-          'py-1 px-2 md:px-4 rounded-md outline-none cursor-pointer',
-          { 'bg-white text-blue-500': selectedTab === idx },
-        ]"
-      >
+  <Tabs v-model:value="selectedTab">
+    <TabList>
+      <Tab v-for="(tab, idx) in tabs" :key="tab.label" :value="idx">
         {{ tab.label }}
       </Tab>
     </TabList>
-    <TabPanels class='mt-4'>
-      <TabPanel>
+
+    <TabPanels>
+      <TabPanel :value="0">
         <ProposicoesTab />
       </TabPanel>
-      <TabPanel>
+
+      <TabPanel :value="1">
         <DeputadosTab />
       </TabPanel>
-      <TabPanel>Content 3</TabPanel>
     </TabPanels>
-  </TabGroup>
+  </Tabs>
 </template>

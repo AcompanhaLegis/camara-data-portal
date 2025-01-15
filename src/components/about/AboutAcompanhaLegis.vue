@@ -4,7 +4,7 @@
   <p class="mb-2">
     O projeto começou como um projeto privado para fornecer dados compilados de proposições e deputados, para que gabinetes pudessem acompanhar as atividades da câmara dos deputados.
   </p>
-  
+
   <p class="mb-2">
     Em 2020 projeto foi transformado em um projeto público e aberto (Open Source), para que todos possam acompanhar essas atividades no governo.
   </p>

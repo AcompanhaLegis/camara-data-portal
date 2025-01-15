@@ -1,10 +1,15 @@
 <template>
-	<h2>Sobre o projeto</h2>
-	<p>
-		O projeto começou como um projeto privado para fornecer dados compilados de proposições e deputados, para que gabinetes pudessem acompanhar as atividades da câmara dos deputados.
-		<br>
-		Em 2020 projeto foi transformado em um projeto público e aberto (Open Source), para que todos possam acompanhar essas atividades no governo.
-		<br>
-		Hoje o projeto está em constante desenvolvimento e utilizamos nosso GitHub para gerenciar o código fonte e o roadmap.
-	</p>
+  <h1 class="mb-6 text-center">Sobre o projeto</h1>
+
+  <p class="mb-2">
+    O projeto começou como um projeto privado para fornecer dados compilados de proposições e deputados, para que gabinetes pudessem acompanhar as atividades da câmara dos deputados.
+  </p>
+  
+  <p class="mb-2">
+    Em 2020 projeto foi transformado em um projeto público e aberto (Open Source), para que todos possam acompanhar essas atividades no governo.
+  </p>
+
+  <p>
+    Hoje o projeto está em desenvolvimento e utilizamos nosso GitHub para gerenciar o código fonte e o roadmap.
+  </p>
 </template>

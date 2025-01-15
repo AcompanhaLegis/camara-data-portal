@@ -8,3 +8,20 @@
   @tailwind components;
   @tailwind utilities;
 }
+
+h1 {
+    @apply text-2xl font-bold text-primary-500;
+}
+
+h2 {
+    @apply text-xl font-bold text-primary-500;
+}
+
+h3 {
+    @apply text-lg font-bold text-primary-500;
+}
+
+p {
+    @apply text-base text-slate-900 dark:text-zinc-100;
+}
+

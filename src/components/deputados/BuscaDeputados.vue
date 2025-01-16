@@ -10,7 +10,7 @@ onMounted(() => {
     getDeputados();
 });
 
-const selectedDeputado = defineModel<IDeputadoSummary>();
+const selectedDeputado = defineModel<IDeputadoSummary|null>();
 const query = ref<string | IDeputadoSummary>("");
 
 const filteredDeputados = ref<IDeputadoSummary[]>([]);

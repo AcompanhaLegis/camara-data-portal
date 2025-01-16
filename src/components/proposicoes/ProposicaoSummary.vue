@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import {IProposicaoSummary} from "@/types/IProposicao";
+import type {IProposicaoSummary} from "@/types/IProposicao";
+import { Avatar } from "primevue";
 
 defineProps<{
   proposicao: IProposicaoSummary
@@ -7,13 +8,12 @@ defineProps<{
 </script>
 
 <template>
-  <p>
-    <b class='al-avatar al-avatar-sm text-xs inline-flex justify-center items-center text-primary'>
-      {{ proposicao.siglaTipo }}
-    </b>
+  <p class="flex items-center gap-2 !text-xl">
+    <Avatar :label="proposicao.siglaTipo" class="mr-2" size="large" />
+
     {{ proposicao.numero }}/{{ proposicao.ano }}
   </p>
-  <hr class='my-2' />
+  <hr class="my-2 border-slate-800 dark:border-zinc-300" />
   <p>{{ proposicao.ementa }}</p>
 </template>
 

@@ -22,15 +22,15 @@ watch(page, () => {
 </script>
 
 <template>
-  <ul class='flex flex-col w-full gap-2'>
-    <template v-if='isLoading'>
-      <ALSkeletonLoading class='mb-6' :rows='3' v-for='mocks in 10' :key='mocks' />
+  <ul class="flex flex-col w-full gap-2">
+    <template v-if="isLoading">
+      <ALSkeletonLoading class="mb-6" :rows="3" v-for="mocks in 10" :key="mocks" />
     </template>
     <template v-else>
       <li
-          class='p-2 ring-1 ring-primary rounded text-slate-700 cursor-pointer hover:bg-gray-50'
-          v-for='p in props.proposicoes'
-          :key='p.id'
+          class="p-2 ring-1 ring-primary rounded cursor-pointer hover:bg-slate-200 dark:hover:bg-zinc-700"
+          v-for="p in props.proposicoes"
+          :key="p.id"
           @click="$router.push(`/proposicoes/${p.id}`)"
       >
         <ProposicaoSummary :proposicao="p"/>
@@ -38,9 +38,9 @@ watch(page, () => {
     </template>
 
     <ALPagination
-      v-if='props.showPagination'
-      v-model='page'
-      :total-pages='props.totalPages || 0'
+      v-if="props.showPagination"
+      v-model="page"
+      :total-pages="props.totalPages || 0"
     />
   </ul>
 </template>

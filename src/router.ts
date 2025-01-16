@@ -6,9 +6,27 @@ import AboutAcompanhaLegis from "@/components/about/AboutAcompanhaLegis.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: "/", component: AcompanhaLegisHome },
-        { path: "/proposicoes/:id", component: ProposicaoDetails },
-        { path: "/about", component: AboutAcompanhaLegis },
+        {
+            path: "/",
+            component: AcompanhaLegisHome,
+            meta: {
+                breadcrumb: "Home"
+            },
+        },
+        {
+            path: "/proposicoes/:id",
+            component: ProposicaoDetails,
+            meta: {
+                breadcrumb: "Proposições"
+            },
+        },
+        {
+            path: "/about",
+            component: AboutAcompanhaLegis,
+            meta: {
+                breadcrumb: "Sobre"
+            },
+        },
     ],
 });
 

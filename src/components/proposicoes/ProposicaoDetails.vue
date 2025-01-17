@@ -39,7 +39,7 @@ onBeforeMount(async () => {
         Palavras-chave
       </h3>
       <div class="flex gap-2 mb-4 flex-wrap">
-        <p v-for="key in keywords" :key="key" class="text-xs rounded px-2 py-1 bg-primaryDark capitalize text-white">{{ key }}</p>
+        <span v-for="key in keywords" :key="key" class="text-xs rounded px-2 py-1 capitalize text-zinc-100 bg-slate-800">{{ key }}</span>
       </div>
 
       <h3>

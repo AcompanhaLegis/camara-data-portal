@@ -29,15 +29,18 @@ const labeledStatus = computed(() => {
   <Accordion>
     <AccordionPanel value="0">
       <AccordionHeader>
-        Status: <b class="font-bold text-primary">{{ props.statusProposicao.descricaoSituacao }}</b>
+        <span class="font-bold text-primary dark:text-primary-300">
+          {{ props.statusProposicao.descricaoSituacao || "Status desconhecido" }}
+        </span>
       </AccordionHeader>
+
       <AccordionContent>
-        <div class="grid grid-cols-2 md:grid-cols-1 gap-2">
+        <dl class="grid grid-cols-2 md:grid-cols-1 gap-1">
           <template v-for="status in labeledStatus" :key="status.label">
-            <b class="col-span-2 font-bold text-primary">{{ status.label }}</b>
-            <p class="col-span-4">{{ status.value || '-' }}</p>
+            <dt class="col-span-2 text-primary-emphasis">{{ status.label }}</dt>
+            <dd class="col-span-4 mb-4 text-slate-800 dark:text-zinc-100">{{ status.value || '-' }}</dd>
           </template>
-        </div>
+        </dl>
       </AccordionContent>
     </AccordionPanel>
   </Accordion>

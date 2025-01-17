@@ -20,7 +20,7 @@ const currentYear = computed<number>(() => {
 </script>
 
 <template>
-  <form @submit.prevent="doFilter" class="flex flex-col gap-2 bg-zinc-100 dark:bg-zinc-700 p-4 rounded w-full md:w-max min-w-[20vw]">
+  <form @submit.prevent="doFilter" class="flex flex-col gap-2 bg-zinc-100 dark:bg-zinc-700 p-4 rounded w-full md:w-max md:min-w-[20rem]">
     <div class="flex flex-col gap-2">
       <label for="ano">Ano(s)</label>
       <InputNumber

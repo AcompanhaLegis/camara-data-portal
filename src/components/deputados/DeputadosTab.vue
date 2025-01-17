@@ -32,10 +32,10 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <section class="flex flex-col">
+  <section class="flex flex-col gap-10">
     <BuscaDeputados v-model="selectedDeputado" />
 
-    <section class="mt-4">
+    <section>
       <DeputadoDetails v-if="selectedDeputado" :deputadoId="selectedDeputado?.id" />
     </section>
   </section>

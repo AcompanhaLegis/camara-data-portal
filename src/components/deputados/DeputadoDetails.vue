@@ -66,29 +66,33 @@ const gabineteList = computed(() => {
   <div>
     <ProgressSpinner v-if="loading"/>
     <template v-if="deputado && !loading">
-      <section class="w-full flex flex-col w-full gap-8 items-center sm:flex-row sm:items-start">
+      <section class="w-full flex flex-col gap-10 lg:flex-row items-center md:items-start xl:justify-center">
         <figure>
-          <img class="h-60 w-60 object-cover rounded-full overflow-none ring-1 ring-slate-700"
+          <img class="h-60 w-auto ring-2 ring-slate-400"
                :src="deputado.ultimoStatus.urlFoto"
                :alt="`Foto de ${deputado.nomeCivil}`" />
         </figure>
 
-        <section class="w-full sm:w-2/3">
-          <b class="block mt-4 text-blue-500">Dados do parlamentar</b>
-          <ul class="al-list w-full mb-6">
-            <li class="al-list-item" v-for="(item, index) in ultimoStatusList" :key="index">
-              <span class="font-bold">{{ item.label }}:</span>
-              <span>{{ item.value }}</span>
-            </li>
-          </ul>
+        <section class="flex flex-col md:flex-row sm:w-2/3 md:items-baseline gap-6 md:gap-10">
+          <div class="flex flex-col gap-2 min-w-max">
+            <h2 class="block mt-4 text-blue-500">Dados do parlamentar</h2>
+            <ul class="al-list w-full mb-6">
+              <li class="al-list-item" v-for="(item, index) in ultimoStatusList" :key="index">
+                <span class="font-bold">{{ item.label }}:</span>
+                <span>{{ item.value }}</span>
+              </li>
+            </ul>
+          </div>
 
-          <b class="text-blue-500">Dados do gabinete</b>
-          <ul class="al-list w-full mb-6">
-            <li class="al-list-item" v-for="(item, index) in gabineteList" :key="index">
-              <span class="font-bold">{{ item.label }}:</span>
-              <span>{{ item.value }}</span>
-            </li>
-          </ul>
+          <div class="flex flex-col gap-2 min-w-max">
+            <h2 class="text-blue-500">Dados do gabinete</h2>
+            <ul class="al-list w-full mb-6">
+              <li class="al-list-item" v-for="(item, index) in gabineteList" :key="index">
+                <span class="font-bold">{{ item.label }}:</span>
+                <span>{{ item.value }}</span>
+              </li>
+            </ul>
+          </div>
         </section>
       </section>
     </template>

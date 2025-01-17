@@ -4,6 +4,7 @@ import ALHeader from "./ALHeader.vue";
 import { Breadcrumb } from "primevue";
 import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
+import { MenuItem } from "primevue/menuitem";
 
 const home = ref({
     icon: "pi pi-home",
@@ -11,9 +12,9 @@ const home = ref({
 });
 
 const route = useRoute();
-const items = computed(() => route.matched.map((route) => ({
+const items = computed<MenuItem[]>(() => route.matched.map((route) => ({
     label: route.meta.breadcrumb,
-})));
+})) as MenuItem[]);
 </script>
 
 <template>

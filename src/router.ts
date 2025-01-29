@@ -1,16 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
-import AcompanhaLegisHome from "@/components/home/AcompanhaLegisHome.vue";
 import ProposicaoDetails from "@/components/proposicoes/ProposicaoDetails.vue";
 import AboutAcompanhaLegis from "@/components/about/AboutAcompanhaLegis.vue";
+import DeputadosView from "@/components/deputados/DeputadosView.vue";
+import ProposicoesView from "@/components/proposicoes/ProposicoesView.vue";
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
             path: "/",
-            component: AcompanhaLegisHome,
+            component: ProposicoesView,
             meta: {
-                breadcrumb: "Home"
+                breadcrumb: "Proposições"
             },
         },
         {
@@ -20,6 +21,20 @@ const router = createRouter({
                 breadcrumb: "Proposições"
             },
         },
+        {
+            path: "/deputados",
+            component: DeputadosView,
+            meta: {
+                breadcrumb: "Deputados"
+            },
+        },
+        // {
+        //     path: "/deputados/:id",
+        //     component: DeputadosView,
+        //     meta: {
+        //         breadcrumb: "Deputados"
+        //     },
+        // },
         {
             path: "/about",
             component: AboutAcompanhaLegis,

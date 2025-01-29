@@ -3,7 +3,7 @@ import { ref, watch, onBeforeMount } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { IDeputadoSummary } from "@/types/IDeputado";
 import BuscaDeputados from "@/components/deputados/BuscaDeputados.vue";
-import DeputadoDetails from "@/components/deputados/DeputadoDetails.vue";
+import DeputadoSummary from "@/components/deputados/DeputadoSummary.vue";
 
 const selectedDeputado = ref<IDeputadoSummary | null>(null);
 
@@ -13,7 +13,7 @@ watch(selectedDeputado, (value) => {
     if (!value) {
         return;
     }
-    router.push({ path: "/", query: { ...route.query, deputadoId: value.id } });
+    router.push({ path: "/deputados", query: { ...route.query, deputadoId: value.id } });
 });
 
 onBeforeMount(() => {
@@ -36,7 +36,10 @@ onBeforeMount(() => {
     <BuscaDeputados v-model="selectedDeputado" />
 
     <section>
-      <DeputadoDetails v-if="selectedDeputado" :deputadoId="selectedDeputado?.id" />
+      <DeputadoSummary
+        v-if="selectedDeputado"
+        :deputadoId="selectedDeputado?.id"
+      />
     </section>
   </section>
 </template>

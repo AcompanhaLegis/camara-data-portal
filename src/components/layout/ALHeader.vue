@@ -7,7 +7,8 @@ interface Link {
 }
 
 const links = ref<Link[]>([
-    { label: "Home", route: "/" },
+    { label: "Proposições", route: "/" },
+    { label: "Deputados", route: "/deputados" },
     { label: "Sobre", route: "/about" },
 ]);
 </script>

@@ -21,8 +21,8 @@ const items = computed<MenuItem[]>(() => route.matched.map((route) => ({
   <div class='mx-auto min-h-screen w-screen! flex flex-col overflow-y-auto overflow-x-none'>
     <ALHeader />
 
-    <main class="p-2 md:p-8 pb-8">
-      <Breadcrumb :home="home" :model="items">
+    <main class="p-4 md:p-8 pb-8 min-h-[80%]">
+      <Breadcrumb :home="home" :model="items" class="mb-6">
         <template #item="{ item, props }">
           <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
             <a :href="href" v-bind="props.action" @click="navigate">

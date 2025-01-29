@@ -91,6 +91,7 @@ interface IProposicao {
     statusProposicao: IStatusProposicao;
     keywords: string;
     ementaDetalhada: string;
+    urlInteiroTeor: string;
 }
 
 export default IProposicao;

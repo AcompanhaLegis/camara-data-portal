@@ -4,6 +4,7 @@ import useProposicaoDetails from "@/composables/useProposicoesDetails";
 import {useRoute} from "vue-router";
 import ALSkeletonLoading from "@/components/ui/ALSkeletonLoading.vue";
 import ProposicaoStatusPanel from "@/components/proposicoes/ProposicaoStatusPanel.vue";
+import { Button } from "primevue";
 
 const route = useRoute();
 const {proposicao, loading, getProposicaoDetails, error} = useProposicaoDetails();
@@ -48,6 +49,16 @@ onBeforeMount(async () => {
       <p>{{ proposicao.ementa }}</p>
       <br>
       <p>{{ proposicao.ementaDetalhada }}</p>
+      <Button
+        class="mb-4"
+        severity="secondary"
+        icon="pi pi-download"
+        label="Download Inteiro Teor"
+        as="a"
+        :href="proposicao.urlInteiroTeor"
+        target="_blank"
+        download
+      />
 
       <div class="flex flex-col w-full mt-4 gap-4">
         <ProposicaoStatusPanel :status-proposicao="proposicao.statusProposicao" />

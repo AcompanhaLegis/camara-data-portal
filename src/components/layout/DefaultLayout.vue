@@ -4,7 +4,7 @@ import ALHeader from "./ALHeader.vue";
 import { Breadcrumb } from "primevue";
 import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
-import { MenuItem } from "primevue/menuitem";
+import type { MenuItem } from "primevue/menuitem";
 
 const home = ref({
     icon: "pi pi-home",

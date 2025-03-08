@@ -30,7 +30,7 @@ const labeledStatus = computed(() => {
     <AccordionPanel value="0">
       <AccordionHeader>
         <span class="font-bold text-primary dark:text-primary-300">
-          {{ props.statusProposicao.descricaoSituacao || "Status desconhecido" }}
+          Último status: {{ props.statusProposicao.descricaoSituacao || "Status desconhecido" }}
         </span>
       </AccordionHeader>
 

@@ -1,6 +1,6 @@
 import { describe, expect, it} from "vitest";
 
-import useDeputadoDetails from "./useDeputadoDetails";
+import useDeputadoDetails from "../useDeputadoDetails";
 import { mockedDeputados } from "@/test-utils/data";
 import { URL_COMPLEMENT_NUMBER } from "@/test-utils/urls";
 

@@ -2,7 +2,7 @@ import { describe, expect, it} from "vitest";
 
 import useDeputadoDetails from "./useDeputadoDetails";
 import { mockedDeputados } from "@/test-utils/data";
-import { URL_COMPLEMENT } from "@/test-utils/urls";
+import { URL_COMPLEMENT_NUMBER } from "@/test-utils/urls";
 
 describe("useDeputadoDetails", () => {
     const deputadoData = mockedDeputados();
@@ -18,7 +18,7 @@ describe("useDeputadoDetails", () => {
     it("should fetch deputado details", async () => {
         const { deputado, loading, error, getDeputadoDetails } = useDeputadoDetails();
 
-        await getDeputadoDetails(URL_COMPLEMENT.ID_SUCCESS);
+        await getDeputadoDetails(URL_COMPLEMENT_NUMBER.ID_SUCCESS);
         expect(deputado.value).toEqual(deputadoData.dados);
         expect(loading.value).toBe(false);
         expect(error.value).toBeNull();
@@ -28,7 +28,7 @@ describe("useDeputadoDetails", () => {
     it.skip("should handle error", async () => {
         const { deputado, loading, error, getDeputadoDetails } = useDeputadoDetails();
 
-        await getDeputadoDetails(URL_COMPLEMENT.ID_NOT_FOUND);
+        await getDeputadoDetails(URL_COMPLEMENT_NUMBER.ID_NOT_FOUND);
         expect(deputado.value).toBeNull();
         expect(loading.value).toBe(false);
         expect(error.value).toBe("Not found");
@@ -38,7 +38,7 @@ describe("useDeputadoDetails", () => {
     it.skip("should throw unknown error", async () => {
         const { deputado, loading, error, getDeputadoDetails } = useDeputadoDetails();
 
-        await getDeputadoDetails(URL_COMPLEMENT.ID_UNKNOWN_ERROR);
+        await getDeputadoDetails(URL_COMPLEMENT_NUMBER.ID_UNKNOWN_ERROR);
         expect(deputado.value).toBeNull();
         expect(loading.value).toBe(false);
         expect(error.value).toBe("An unknown error occurred.");

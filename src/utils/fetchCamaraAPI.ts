@@ -1,7 +1,6 @@
 import { BASE_URL } from "@/api";
-import { IAPIDeputado } from "@/types/IAPI";
 
-const fetchCamaraAPI = async (endpoint: string): Promise<IAPIDeputado> => {
+const fetchCamaraAPI = async (endpoint: string) => {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
         headers: {
             Accept: "application/json",

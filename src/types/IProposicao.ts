@@ -70,7 +70,7 @@ export interface IStatusProposicao {
     url: string | null;
 }
 
-interface IProposicao {
+export interface IProposicao {
     ano: number;
     apreciacao: IProposicaoApreciacao;
     autor: IProposicaoAutor;
@@ -92,6 +92,23 @@ interface IProposicao {
     keywords: string;
     ementaDetalhada: string;
     urlInteiroTeor: string;
+}
+
+export interface ITramitacao {
+    dataHora: string;
+    sequencia: number;
+    siglaOrgao: string;
+    uriOrgao: string;
+    uriUltimoRelator: string | null;
+    regime: string;
+    descricaoTramitacao: string;
+    codTipoTramitacao: number | string;
+    descricaoSituacao: string | null;
+    codSituacao: number | null;
+    despacho: string;
+    url: string | null;
+    ambito: string;
+    apreciacao: string;
 }
 
 export default IProposicao;

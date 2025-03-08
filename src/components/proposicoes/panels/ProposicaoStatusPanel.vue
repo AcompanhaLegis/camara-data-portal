@@ -2,6 +2,7 @@
 import {IStatusProposicao} from "@/types/IProposicao";
 import {computed} from "vue";
 import { Accordion, AccordionHeader, AccordionPanel, AccordionContent } from "primevue";
+import { formatDateTime } from "@/utils/dateUtils";
 
 const props = defineProps<{
   statusProposicao: IStatusProposicao;
@@ -16,10 +17,12 @@ const labeledStatus = computed(() => {
         apreciacao: "Apreciação",
     };
     return Object.keys(labelMap).map((key: string) => {
+        const keyProposicao = key as keyof IStatusProposicao;
         return {
-            label: labelMap[key],
-            // @ts-ignore
-            value: props.statusProposicao[key],
+            label: labelMap[keyProposicao],
+            value: keyProposicao === "dataHora" ?
+                formatDateTime(props.statusProposicao[keyProposicao]) :
+                props.statusProposicao[keyProposicao],
         };
     });
 });

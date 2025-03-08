@@ -3,11 +3,14 @@ import {computed, onBeforeMount} from "vue";
 import useProposicaoDetails from "@/composables/useProposicoesDetails";
 import {useRoute} from "vue-router";
 import ALSkeletonLoading from "@/components/ui/ALSkeletonLoading.vue";
-import ProposicaoStatusPanel from "@/components/proposicoes/ProposicaoStatusPanel.vue";
+import ProposicaoStatusPanel from "@/components/proposicoes/panels/ProposicaoStatusPanel.vue";
 import { Button } from "primevue";
+import ProposicaoTimelinePanel from "@/components/proposicoes/panels/ProposicaoTimelinePanel.vue";
 
 const route = useRoute();
-const {proposicao, loading, getProposicaoDetails, error} = useProposicaoDetails();
+const {
+    proposicao, loading, getProposicaoDetails, error
+} = useProposicaoDetails();
 
 const keywords = computed<string[]>(() => {
     return proposicao.value?.keywords?.split(",") ?? [];
@@ -61,7 +64,13 @@ onBeforeMount(async () => {
       />
 
       <div class="flex flex-col w-full mt-4 gap-4">
-        <ProposicaoStatusPanel :status-proposicao="proposicao.statusProposicao" />
+        <ProposicaoStatusPanel
+          :status-proposicao="proposicao.statusProposicao"
+        />
+
+        <ProposicaoTimelinePanel
+          :proposicao-id="proposicao.id"
+        />
       </div>
     </template>
 
@@ -70,7 +79,3 @@ onBeforeMount(async () => {
     </div>
   </section>
 </template>
-
-<style scoped>
-
-</style>

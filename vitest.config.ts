@@ -14,6 +14,7 @@ export default defineConfig({
         alias: {
             "@/": new URL("./src/", import.meta.url).pathname,
         },
+        setupFiles: "./src/test-utils/setup.vitest",
     },
     plugins: [
         vue(),

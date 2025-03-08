@@ -1,4 +1,4 @@
-const BASE_URL = "https://dadosabertos.camara.leg.br/api/v2";
+import { BASE_URL } from "@/api";
 
 const fetchCamaraAPI = async (endpoint: string) => {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
@@ -6,7 +6,7 @@ const fetchCamaraAPI = async (endpoint: string) => {
             Accept: "application/json",
         },
     });
-    return await response.json();
+    return await response.json(); // FIXME: Move this to a try/catch block - not here
 };
 
 export default fetchCamaraAPI;

@@ -7,6 +7,9 @@ import PrimeVue from "primevue/config";
 import "./style.scss";
 import "primeicons/primeicons.css";
 import AcompanhaLegisPreset from "@/utils/AcompanhaLegisPreset";
+import DateFactory, { DateLibKey } from "@/factories/DateFactory";
+
+const dateLibImpl = DateFactory.create("dayjs");
 
 const app = createApp(App);
 app.use(router);
@@ -24,4 +27,5 @@ app.use(PrimeVue, {
         }
     },
 });
+app.provide(DateLibKey, dateLibImpl);
 app.mount("#app");

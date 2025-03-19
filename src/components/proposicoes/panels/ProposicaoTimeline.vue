@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { Timeline, Card, Tag } from "primevue";
-import { formatDateTime } from "../../../utils/dateUtils";
+import { Timeline, Card } from "primevue";
 import type { ITramitacao } from "@/types/IProposicao";
 
 interface IProps {
   tramitacoes: ITramitacao[];
 }
 
-const props = defineProps<IProps>();
-
+defineProps<IProps>();
 </script>
 
 <template>

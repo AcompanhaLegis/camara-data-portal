@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import {IStatusProposicao} from "@/types/IProposicao";
-import {computed} from "vue";
+import { computed, inject } from "vue";
 import { Accordion, AccordionHeader, AccordionPanel, AccordionContent } from "primevue";
-import { formatDateTime } from "@/utils/dateUtils";
+import { DateLibKey } from "@/factories/DateFactory";
+import { IDateAdapter } from "@/adapters/DayJsAdapter";
 
 const props = defineProps<{
   statusProposicao: IStatusProposicao;
 }>();
+
+const dateLib = inject(DateLibKey) as IDateAdapter;
 
 const labeledStatus = computed(() => {
     const labelMap: { [key: string]: string } = {
@@ -21,7 +24,7 @@ const labeledStatus = computed(() => {
         return {
             label: labelMap[keyProposicao],
             value: keyProposicao === "dataHora" ?
-                formatDateTime(props.statusProposicao[keyProposicao]) :
+                dateLib.formatDateTime(props.statusProposicao[keyProposicao]) :
                 props.statusProposicao[keyProposicao],
         };
     });

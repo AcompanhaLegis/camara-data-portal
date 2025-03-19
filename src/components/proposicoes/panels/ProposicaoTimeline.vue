@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { Timeline, Card } from "primevue";
 import type { ITramitacao } from "@/types/IProposicao";
+import { inject } from "vue";
+import { DateLibKey } from "@/factories/DateFactory";
+import { type IDateAdapter } from "@/adapters/DayJsAdapter";
 
 interface IProps {
   tramitacoes: ITramitacao[];
 }
 
 defineProps<IProps>();
+
+const dateLib = inject(DateLibKey) as IDateAdapter;
 </script>
 
 <template>
@@ -23,10 +28,14 @@ defineProps<IProps>();
           <template #subtitle>
             <div class="flex flex-col gap-2">
               <dl class="grid grid-cols-2 md:grid-cols-1 gap-1">
-                  <dt class="col-span-2 text-primary-emphasis">Órgão: </dt>
+                  <dt class="col-span-2 text-primary-emphasis">Data/Hora: </dt>
                   <dd class="col-span-4 mb-4 text-slate-800 dark:text-zinc-100">
-                    {{ slotProps.item.siglaOrgao }}
+                    {{ dateLib.formatDateTime(slotProps.item.dataHoraTramitacao) }}
                   </dd>
+                <dt class="col-span-2 text-primary-emphasis">Órgão: </dt>
+                <dd class="col-span-4 mb-4 text-slate-800 dark:text-zinc-100">
+                  {{ slotProps.item.siglaOrgao }}
+                </dd>
               </dl>
 
               <dl class="grid grid-cols-2 md:grid-cols-1 gap-1">

@@ -2,7 +2,7 @@
 import { defineModel, ref, watch } from "vue";
 import { onMounted } from "vue";
 import useDeputados from "@/composables/useDeputados";
-import { AutoComplete, AutoCompleteCompleteEvent, AutoCompleteOptionSelectEvent } from "primevue";
+import { AutoComplete, AutoCompleteCompleteEvent } from "primevue";
 import { IDeputadoSummary } from "@/types/IDeputado";
 
 const { deputados, loading, getDeputados } = useDeputados();
@@ -16,6 +16,9 @@ const query = ref<string | IDeputadoSummary>("");
 const filteredDeputados = ref<IDeputadoSummary[]>([]);
 
 const onComplete = (event: AutoCompleteCompleteEvent) => {
+    if (!deputados.value) {
+        return;
+    }
     if (event.query.trim().length) {
         filteredDeputados.value = deputados.value.filter(
             deputado => deputado.nome.toLowerCase().includes(event.query.toLowerCase())

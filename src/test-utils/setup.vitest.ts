@@ -16,7 +16,7 @@ export const restHandlers = [
         return new HttpResponse(null, { status: 404 });
     }),
     http.get(DEPUTADOS.UNKNOWN_ERROR, () => {
-        return new HttpResponse(null, { status: 500 });
+        return new HttpResponse(null, { status: 506 });
     }),
 ];
 

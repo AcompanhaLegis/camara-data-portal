@@ -3,6 +3,7 @@ import { describe, expect, it} from "vitest";
 import useDeputadoDetails from "../useDeputadoDetails";
 import { mockedDeputados } from "@/test-utils/data";
 import { URL_COMPLEMENT_NUMBER } from "@/test-utils/urls";
+import { API_ERROR_MESSAGES, API_ERROR_MESSAGES_DEFAULT } from "@/utils/fetchCamaraAPI";
 
 describe("useDeputadoDetails", () => {
     const deputadoData = mockedDeputados();
@@ -24,23 +25,21 @@ describe("useDeputadoDetails", () => {
         expect(error.value).toBeNull();
     });
 
-    // FIXME: Waiting for a fix in fetchCamaraAPI.ts return await response.json();
-    it.skip("should handle error", async () => {
+    it("should handle error", async () => {
         const { deputado, loading, error, getDeputadoDetails } = useDeputadoDetails();
 
         await getDeputadoDetails(URL_COMPLEMENT_NUMBER.ID_NOT_FOUND);
         expect(deputado.value).toBeNull();
         expect(loading.value).toBe(false);
-        expect(error.value).toBe("Not found");
+        expect(error.value).toBe(API_ERROR_MESSAGES[404]);
     });
       
-    // FIXME: Waiting for a fix in fetchCamaraAPI.ts return await response.json();
-    it.skip("should throw unknown error", async () => {
+    it("should throw unknown error", async () => {
         const { deputado, loading, error, getDeputadoDetails } = useDeputadoDetails();
 
         await getDeputadoDetails(URL_COMPLEMENT_NUMBER.ID_UNKNOWN_ERROR);
         expect(deputado.value).toBeNull();
         expect(loading.value).toBe(false);
-        expect(error.value).toBe("An unknown error occurred.");
+        expect(error.value).toBe(API_ERROR_MESSAGES_DEFAULT);
     });
 });

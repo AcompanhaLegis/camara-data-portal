@@ -1,5 +1,13 @@
 import { BASE_URL } from "@/api";
 
+export const API_ERROR_MESSAGES: Record<number, string> = {
+    404: "Não encontrado",
+    503: "Erro interno do servidor. Tente novamente mais tarde.",
+    500: "Erro interno do servidor. Tente novamente mais tarde.",
+};
+
+export const API_ERROR_MESSAGES_DEFAULT = "Erro desconhecido. Tente novamente mais tarde.";
+
 export class CamaraAPIError extends Error {
     constructor(public response: Response) {
         super();
@@ -7,15 +15,7 @@ export class CamaraAPIError extends Error {
     }
 
     _formatUserError(): string {
-        switch (this.response.status) {
-        case 404:
-            return "Não encontrado";
-        case 503:
-        case 500:
-            return "Erro interno do servidor. Tente novamente mais tarde.";
-        default:
-            return "Erro desconhecido. Tente novamente mais tarde.";
-        }
+        return API_ERROR_MESSAGES[this.response.status] || API_ERROR_MESSAGES_DEFAULT;
     }
 }
 

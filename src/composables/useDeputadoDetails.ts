@@ -1,17 +1,14 @@
-import { ref } from "vue";
-import fetchCamaraAPI from "@/utils/fetchCamaraAPI";
 import { IDeputado } from "@/types/IDeputado";
+import useCamaraAPI from "@/composables/useCamaraAPI";
 
 export default function useDeputadoDetails() {
-    const deputado = ref<IDeputado | null>(null);
-    const loading = ref<boolean>(false);
-    const error = ref<string | null>(null);
+    const { loading, error, fetchData, data } =
+        useCamaraAPI<IDeputado>();
 
     const getDeputadoDetails = async (id: number) => {
         loading.value = true;
         try {
-            const { dados } = await fetchCamaraAPI(`/deputados/${id}`);
-            deputado.value = dados;
+            await fetchData(`/deputados/${id}`);
         } catch (err) {
             if (err instanceof Error) {
                 error.value = err.message;
@@ -24,5 +21,5 @@ export default function useDeputadoDetails() {
         }
     };
 
-    return { deputado, loading, error, getDeputadoDetails };
+    return { deputado: data, loading, error, getDeputadoDetails };
 }

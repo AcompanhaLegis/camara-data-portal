@@ -1,18 +1,18 @@
 import { ref } from "vue";
-import fetchCamaraAPI from "../utils/fetchCamaraAPI";
 import { IDeputadoSummary } from "../types/IDeputado";
+import useCamaraAPI from "@/composables/useCamaraAPI";
 
 const deputados = ref<IDeputadoSummary[]>([]);
 
 export default function useDeputados() {
-    const loading = ref<boolean>(false);
-    const error = ref<string | null>(null);
+    const { loading, error, data, query, fetchData } = useCamaraAPI<IDeputadoSummary[]>();
+
     const getDeputados = async (force = false) => {
         if (force || deputados.value.length === 0) {
-            const { dados } = await fetchCamaraAPI("/deputados?ordem=ASC&ordenarPor=nome");
-            deputados.value = dados;
+            query.value = { ordem: "ASC", ordenarPor: "nome"};
+            await fetchData("/deputados");
         }
     };
 
-    return { deputados, loading, error, getDeputados };
+    return { deputados: data, loading, error, getDeputados };
 }

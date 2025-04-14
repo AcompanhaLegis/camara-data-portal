@@ -8,7 +8,7 @@ import { DEPUTADOS } from "./urls";
 const defaultDeputados = mockedDeputados();
 
 // Mocked handlers
-export const restHanlers = [
+export const restHandlers = [
     http.get(DEPUTADOS.SUCCESS, () => {
         return HttpResponse.json(defaultDeputados);
     }),
@@ -21,7 +21,7 @@ export const restHanlers = [
 ];
 
 // Setup server
-const server = setupServer(...restHanlers);
+const server = setupServer(...restHandlers);
 
 beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
 afterEach(() => server.resetHandlers());

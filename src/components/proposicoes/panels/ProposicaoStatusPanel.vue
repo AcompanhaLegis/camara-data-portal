@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import {IStatusProposicao} from "@/types/IProposicao";
-import {computed} from "vue";
+import { computed, inject } from "vue";
 import { Accordion, AccordionHeader, AccordionPanel, AccordionContent } from "primevue";
+import { DateLibKey } from "@/factories/DateFactory";
+import { IDateAdapter } from "@/adapters/DayJsAdapter";
 
 const props = defineProps<{
   statusProposicao: IStatusProposicao;
 }>();
+
+const dateLib = inject(DateLibKey) as IDateAdapter;
 
 const labeledStatus = computed(() => {
     const labelMap: { [key: string]: string } = {
@@ -16,10 +20,12 @@ const labeledStatus = computed(() => {
         apreciacao: "Apreciação",
     };
     return Object.keys(labelMap).map((key: string) => {
+        const keyProposicao = key as keyof IStatusProposicao;
         return {
-            label: labelMap[key],
-            // @ts-ignore
-            value: props.statusProposicao[key],
+            label: labelMap[keyProposicao],
+            value: keyProposicao === "dataHora" ?
+                dateLib.formatDateTime(props.statusProposicao[keyProposicao]) :
+                props.statusProposicao[keyProposicao],
         };
     });
 });
@@ -30,7 +36,7 @@ const labeledStatus = computed(() => {
     <AccordionPanel value="0">
       <AccordionHeader>
         <span class="font-bold text-primary dark:text-primary-300">
-          {{ props.statusProposicao.descricaoSituacao || "Status desconhecido" }}
+          Último status: {{ props.statusProposicao.descricaoSituacao || "Status desconhecido" }}
         </span>
       </AccordionHeader>
 

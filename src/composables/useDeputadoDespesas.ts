@@ -15,7 +15,7 @@ export default function useDeputadoExpenses() {
                 camaraApi.error.value = err.message;
                 return;
             }
-            camaraApi.error.value = "An unknown error occurred.";
+            camaraApi.error.value = "Erro desconhecido. Tente novamente mais tarde.";
             console.error(err);
         } finally {
             camaraApi.loading.value = false;

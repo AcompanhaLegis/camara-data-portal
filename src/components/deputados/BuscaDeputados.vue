@@ -53,7 +53,7 @@ watch(query, () => {
         <div class="flex items-center gap-2">
           <img
             :src="slotProps.option.urlFoto"
-            class="w-[4rem] border border-slate-400 rounded-full"
+            class="w-[4rem] border border-slate-400 rounded-md"
             alt="Foto de {{ slotProps.option.nome }}"
             loading="lazy"
           />

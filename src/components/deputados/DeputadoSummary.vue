@@ -25,7 +25,7 @@ watch(props, async (value) => {
   <div class="w-full md:max-w-[60vw] mx-auto p-4">
     <ProgressSpinner v-if="loading" />
     <template v-if="deputado && !loading">
-      <div class="flex flex-col rounded ring-1 ring-slate-200 bg-white">
+      <div class="flex flex-col rounded ring-1 ring-slate-200 bg-white dark:bg-slate-800">
         <div class="p-4">
           <DeputadoCard :deputado="deputado" />
         </div>

@@ -4,6 +4,7 @@ import { useRoute, useRouter } from "vue-router";
 import { IDeputadoSummary } from "@/types/IDeputado";
 import BuscaDeputados from "@/components/deputados/BuscaDeputados.vue";
 import DeputadoSummary from "@/components/deputados/DeputadoSummary.vue";
+import Message from "primevue/message";
 
 const selectedDeputado = ref<IDeputadoSummary | null>(null);
 
@@ -33,13 +34,19 @@ onBeforeMount(() => {
 
 <template>
   <section class="flex flex-col gap-10">
-    <BuscaDeputados v-model="selectedDeputado" />
+    <div class="w-[90vw] md:w-[33vw] md:max-w-2xl mx-auto">
+      <BuscaDeputados v-model="selectedDeputado"/>
+  </div>
 
     <section>
       <DeputadoSummary
         v-if="selectedDeputado"
         :deputadoId="selectedDeputado?.id"
       />
+
+      <Message v-else severity="info" class="w-fit mx-auto" icon="pi pi-info-circle">
+        Selecione um deputado para ver os detalhes.
+      </Message>
     </section>
   </section>
 </template>

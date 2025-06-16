@@ -11,6 +11,20 @@ interface IKeyValue {
 const props = defineProps<{
   deputado: Partial<IDeputado>;
 }>();
+
+const socialNetworks = computed((): IKeyValue[] => {
+  return [
+    { label: 'Facebook', icon: 'pi pi-facebook', value: props.deputado.redeSocial?.find(item => item.includes('facebook')) || '' },
+    { label: 'WhatsApp', icon: 'pi pi-whatsapp', value: props.deputado.redeSocial?.find(item => item.includes('whatsapp')) || '' },
+    { label: 'Telegram', icon: 'pi pi-telegram', value: props.deputado.redeSocial?.find(item => item.includes('telegram')) || '' },
+    { label: 'LinkedIn', icon: 'pi pi-linkedin', value: props.deputado.redeSocial?.find(item => item.includes('linkedin')) || '' },
+    { label: 'Instagram', icon: 'pi pi-instagram', value: props.deputado.redeSocial?.find(item => item.includes('instagram')) || '' },
+    { label: 'X', icon: 'pi pi-twitter', value: props.deputado.redeSocial?.find(item => item.includes('twitter')) || '' },
+    { label: 'X', icon: 'pi pi-twitter', value: props.deputado.redeSocial?.find(item => item.includes('x.com')) || '' },
+    { label: 'YouTube', icon: 'pi pi-youtube', value: props.deputado.redeSocial?.find(item => item.includes('youtube')) || '' },
+    { label: 'TikTok', icon: 'pi pi-tiktok', value: props.deputado.redeSocial?.find(item => item.includes('tiktok')) || '' },
+  ].filter((item) => item.value);
+});
 </script>
 
 <template>
@@ -22,14 +36,14 @@ const props = defineProps<{
         </figure>
 
         <div class="w-full">
-          <div class="flex flex-col gap-2 min-w-max">
-            <h1 class="block text-blue-500 md:text-2xl text-xl mb-4">{{ props.deputado.nomeCivil }}</h1>
-            <section class="flex flex-row gap-4 items-center">
-                <p>{{ props.deputado.ultimoStatus?.siglaPartido }} - {{ props.deputado.ultimoStatus?.siglaUf }}</p>
+          <div class="flex flex-col gap-2">
+            <h1 class="overflow-hidden text-blue-500 md:text-2xl text-xl mb-4 text-wrap">{{ props.deputado.nomeCivil }}</h1>
+            <section class="flex flex-row flex-wrap gap-4 items-center">
+                <p>{{ props.deputado.ultimoStatus?.siglaPartido }} / {{ props.deputado.ultimoStatus?.siglaUf }}</p>
                 <Tag
                     class="text-sm"
                     :severity="props.deputado.ultimoStatus?.situacao === 'Exercício' ? 'success' : 'danger'"
-                    :value="`Situação: ${props.deputado.ultimoStatus?.situacao}`"
+                    :value="`Situação: ${props.deputado.ultimoStatus?.situacao} (${props.deputado.ultimoStatus?.condicaoEleitoral})`"
                 >
                 </Tag>
             </section>
@@ -61,6 +75,17 @@ const props = defineProps<{
                 <div class="flex flex-row gap-2 items-center">
                     <i class="pi pi-building" role="presentation"></i>
                     <span>{{ props.deputado.ultimoStatus?.gabinete?.predio }}, {{ props.deputado.ultimoStatus?.gabinete?.andar }}º andar, Sala {{ props.deputado.ultimoStatus?.gabinete?.sala }}</span>
+                </div>
+            </section>
+
+            <section class="mt-6 w-full">
+                <div class="flex flex-row gap-10 w-full items-baseline">
+                    <template v-for="network in socialNetworks" :key="network.label">
+                        <a v-if="network.value" :href="network.value" target="_blank">
+                            <i :class="network.icon" :aria-label="network.label" :style="{ fontSize: '1.5rem' }"></i>
+                        </a>
+                        <span v-else class="text-gray-500">{{ network.label }} não disponível</span>
+                    </template>
                 </div>
             </section>
           </div>

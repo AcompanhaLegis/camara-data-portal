@@ -1,5 +1,5 @@
 import { vi, describe, it, expect, beforeEach, Mock } from "vitest";
-import useDeputadoExpenses from "@/composables/useDeputadoDespesas";
+import useDeputadoExpenses from "@/composables/useDeputadoExpenses";
 import fetchCamaraAPI, { CamaraAPIError } from "@/utils/fetchCamaraAPI";
 import { IDeputadoExpense } from "@/types/IDeputado";
 

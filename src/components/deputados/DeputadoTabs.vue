@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { inject, ref, watch } from "vue";
-import { Tabs, Tab, TabList, TabPanels, TabPanel, DataTable, Column } from "primevue";
+import { Tabs, Tab, TabList, TabPanels, TabPanel } from "primevue";
 import useDeputadoExpenses from "@/composables/useDeputadoDespesas";
 import DeputadoExpenseTable from "./DeputadoExpenseTable.vue";
 

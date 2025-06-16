@@ -55,7 +55,7 @@ const emit = defineEmits<{
         </Column>
         <Column field="urlDocumento" header="Documento Completo">
             <template #body="slotProps">
-                <a v-if="slotProps.data.urlDocumento" :href="slotProps.data.urlDocumento" target="_blank" class="text-blue-500 hover:underline">
+                <a v-if="slotProps.data.urlDocumento" :href="slotProps.data.urlDocumento" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">
                     <i class="pi pi-file" aria-hidden="true"></i> Ver Documento
                 </a>
                 <span v-else class="text-gray-500">Documento não disponível</span>

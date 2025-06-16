@@ -20,8 +20,8 @@ const socialNetworks = computed((): SocialNetworksRender[] => {
         { label: "Telegram", icon: "pi pi-telegram", value: props.deputado.redeSocial?.find(item => item.includes("telegram")) || "" },
         { label: "LinkedIn", icon: "pi pi-linkedin", value: props.deputado.redeSocial?.find(item => item.includes("linkedin")) || "" },
         { label: "Instagram", icon: "pi pi-instagram", value: props.deputado.redeSocial?.find(item => item.includes("instagram")) || "" },
-        { label: "X", icon: "pi pi-twitter", value: props.deputado.redeSocial?.find(item => item.includes("twitter")) || "" },
-        { label: "X", icon: "pi pi-twitter", value: props.deputado.redeSocial?.find(item => item.includes("x.com")) || "" },
+        { label: "Twitter", icon: "pi pi-twitter", value: props.deputado.redeSocial?.find(item => item.includes("twitter")) || "" },
+        { label: "X.com", icon: "pi pi-twitter", value: props.deputado.redeSocial?.find(item => item.includes("x.com")) || "" },
         { label: "YouTube", icon: "pi pi-youtube", value: props.deputado.redeSocial?.find(item => item.includes("youtube")) || "" },
         { label: "TikTok", icon: "pi pi-tiktok", value: props.deputado.redeSocial?.find(item => item.includes("tiktok")) || "" },
     ].filter((item) => item.value);

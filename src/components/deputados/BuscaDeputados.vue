@@ -36,10 +36,10 @@ watch(query, () => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-1 w-full relative">
+  <div class="flex flex-col gap-1 relative">
     <label for="searchDeputados">Busca por deputados</label>
     <AutoComplete
-      class="max-w-[30rem] w-full"
+      class="w-full"
       input-class="w-full"
       :loading="loading"
       inputId="searchDeputados"
@@ -53,7 +53,7 @@ watch(query, () => {
         <div class="flex items-center gap-2">
           <img
             :src="slotProps.option.urlFoto"
-            class="w-[4rem] border border-slate-400 rounded-full"
+            class="w-[4rem] border border-slate-400 rounded-md"
             alt="Foto de {{ slotProps.option.nome }}"
             loading="lazy"
           />

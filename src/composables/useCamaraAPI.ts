@@ -15,7 +15,7 @@ const useCamaraAPI = <T>(initialQuery: Record<string, any> = {}) => {
         loading.value = true;
         error.value = null;
         try {
-            const queryString = new URLSearchParams(initialQuery);
+            const queryString = new URLSearchParams(query.value as Record<string, string>).toString();
             const fullEndpoint = `${endpoint}?${queryString}`;
             const res = await fetchCamaraAPI(fullEndpoint);
             rawData.value = res;

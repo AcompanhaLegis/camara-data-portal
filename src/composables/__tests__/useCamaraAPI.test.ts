@@ -12,29 +12,35 @@ vi.mock("@/utils/fetchCamaraAPI", async (importOriginal) => {
 
 describe("useCamaraAPI", () => {
     it("should return default values", () => {
-        const { loading, error, fetchData, data, query } = useCamaraAPI();
+        const { loading, error, fetchData, data, query, rawData } = useCamaraAPI();
         expect(loading.value).toBe(false);
         expect(error.value).toBeNull();
         expect(fetchData).toBeInstanceOf(Function);
         expect(data.value).toBeNull();
+        expect(rawData.value).toBeNull();
         expect(query.value).toEqual({});
     });
 
     it("should fetch data successfully", async () => {
-        (fetchCamaraAPI as Mock).mockResolvedValueOnce({ dados: ["test"] });
-        const { data, loading, error, fetchData } = useCamaraAPI();
+        const mockResponse = { dados: ["test"] };
+        (fetchCamaraAPI as Mock).mockResolvedValueOnce(mockResponse);
+        const { data, loading, error, fetchData, rawData } = useCamaraAPI();
         await fetchData("/");
         expect(data.value).toEqual(["test"]);
+        expect(rawData.value).toEqual(mockResponse);
         expect(loading.value).toBe(false);
         expect(error.value).toBeNull();
+        expect(fetchCamaraAPI).toHaveBeenCalledWith("/?");
     });
 
     it("should set query params from object", async () => {
-        (fetchCamaraAPI as Mock).mockResolvedValueOnce({ dados: ["test"] });
+        const mockResponse = { dados: ["test"] };
+        (fetchCamaraAPI as Mock).mockResolvedValueOnce(mockResponse);
         const initialQuery = { status: "active", type: "bill" };
-        const { data, loading, error, fetchData } = useCamaraAPI(initialQuery);
+        const { data, loading, error, fetchData, rawData } = useCamaraAPI(initialQuery);
         await fetchData("/");
         expect(data.value).toEqual(["test"]);
+        expect(rawData.value).toEqual(mockResponse);
         expect(loading.value).toBe(false);
         expect(error.value).toBeNull();
         expect(fetchCamaraAPI).toHaveBeenCalledWith(
@@ -50,9 +56,10 @@ describe("useCamaraAPI", () => {
 
     it("should set error value when api fails", async () => {
         (fetchCamaraAPI as Mock).mockRejectedValueOnce(new CamaraAPIError({ status: 404 } as Response));
-        const { data, loading, error, fetchData } = useCamaraAPI();
+        const { data, loading, error, fetchData, rawData } = useCamaraAPI();
         await fetchData("/");
         expect(data.value).toBeNull();
+        expect(rawData.value).toBeNull();
         expect(loading.value).toBe(false);
         expect(error.value).toBe("Não encontrado");
     });

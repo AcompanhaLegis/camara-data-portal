@@ -32,6 +32,7 @@ watch(activeTab, async (newValue) => {
         <TabPanels class="overflow-y-auto max-h-[80vh] pb-2">
             <TabPanel value="0">
                 <DeputadoExpenseTable
+                    v-if="expenses"
                     :maxPage="maxPage"
                     :loading="loading"
                     :expenses="expenses"

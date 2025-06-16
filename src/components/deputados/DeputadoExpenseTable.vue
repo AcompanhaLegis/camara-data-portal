@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { inject, ref, watch } from "vue";
+import { inject } from "vue";
 import { DataTable, Column } from "primevue";
 import { DateLibKey } from "@/factories/DateFactory";
 import type { IDateAdapter } from "@/adapters/DayJsAdapter";
-import { IDeputadoExpense } from "@/types/IDeputado";
+import type { IDeputadoExpense } from "@/types/IDeputado";
 
 const props = defineProps<{
     maxPage: number;

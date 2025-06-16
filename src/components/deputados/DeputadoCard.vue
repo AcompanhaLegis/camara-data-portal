@@ -3,7 +3,8 @@ import { computed } from "vue";
 import { IDeputado, IGabinete, IUltimoStatus } from "@/types/IDeputado";
 import { Tag } from "primevue";
 
-interface IKeyValue {
+interface SocialNetworksRender {
+    icon: string;
     label: string;
     value: string;
 }
@@ -12,7 +13,7 @@ const props = defineProps<{
     deputado: Partial<IDeputado>;
 }>();
 
-const socialNetworks = computed((): IKeyValue[] => {
+const socialNetworks = computed((): SocialNetworksRender[] => {
     return [
         { label: "Facebook", icon: "pi pi-facebook", value: props.deputado.redeSocial?.find(item => item.includes("facebook")) || "" },
         { label: "WhatsApp", icon: "pi pi-whatsapp", value: props.deputado.redeSocial?.find(item => item.includes("whatsapp")) || "" },

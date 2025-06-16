@@ -5,7 +5,7 @@ import { computed } from "vue";
 export default function useDeputadoExpenses() {
     const camaraApi = useCamaraAPI<IDeputadoExpense[]>({ pagina: 1 });
 
-    const getDeputadoExpenses = async (id: number, page: number = 1) => {
+    const getDeputadoExpenses = async (id: number, page = 1) => {
         camaraApi.loading.value = true;
         try {
             camaraApi.query.value = { pagina: page, itens: 15, ordem: "DESC", ordenarPor: "dataDocumento" };

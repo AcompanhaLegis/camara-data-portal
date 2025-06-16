@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { inject, ref, watch } from 'vue';
-import { DataTable, Column } from 'primevue';
-import { DateLibKey } from '@/factories/DateFactory';
-import type { IDateAdapter } from '@/adapters/DayJsAdapter';
-import { IDeputadoExpense } from '@/types/IDeputado';
+import { inject, ref, watch } from "vue";
+import { DataTable, Column } from "primevue";
+import { DateLibKey } from "@/factories/DateFactory";
+import type { IDateAdapter } from "@/adapters/DayJsAdapter";
+import { IDeputadoExpense } from "@/types/IDeputado";
 
 const props = defineProps<{
     maxPage: number;
@@ -14,7 +14,7 @@ const props = defineProps<{
 const dateAdapter = inject<IDateAdapter>(DateLibKey)!;
 
 const emit = defineEmits<{
-    (e: 'page',  page: number): void;
+    (e: "page",  page: number): void;
 }>();
 
 </script>

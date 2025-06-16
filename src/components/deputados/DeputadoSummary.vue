@@ -13,11 +13,11 @@ const props = defineProps<{
 const { deputado, loading, getDeputadoDetails } = useDeputadoDetails();
 
 onMounted(async () => {
-  getDeputadoDetails(props.deputadoId);
+    getDeputadoDetails(props.deputadoId);
 });
 
 watch(props, async (value) => {
-  await getDeputadoDetails(value.deputadoId);
+    await getDeputadoDetails(value.deputadoId);
 });
 </script>
 

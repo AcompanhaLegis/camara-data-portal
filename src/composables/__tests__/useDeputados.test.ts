@@ -13,7 +13,7 @@ const useCamaraAPIMock = () => {
     const loading = ref(false);
     const error = ref<string | null>(null);
     const query = ref<any>(null);
-    const fetchData = async (endpoint: string) => {
+    const fetchData = async (_endpoint: string) => {
         if (simulateError) {
             error.value = "Not found";
         } else {

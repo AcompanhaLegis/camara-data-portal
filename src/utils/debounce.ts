@@ -1,8 +1,10 @@
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 const debounce = (fn: Function, delay: number) => {
     let timer: NodeJS.Timeout | null = null;
     return (...args: any[]) => {
-        !!timer && clearTimeout(timer);
+        if (timer) {
+            clearTimeout(timer);
+        }
         timer = setTimeout(() => {
             fn(...args);
         }, delay);
